@@ -1,25 +1,26 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-const sequelize = require('./config/database'); // Własny plik konfiguracyjny bazy
-
-dotenv.config();
+const bodyParser = require('body-parser');
+const db = require('./db/db.js');
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = 3001;
 
-app.get('/', (req, res) => {
-    res.send('Backend działa poprawnie');
+app.use(cors());
+app.use(bodyParser.json());
+
+app.get('/api/appointments', async (req, res) => {
+  try {
+    const query = 'SELECT id FROM Appointment';
+    const [results] = await db.query(query);
+    res.json(results);
+  } catch (err) {
+    console.error('Error fetching appointments:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, async () => {
-    console.log(`Serwer działa na porcie ${PORT}`);
-    try {
-        await sequelize.authenticate();
-        console.log('Połączenie z bazą danych MySQL udane.');
-    } catch (error) {
-        console.error('Błąd połączenia z bazą danych:', error);
-    }
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -1,0 +1,8 @@
+.home-section{
+    background-image: url('../../../public/images/home_background4.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    text-align: center;
+}

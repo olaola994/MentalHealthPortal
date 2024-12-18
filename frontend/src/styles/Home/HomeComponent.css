@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Figtree:ital,wght@0,300..900;1,300..900&family=Kanit:wght@500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+.home-component-main-header,
+.home-component-sub-header,
+.home-component-second-sub-header {
+    white-space: pre-line;
+}
+
+.home-component-container{
+    padding-top: 6rem;
+    font-family: "Figtree", serif;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 7rem;
+}
+.home-component-main-header{
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 3rem;
+}
+.home-component-sub-header{
+    letter-spacing: 4px;
+    font-size: 1.2rem;
+}
+.home-component-btn-and-second-sub-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.home-component-btn{
+
+}
+.home-component-second-sub-header{
+
+}

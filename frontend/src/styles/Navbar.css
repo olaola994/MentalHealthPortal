@@ -1,0 +1,117 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1.5rem 2rem;
+  color: rgb(0, 0, 0);
+  font-family: "Figtree", serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar-logo {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin: 0 0.5rem;
+}
+
+.navbar-links a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+  color: #d74f30;
+}
+
+.navbar-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    font-size: 2rem;
+  }
+  .navbar-links {
+      display: none;
+      flex-direction: column;
+      background-color: #ffffff;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      padding: 1rem 0;
+      border-top: 1px solid #ddd;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+  }
+
+  .navbar-links.active {
+      display: flex;
+  }
+
+  .navbar-links li {
+      margin: 0.5rem 0;
+      text-align: center;
+  }
+
+  .navbar-links a {
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+  }
+
+  .navbar-links a:hover {
+      color: #d74f30;
+  }
+
+  .navbar-toggle {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      z-index: 1100;
+  }
+
+  .navbar-toggle span {
+      background: rgb(0, 0, 0);
+      height: 2px;
+      margin: 3px 0;
+      width: 25px;
+      transition: all 0.3s ease;
+  }
+
+  .navbar-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .navbar-toggle.active span:nth-child(2) {
+      opacity: 0;
+  }
+
+  .navbar-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+  }
+}

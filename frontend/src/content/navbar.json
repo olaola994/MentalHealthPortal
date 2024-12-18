@@ -1,0 +1,32 @@
+{
+    "name": {
+      "brand-name": "Mentivita",
+      "url": "/"
+    },
+    "links": [
+      {
+        "text": "Wizyty",
+        "url": "/Appointments"
+      },
+      {
+        "text": "W jakich obszarach pomagamy?",
+        "url": "/about"
+      },
+      {
+        "text": "Jak to działa?",
+        "url": "/services"
+      },
+      {
+        "text": "Specjaliści",
+        "url": "/blog"
+      },
+      {
+        "text": "Zaloguj",
+        "url": "/blog"
+      }
+    ],
+    "ctaButton": {
+      "text": "Umów wizytę",
+      "url": "/booking"
+    }
+  }

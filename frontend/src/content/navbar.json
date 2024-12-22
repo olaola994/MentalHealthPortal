@@ -5,28 +5,24 @@
     },
     "links": [
       {
-        "text": "Wizyty",
-        "url": "/Appointments"
-      },
-      {
         "text": "W jakich obszarach pomagamy?",
-        "url": "/about"
+        "url": "/obszaryPomocy"
       },
       {
         "text": "Jak to działa?",
-        "url": "/services"
+        "url": "/"
       },
       {
         "text": "Specjaliści",
-        "url": "/blog"
+        "url": "/specjalisci"
       },
       {
         "text": "Zaloguj",
-        "url": "/blog"
+        "url": "/"
       }
     ],
     "ctaButton": {
       "text": "Umów wizytę",
-      "url": "/booking"
+      "url": "/"
     }
   }

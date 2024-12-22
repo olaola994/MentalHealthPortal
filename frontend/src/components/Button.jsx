@@ -15,9 +15,9 @@ const Button = ({ text, to, onClick, backgroundColor, borderColor, textColor }) 
     };
 
     const buttonStyle = {
-        backgroundColor: backgroundColor || 'white', // Domyślny kolor tła
-        borderColor: borderColor || '#007bff', // Domyślny kolor obramowania
-        color: textColor || '#fff', // Domyślny kolor tekstu
+        backgroundColor: backgroundColor || 'white',
+        borderColor: borderColor || '#007bff',
+        color: textColor || '#fff',
     };
 
     return (

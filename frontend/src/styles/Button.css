@@ -11,3 +11,9 @@
 .custom-button:hover {
     opacity: 0.9;
 }
+
+@media (max-width: 768px){
+    .custom-button {
+        padding: 1rem 1rem;
+    }
+}

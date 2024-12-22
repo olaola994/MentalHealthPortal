@@ -15,7 +15,7 @@ const HomeComponent = () => {
             <div className='home-component-btn-and-second-sub-header'>
                 <Button 
                 text={HomeData.ctaButton.text}
-                to='/'
+                to='/specjalisci'
                 backgroundColor="white" 
                 borderColor="white" 
                 textColor="#0a0a5c"

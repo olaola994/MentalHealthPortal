@@ -1,0 +1,16 @@
+{
+    "user-panel-elements":[
+        {
+            "name": "Moje konto",
+            "url": "/zarzadzanie-kontem"
+        },
+        {
+            "name": "Moje wizyty",
+            "url": "/zarzadzanie-wizytami"
+        },
+        {
+            "name": "Zalecenia",
+            "url": "/zalecenia"
+        }
+    ]
+}

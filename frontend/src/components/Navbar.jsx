@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 import navbarData from '../content/navbar.json';
 
@@ -17,14 +18,17 @@ const Navbar = () => {
             <ul className={`navbar-links ${isOpen ? 'active' : ''}`}>
                 {navbarData.links.map((link, index) => (
                     <li key={index}>
-                        <a href={link.url}>{link.text}</a>
+                        <Link to={link.url}>{link.text}</Link>
                     </li>
                 ))}
+                <li>
+                    <Link to="/zarejestruj">Zaloguj się</Link>
+                </li>
             </ul>
             <div
                 className={`navbar-toggle ${isOpen ? 'active' : ''}`}
                 onClick={toggleMenu}
-              >
+            >
                 <span></span>
                 <span></span>
                 <span></span>

@@ -3,11 +3,11 @@
     padding-bottom: 2rem;
     text-align: center;
     justify-content: center;
-    background-image: url('../../public/images/header-bg.jpg');
+    background-image: url('../../public/images/login-bg.jpg');
     margin-bottom: 2rem;
     background-size: cover;
     background-position: center;
-    color: white;
+    color: rgb(67, 67, 67);
     display: flex;
     flex-direction: column;
 }

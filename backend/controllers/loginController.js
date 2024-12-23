@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../db/db.js');
 
@@ -42,7 +43,9 @@ module.exports = (app) => {
                 role = 'Admin';
             }
 
-            res.status(200).json({ message: 'Zalogowanano pomyślnie', role, mustChangePassword: false });
+            const token = jwt.sign({ id: user.id, role }, 'SECRET_KEY', { expiresIn: '2h' });
+
+            res.status(200).json({ message: 'Zalogowanano pomyślnie',token, role, mustChangePassword: false });
         } catch (error) {
             console.error('Login error:', error.message);
             res.status(500).json({ error: 'Internal Server Error' });

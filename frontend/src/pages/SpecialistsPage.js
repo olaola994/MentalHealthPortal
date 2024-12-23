@@ -7,7 +7,7 @@ const SpecialistsPage = () => {
     return (
         <div>
             <Navbar/>
-            <Header text="Nasi Specjalisci"/>
+            <Header text="Nasi Specjaliści"/>
             <SpecialistsComponent />
         </div>
     );

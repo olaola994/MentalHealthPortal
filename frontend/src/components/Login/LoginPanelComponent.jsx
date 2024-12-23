@@ -17,7 +17,14 @@ const LoginPanelComponent = () => {
             });
             
             const data = await response.json();
-            alert(data.message);
+            if (isLogin && data.token) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('role', data.role);
+                alert('Zalogowano pomyślnie');
+                window.location.href = '/panel';
+            } else {
+                alert(data.message || 'Wystąpił błąd podczas logowania.');
+            }
         } catch (error) {
             console.error('Error:', error);
         }
@@ -37,18 +44,18 @@ const LoginPanelComponent = () => {
                         <>
                             <input
                                 name="name"
-                                placeholder="Name"
+                                placeholder="Imię"
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             />
                             <input
                                 name="surname"
-                                placeholder="Surname"
+                                placeholder="Nazwisko"
                                 onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
                             />
                             <input
                                 name="dateOfBirth"
                                 type="date"
-                                placeholder="Date of Birth"
+                                placeholder="Data urodzenia"
                                 onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
                             />
                             <input
@@ -67,7 +74,7 @@ const LoginPanelComponent = () => {
                     <input
                         name="password"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Hasło"
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     />
                     <button type="submit">{isLogin ? 'Zaloguj się' : 'Zarejestruj się'}</button>

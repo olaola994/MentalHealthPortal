@@ -5,6 +5,8 @@ import SpecialistsPage from './pages/SpecialistsPage';
 import HelpFieldsPage from './pages/HelpField/HelpFieldsPage';
 import HelpFieldElementComponent from './components/HelpField/HelpFieldElementComponent';
 import LoginPanelPage from './pages/Login/LoginPanelPage';
+import UserPanelPage from './pages/UserPanel/UserPanelPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
     return (
@@ -15,6 +17,9 @@ function App() {
                 <Route path="/obszaryPomocy" element={<HelpFieldsPage />} />
                 <Route path="/obszaryPomocy/:name" element={<HelpFieldElementComponent />} />
                 <Route path="/zarejestruj" element={<LoginPanelPage />} />
+                <Route
+                    path="/panel" element={<ProtectedRoute><UserPanelPage /></ProtectedRoute>}
+                />
             </Routes>
         </Router>
     );

@@ -15,14 +15,14 @@
       {
         "text": "Specjaliści",
         "url": "/specjalisci"
-      },
-      {
-        "text": "Zaloguj się",
-        "url": "/zarejestruj"
       }
     ],
     "ctaButton": {
       "text": "Umów wizytę",
+      "url": "/"
+    },
+    "logOutButton":{
+      "text": "Wyloguj się",
       "url": "/"
     }
   }

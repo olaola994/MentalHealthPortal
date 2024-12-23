@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./db/db.js');
+const authController = require('./backend/controllers/authController');
+const loginController = require('./backend/controllers/loginController');
+
 
 const app = express();
 const PORT = 3001;
@@ -9,6 +12,8 @@ const PORT = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
+authController(app);
+loginController(app);
 
 app.get('/api/specjalisci', async (req, res) => {
     try {

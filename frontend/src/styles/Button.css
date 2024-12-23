@@ -6,6 +6,8 @@
     border-radius: 90px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    min-width: 220px;
+    max-width: 400px;
 }
 
 .custom-button:hover {

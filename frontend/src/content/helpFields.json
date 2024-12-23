@@ -1,6 +1,8 @@
 {
     "header": "W jakich obszarach pomagamy?",
     "sub-header":"Wybierz temat jaki Cię interesuje i zobacz jak możemy Cię wesprzeć.",
+    "general-header":"Rozumiemy jak może Ci być trudno i wiemy jak Ci pomóc.",
+    "general-sub-header":"Wybierz obszar w którym potrzebujesz wsparcia:",
     "fields":[
         {
             "name":"ADHD",
@@ -86,5 +88,6 @@
             "question3":"Jak psychoterapeuta i psychodietetyk online pomagają w leczeniu zaburzeń odżywiania?",
             "answer3":"Pomagają w identyfikacji i rozwiązaniu przyczyn choroby – psychoterapia i psychodietetyka pozwalają osobie chorej zrozumieć, co jest przyczyną jej zaburzeń odżywiania. Często zaburzenia odżywiania są związane z trudnymi sytuacjami emocjonalnymi, takimi jak stres, depresja czy lęki, a terapia pomaga nauczyć się zdrowych sposobów radzenia sobie z tymi emocjami. Wspierają w budowaniu pozytywnego obrazu siebie – zaburzenia odżywiania często są związane z niskim poczuciem własnej wartości i niepewnością. Terapia pomaga w budowaniu pozytywnego obrazu siebie, zwiększeniu samoakceptacji i poziomu pewności siebie. Uczą zdrowych nawyków żywieniowych – psychoterapia i psychodietetyka mogą pomóc w nauce zdrowych nawyków żywieniowych i w przełamywaniu szkodliwych nawyków związanych z jedzeniem, takich jak jedzenie w tajemnicy, restrykcyjne diety czy zachowania bulimiczne. Pomagają w radzeniu sobie z trudnymi emocjami – osoby cierpiące na zaburzenia odżywiania często mają trudności w radzeniu sobie z trudnymi emocjami. Terapia pomaga nauczyć się zdrowych sposobów radzenia sobie z lękiem, stresem i innymi emocjami. Wspierają w utrzymaniu zdrowych nawyków żywieniowych – terapia jest skutecznym narzędziem w utrzymywaniu zdrowych nawyków żywieniowych i w zapobieganiu nawrotom choroby. Warto podkreślić, że zarówno psychoterapia jak i praca z psychodietetykiem jest procesem, który wymaga czasu i zaangażowania. Jednakże, jeśli jest stosowana w sposób właściwy, może pomóc w leczeniu zaburzeń odżywiania oraz w osiągnięciu długotrwałej poprawy zdrowia psychicznego i fizycznego."
         }
-    ]
+    ],
+    "ctaButton":"WIĘCEJ TEMATÓW"
 }

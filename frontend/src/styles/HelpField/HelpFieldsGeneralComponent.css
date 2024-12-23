@@ -1,0 +1,31 @@
+.help-fields-general-component-container {
+    margin: 0 auto;
+    padding: 9rem 2rem 9rem 2rem;
+    text-align: center;
+    background-color: white;
+}
+
+.help-fields-general-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #3c74ef;
+    margin-bottom: 4rem;
+    font-family: "Abril Fatface", serif;
+}
+
+.help-fields-general-sub-header {
+    font-size: 1.5rem;
+    color: #3c74ef;
+    margin-bottom: 6rem;
+    font-family: "Abril Fatface", serif;
+}
+
+.help-fields-general-elements-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+.help-fields-general-component-more-button{
+    padding-top: 4rem;
+}

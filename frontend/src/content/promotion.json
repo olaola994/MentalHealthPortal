@@ -1,0 +1,32 @@
+{
+    "promotion-header":"Wejdź na drogę do szczęśliwego życia.",
+    "promotion-sub-header":"Spotkaj się z kimś, kto rozumie Twój trud.",
+    "promotion-elements":[
+        {
+            "photo-url":"/images/promotion/promotion1.png",
+            "text-header":"Wyłącznie certyfikowani specjaliści",
+            "text":"Współpracujemy wyłącznie ze specjalistami certyfikowanymi przez profesjonalne stowarzyszenia. Dodatkowo stosujemy nasz własny system weryfikacji."
+        },
+        {
+            "photo-url":"/images/promotion/promotion2.png",
+            "text-header":"Wyłącznie specjaliści z pozytywnymi ocenami Klientów i Pacjentów",
+            "text":"Nasi Klienci i Pacjenci mają regularną możliwość oceny naszych specjalistów. Utrzymujemy współpracę wyłącznie z tymi, którzy zdobywają najwyższe oceny. "
+        }
+    ],
+    "animated-text":[
+        {
+            "mainText":"9 na 10 Klientów",
+            "subText":"Jest zadowolonych z naszej obsługi"
+        },
+        {
+            "mainText":"5000+",
+            "subText":"Tyle osób zaufało naszym specjalistom"
+        },
+        {
+            "mainText":"Ponad 30 specjalistów",
+            "subText":"Czeka na Ciebie w naszym serwisie"
+        }
+    ],
+    "ctaButton":"ZOBACZ Z KIM MOZESZ SIE SPOTKAĆ"
+
+}

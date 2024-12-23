@@ -5,7 +5,8 @@
 }
 
 .home-component-container{
-    padding-top: 6rem;
+    padding-top: 17rem;
+    padding-bottom: 8rem;
     font-style: normal;
     display: flex;
     flex-direction: column;

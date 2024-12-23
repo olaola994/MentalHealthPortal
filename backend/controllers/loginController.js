@@ -9,7 +9,7 @@ async function comparePassword(password, hash) {
 }
 
 module.exports = (app) => {
-    app.post('/api/login', async (req, res) => {
+    app.post('/api/zaloguj', async (req, res) => {
         const { email, password } = req.body;
 
         try {
@@ -17,15 +17,8 @@ module.exports = (app) => {
             const [results] = await db.query(query, [email]);
 
             const user = results[0];
-            console.log('Fetched user:', user);
-
             if (!user) {
                 return res.status(401).json({ message: 'Invalid credentials' });
-            }
-
-            if (!user.password) {
-                console.error('No password found for user:', email);
-                return res.status(500).json({ message: 'Server error' });
             }
 
             const passwordMatches = await comparePassword(password, user.password);
@@ -33,7 +26,23 @@ module.exports = (app) => {
                 return res.status(401).json({ message: 'Invalid credentials' });
             }
 
-            res.status(200).json({ message: 'Login successful' });
+            if (user.must_change_password) {
+                return res.status(200).json({ message: 'Change password required', mustChangePassword: true });
+            }
+
+            let role = null;
+            const [isSpecialist] = await db.query(`SELECT * FROM Specialist WHERE user_id = ?`, [user.id]);
+            const [isPatient] = await db.query(`SELECT * FROM Patient WHERE user_id = ?`, [user.id]);
+
+            if (isSpecialist.length > 0) {
+                role = 'Specialist';
+            } else if (isPatient.length > 0) {
+                role = 'Patient';
+            } else {
+                role = 'Admin';
+            }
+
+            res.status(200).json({ message: 'Login successful', role, mustChangePassword: false });
         } catch (error) {
             console.error('Login error:', error.message);
             res.status(500).json({ error: 'Internal Server Error' });

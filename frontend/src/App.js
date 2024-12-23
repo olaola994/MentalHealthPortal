@@ -14,7 +14,7 @@ function App() {
                 <Route path="/specjalisci" element={<SpecialistsPage />} />
                 <Route path="/obszaryPomocy" element={<HelpFieldsPage />} />
                 <Route path="/obszaryPomocy/:name" element={<HelpFieldElementComponent />} />
-                <Route path="/zaloguj" element={<LoginPanelPage />} />
+                <Route path="/zarejestruj" element={<LoginPanelPage />} />
             </Routes>
         </Router>
     );

@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./db/db.js');
-const authController = require('./backend/controllers/authController');
-const loginController = require('./backend/controllers/loginController');
+const authController = require('./controllers/authController');
+const loginController = require('./controllers/loginController');
 
 
 const app = express();

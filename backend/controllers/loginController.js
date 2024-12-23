@@ -18,12 +18,12 @@ module.exports = (app) => {
 
             const user = results[0];
             if (!user) {
-                return res.status(401).json({ message: 'Invalid credentials' });
+                return res.status(401).json({ message: 'Nieprawidłowe dane' });
             }
 
             const passwordMatches = await comparePassword(password, user.password);
             if (!passwordMatches) {
-                return res.status(401).json({ message: 'Invalid credentials' });
+                return res.status(401).json({ message: 'Nieprawidłowe dane' });
             }
 
             if (user.must_change_password) {
@@ -42,7 +42,7 @@ module.exports = (app) => {
                 role = 'Admin';
             }
 
-            res.status(200).json({ message: 'Login successful', role, mustChangePassword: false });
+            res.status(200).json({ message: 'Zalogowanano pomyślnie', role, mustChangePassword: false });
         } catch (error) {
             console.error('Login error:', error.message);
             res.status(500).json({ error: 'Internal Server Error' });

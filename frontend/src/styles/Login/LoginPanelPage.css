@@ -1,0 +1,6 @@
+.login-panel-page-container{
+    background-image: url('../../../public/images/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}

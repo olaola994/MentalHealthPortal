@@ -1,8 +1,20 @@
+.login-panel-component-info1, .login-panel-component-info2,.login-panel-component-info3, .login-panel-component-header{
+    color: #303030;
+    padding-bottom: 1rem;
+}
+.login-panel-component-info1{
+    font-family: "Abril Fatface", serif;
+    font-size: 2.5rem;
+}
+
+
 .login-panel-component-container{
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    padding-top: 8rem;
 }
 .login-panel-component-form {
     display: flex;
@@ -14,5 +26,40 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 300px;
-    margin: 50px auto;
+    margin: 20px auto;
 }
+.login-panel-component-header{
+    font-family: "Abril Fatface", serif;
+    font-size: 1.5rem;
+}
+
+.login-panel-component-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+.login-panel-component-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #505050;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-panel-component-form button:hover {
+    background-color: #303030;
+}
+.login-panel-component-switch-form-element-container{
+    padding-top: 1rem;
+}
+.login-panel-component-switch-form-element{
+    cursor: pointer;
+    padding-top: 0.3rem;
+    color: rgb(80, 131, 224);
+}
+

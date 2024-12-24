@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../../components/Navbar';
 import '../../styles/UserPanel/UserPanelPage.css'
 import UserPanelComponent from '../../components/UserPanel/UserPanelComponent';
 import UserPanelNavbar from '../../components/UserPanel/UserPanelNavbar';

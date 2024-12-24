@@ -2,15 +2,15 @@
     "user-panel-elements":[
         {
             "name": "Moje konto",
-            "url": "/zarzadzanie-kontem"
+            "url": "/moje-konto"
         },
         {
             "name": "Moje wizyty",
-            "url": "/zarzadzanie-wizytami"
+            "url": "/moje-wizyty"
         },
         {
             "name": "Zalecenia",
-            "url": "/zalecenia"
+            "url": "/moje-zalecenia"
         }
     ]
 }

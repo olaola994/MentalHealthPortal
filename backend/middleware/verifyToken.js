@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization'];
-    if (!token) {
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(403).json({ message: 'Brak tokenu. Dostęp zabroniony.' });
     }
+
+    const token = authHeader.split(' ')[1];
 
     try {
         const decoded = jwt.verify(token, 'SECRET_KEY');
@@ -16,3 +19,4 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = verifyToken;
+

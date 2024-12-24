@@ -7,6 +7,8 @@ import HelpFieldElementComponent from './components/HelpField/HelpFieldElementCo
 import LoginPanelPage from './pages/Login/LoginPanelPage';
 import UserPanelPage from './pages/UserPanel/UserPanelPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import UserAppointmentsPage from './pages/UserPanel/UserAppointmentsPage';
+import AddUserAppointmentsPage from './pages/UserPanel/AddUserAppointmentPage';
 
 function App() {
     return (
@@ -17,9 +19,9 @@ function App() {
                 <Route path="/obszaryPomocy" element={<HelpFieldsPage />} />
                 <Route path="/obszaryPomocy/:name" element={<HelpFieldElementComponent />} />
                 <Route path="/zarejestruj" element={<LoginPanelPage />} />
-                <Route
-                    path="/panel" element={<ProtectedRoute><UserPanelPage /></ProtectedRoute>}
-                />
+                <Route path="/panel" element={<ProtectedRoute><UserPanelPage /></ProtectedRoute>}/>
+                <Route path="/moje-wizyty" element={<ProtectedRoute><UserAppointmentsPage /></ProtectedRoute>}/>
+                <Route path='/umow-wizyte' element={<ProtectedRoute><AddUserAppointmentsPage /></ProtectedRoute>}/>
             </Routes>
         </Router>
     );

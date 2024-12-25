@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/UserPanel/UserAppointmentsComponent.css';
 import { useNavigate } from 'react-router-dom';
-import { getUserAppointments } from '../../services/api';
+import { getUserAppointments, cancelAppointment} from '../../services/api';
 import Button from '../Button';
 
 
 const UserAppointmentsComponent = () => {
     const [appointments, setAppointments]= useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedStatus, setSelectedStatus] = useState('');
 
     useEffect(()=> {
         const fetchAppointments = async () => {
@@ -32,6 +33,25 @@ const UserAppointmentsComponent = () => {
         return new Date(dateString).toLocaleDateString('pl-PL', options);
     };
 
+    const handleStatusChange = (status) => {
+        setSelectedStatus(status);
+    };
+    const filteredAppointments = appointments.filter((appointment) => 
+        selectedStatus === '' || appointment.status === selectedStatus
+    );
+    const handleCancelAppointment = async (appointmentId) => {
+        console.log('Usuwanie wizyty o ID:', appointmentId); 
+        try{
+            await cancelAppointment(appointmentId);
+            console.log('Wizyta została pomyślnie anulowana.'); 
+            setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId)
+            );
+        }catch (err) {
+            console.log('Nie udało się anulować wizyty.');
+        }
+    }
+    
+
     return (
         <div className='user-appointments-component-container'>
             <div className='user-appointment-component-header'>Moje Wizyty</div>
@@ -44,8 +64,22 @@ const UserAppointmentsComponent = () => {
                 textColor="white"
                 />
             </div>
+            <div className="filter-container">
+                <label htmlFor="status-filter">Status:</label>
+                <select
+                    id="status-filter"
+                    value={selectedStatus}
+                    onChange={(e) => handleStatusChange(e.target.value)}
+                >
+                    <option value="">Wszystkie</option>
+                    <option value="Zaplanowana">Zaplanowane</option>
+                    <option value="Zakończona">Zakończone</option>
+                </select>
+            </div>
+
+            {filteredAppointments.length > 0 ? (
             <ul className="appointments-list">
-                {appointments.map((appointment, index)=>(
+                {appointments.map((appointment, index) => (
                     <li key={index} className='appointment-item'>
                         <div className='appointment-date'>
                             data: {formatDate(appointment.data)}
@@ -65,10 +99,15 @@ const UserAppointmentsComponent = () => {
                         <div className='appointment-status'>
                             status: {appointment.status}
                         </div>
+                        <button className='cancel-booking-button' onClick={() => handleCancelAppointment(appointment.id)}>Anuluj wizytę</button>
                     </li>
                 ))}
-                
             </ul>
+        ) : (
+            <div className="no-appointments">
+                Nie masz jeszcze wizyt. Kliknij przycisk, aby umówić się na wizytę.
+            </div>
+        )}
         </div>
     );
 };

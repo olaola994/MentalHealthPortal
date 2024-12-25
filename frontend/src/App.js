@@ -9,6 +9,7 @@ import UserPanelPage from './pages/UserPanel/UserPanelPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserAppointmentsPage from './pages/UserPanel/UserAppointmentsPage';
 import AddUserAppointmentsPage from './pages/UserPanel/AddUserAppointmentPage';
+import UserAccountInfoPage from './pages/UserPanel/UserAccountInfo/UserAccountInfoPage';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/panel" element={<ProtectedRoute><UserPanelPage /></ProtectedRoute>}/>
                 <Route path="/moje-wizyty" element={<ProtectedRoute><UserAppointmentsPage /></ProtectedRoute>}/>
                 <Route path='/umow-wizyte' element={<ProtectedRoute><AddUserAppointmentsPage /></ProtectedRoute>}/>
+                <Route path='/moje-konto' element={<ProtectedRoute><UserAccountInfoPage /></ProtectedRoute>}/>
             </Routes>
         </Router>
     );

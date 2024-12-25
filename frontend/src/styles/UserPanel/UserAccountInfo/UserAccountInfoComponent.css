@@ -1,0 +1,33 @@
+.user-account-info-component-container{
+    padding: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.user-account-info-component-container-header {
+    font-size: 28px;
+    text-align: center;
+    color: #333;
+    font-family: "Abril Fatface", serif;
+}
+.user-info-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.user-info-item{
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}

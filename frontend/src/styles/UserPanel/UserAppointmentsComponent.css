@@ -70,7 +70,15 @@
     font-weight: bold;
     color: #007bff;
 }
-
+.no-appointments{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cancel-booking-button{
+    padding: 10px;
+    max-width: 200px;
+}
 @media (max-width: 768px) {
     .user-appointments-component-container {
         padding: 15px;

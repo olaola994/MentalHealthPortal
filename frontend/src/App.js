@@ -27,7 +27,7 @@ function App() {
                 <Route path="/zarejestruj" element={<LoginPanelPage />} />
 
                 {/* pacjent */}
-                <Route path="/panel" element={<ProtectedRoute allowedRoles={['Patient']}><UserPanelPage /></ProtectedRoute>}/>
+                <Route path="/user-panel" element={<ProtectedRoute allowedRoles={['Patient']}><UserPanelPage /></ProtectedRoute>}/>
                 <Route path="/moje-wizyty" element={<ProtectedRoute allowedRoles={['Patient']}><UserAppointmentsPage /></ProtectedRoute>}/>
                 <Route path='/umow-wizyte' element={<ProtectedRoute allowedRoles={['Patient']}><AddUserAppointmentsPage /></ProtectedRoute>}/>
                 <Route path='/moje-konto' element={<ProtectedRoute allowedRoles={['Patient']}><UserAccountInfoPage /></ProtectedRoute>}/>

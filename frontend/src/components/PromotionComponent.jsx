@@ -40,7 +40,7 @@ const PromotionComponent = () => {
                         </div>
                     ))}
             </div>
-            <div class="line"></div>
+            <div className="line"></div>
             <div className="animated-text-container">
                 <div className="animated-text">
                     <span className="text active">{animatedTexts[currentIndex].mainText}</span>

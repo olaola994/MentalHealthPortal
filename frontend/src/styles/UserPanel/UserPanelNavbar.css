@@ -12,6 +12,7 @@
     gap: 20px;
 }
 
+.user-panel-main-page-button,
 .user-panel-back-button,
 .user-panel-logout-button {
     background-color: transparent;

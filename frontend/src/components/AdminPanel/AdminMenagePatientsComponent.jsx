@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {getAdminPatients} from '../../services/api';
 import '../../styles/AdminPanel/AdminMenagePatientsComponent.css';
+import AdminRemoveElementComponent from './AdminRemoveElementComponent';
 
 const AdminMenagePatientsComponent = () => {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    
     useEffect(() => {
         const fetchPatients = async () => {
             try {
@@ -22,11 +25,17 @@ const AdminMenagePatientsComponent = () => {
         fetchPatients();
     }, []);
 
+    const handleRemoveSuccess = (userId) => {
+        setPatients((prevPatients) => prevPatients.filter((patient) => patient.user_id !== userId));
+        setSuccessMessage(`Pacjent o numerze ${userId} został pomyślnie usunięty.`);
+    };
+
     const formatDate = (date) => {
         if (!date) return '';
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(date).toLocaleDateString('pl-PL', options);
     };
+    
 
     if (loading) {
         return <div>Ładowanie danych...</div>;
@@ -40,8 +49,10 @@ const AdminMenagePatientsComponent = () => {
     return (
         <div>
           <div className='admin-patients-header'>Lista Pacjentów</div>
+          <AdminRemoveElementComponent userType="patient" onRemoveSuccess={handleRemoveSuccess}/>
+          {successMessage && <div className="success-message">{successMessage}</div>}
           {patients.length === 0 ? (
-            <p>Brak pacjentów do wyświetlenia.</p>
+            <div className='admin-no-rocords-displayed'>Brak pacjentów do wyświetlenia.</div>
           ) : (
             <ul className="admin-patients-list">
               {patients.map((patient, index) => (

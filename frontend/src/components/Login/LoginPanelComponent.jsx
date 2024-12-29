@@ -37,7 +37,7 @@ const LoginPanelComponent = () => {
                 if (data.role === 'Admin') {
                     window.location.href = '/admin-panel';
                 } else if (data.role === 'Patient') {
-                    window.location.href = '/panel';
+                    window.location.href = '/user-panel';
                 } else {
                     alert('Nieznana rola użytkownika.');
                 }

@@ -50,7 +50,21 @@ a {
 .navbar-toggle {
   display: none;
 }
+.navbar-profile-button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
 
+.navbar-profile-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
 @media (max-width: 768px) {
   .navbar-logo {
     font-size: 2rem;

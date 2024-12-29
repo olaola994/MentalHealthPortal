@@ -22,10 +22,16 @@ const UserPanelNavbar = () => {
             handleLogout();
         }
     };
+    const goToMainPage = () =>{
+        navigate('/');
+    }
 
     return (
         <nav className="user-panel-navbar">
             <div className="user-panel-links">
+                <button className="user-panel-main-page-button" onClick={goToMainPage}>
+                    Strona główna
+                </button>
                 <button className="user-panel-back-button" onClick={goToPanel}>
                     Powrót do panelu
                 </button>

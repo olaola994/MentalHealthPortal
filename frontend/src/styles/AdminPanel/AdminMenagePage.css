@@ -1,3 +1,86 @@
 .admin-page-container{
     padding: 1rem 2rem;
 }
+.admin-no-rocords-displayed{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+.admin-remove-element-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3rem;
+    flex-direction: column;
+    gap: 2rem;
+}
+.admin-remove-element-button{
+    background-color: #e74c3c;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.admin-remove-element-button:hover {
+    background-color: #c0392b;
+}
+
+.admin-remove-element-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-color: #f9f9f9;
+    padding: 1.5rem 2rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.admin-remove-element-form label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+.admin-remove-element-form input[type="text"] {
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #555;
+    transition: border-color 0.3s ease;
+}
+.admin-remove-element-form .submit-button {
+    background-color: #3498db;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.admin-remove-element-form .submit-button:hover {
+    background-color: #2980b9;
+}
+
+.admin-remove-element-error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.success-message {
+    color: #297ab9;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

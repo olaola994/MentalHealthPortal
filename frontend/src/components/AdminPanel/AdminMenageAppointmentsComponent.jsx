@@ -40,7 +40,7 @@ const AdminMenageAppointmentsComponent = () => {
         <div>
           <div className='admin-appointments-header'>Lista Wizyt</div>
           {appointments.length === 0 ? (
-            <p>Brak wizyt do wyświetlenia.</p>
+            <div className='admin-no-rocords-displayed'>Brak wizyt do wyświetlenia.</div>
           ) : (
             <ul className="admin-appointments-list">
               {appointments.map((appointment, index) => (

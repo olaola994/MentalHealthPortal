@@ -57,8 +57,8 @@ const UserAccountInfoComponent = () => {
     };
 
     const handleInputChange = (e) => {
-        setAddressData({ ...addressData, 
-            [e.target.name]: e.target.value });
+        const {name, value} = e.target;
+        setAddressData({ ...addressData, [name]: value });
     };
 
     const handleAddressSubmit = async (e) =>{

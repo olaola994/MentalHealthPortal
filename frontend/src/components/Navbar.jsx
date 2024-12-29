@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 import navbarData from '../content/navbar.json';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token);
+    }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+
+    const goToProfile = () => {
+        const role = localStorage.getItem('role');
+        if (role === 'Admin') {
+            navigate('/admin-panel');
+        } else if (role === 'Patient') {
+            navigate('/user-panel');
+        } else {
+            alert('Nieznana rola. Zaloguj się ponownie.');
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
+            navigate('/zarejestruj');
+        }
     };
 
     return (
@@ -22,7 +43,13 @@ const Navbar = () => {
                     </li>
                 ))}
                 <li>
-                    <Link to="/zarejestruj">Zaloguj się</Link>
+                    {isLoggedIn ? (
+                        <button onClick={goToProfile} className="navbar-profile-button">
+                            Profil
+                        </button>
+                    ) : (
+                        <Link to="/zarejestruj">Zaloguj się</Link>
+                    )}
                 </li>
             </ul>
             <div

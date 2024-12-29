@@ -317,7 +317,52 @@ app.delete('/api/admin-usun-pacjenta/:id', verifyToken, async (req, res) => {
     res.status(500).json({ error: 'Błąd serwera' });
   }
 });
-  
+
+app.delete('/api/admin-usun-specjaliste/:id', verifyToken, async (req, res) => {
+  const specialistId = req.params.id;
+  try{
+    const [existingSpecialist] = await db.query('SELECT * FROM Specialist WHERE user_id = ?', [specialistId]);
+    if(existingSpecialist.length === 0){
+      return res.status(400).json({ message: 'Specjalista nie został znaleziony'});
+    }
+    
+    await db.query('DELETE FROM Appointment WHERE specialist_user_id = ?', [specialistId]);
+    await db.query('DELETE FROM Timetable WHERE specialist_user_id = ?', [specialistId]);
+
+    await db.query('DELETE FROM SPECIALIST WHERE user_id = ?', [specialistId]);
+
+    await db.query('DELETE FROM USER WHERE id = ?', [specialistId]);
+
+    res.status(200).json({ message: 'Specjalista, wizyty zostały pomyślnie usunięte.' });
+  }catch(err){
+    console.error("Błąd przy usuwaniu specjalisty: ", err.message);
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+
+app.get('/api/check-patient/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+      const [result] = await db.query('SELECT 1 FROM Patient WHERE user_id = ?', [id]);
+      res.json({ exists: result.length > 0 });
+  } catch (err) {
+      console.error('Błąd przy sprawdzaniu pacjenta:', err.message);
+      res.status(500).json({ exists: false });
+  }
+});
+
+app.get('/api/check-specialist/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+      const [result] = await db.query('SELECT 1 FROM Specialist WHERE user_id = ?', [id]);
+      res.json({ exists: result.length > 0 });
+  } catch (err) {
+      console.error('Błąd przy sprawdzaniu specjalisty:', err.message);
+      res.status(500).json({ exists: false });
+  }
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

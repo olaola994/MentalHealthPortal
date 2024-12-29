@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {getAdminSpecialists} from '../../services/api';
 import '../../styles/AdminPanel/AdminMenageSpecialistsComponent.css';
+import AdminRemoveElementComponent from './AdminRemoveElementComponent';
 
 const AdminMenageSpecialistsComponent = () => {
     const [specialists, setSpecialists] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
     useEffect(() => {
         const fetchSpecialists = async () => {
             try {
@@ -22,6 +25,13 @@ const AdminMenageSpecialistsComponent = () => {
         fetchSpecialists();
     }, []);
 
+    const handleRemoveSuccess = (userId) => {
+        setSpecialists((prevSpecialists) =>
+            prevSpecialists.filter((specialist) => specialist.user_id !== userId)
+        );
+        setSuccessMessage(`Specjalista o numerze ${userId} został pomyślnie usunięty.`);
+    };
+
     if (loading) {
         return <div>Ładowanie danych...</div>;
       }
@@ -34,8 +44,10 @@ const AdminMenageSpecialistsComponent = () => {
     return (
         <div>
           <div className='admin-specialists-header'>Lista Specjalistów</div>
+          <AdminRemoveElementComponent userType="specialist" onRemoveSuccess={handleRemoveSuccess}/>
+          {successMessage && <div className="success-message">{successMessage}</div>}
           {specialists.length === 0 ? (
-            <p>Brak specjalistów do wyświetlenia.</p>
+            <div className='admin-no-rocords-displayed'>Brak specjalistów do wyświetlenia.</div>
           ) : (
             <ul className="admin-specialists-list">
               {specialists.map((specialist, index) => (

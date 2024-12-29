@@ -1,0 +1,43 @@
+.admin-specialists-header {
+    font-size: 28px;
+    text-align: center;
+    color: #333;
+    font-family: "Abril Fatface", serif;
+    padding: 3rem 0rem;
+}
+
+.admin-specialists-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.admin-specialist-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-specialist-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.admin-specialist-id,
+.admin-specialist-surname,
+.admin-specialist-name,
+.admin-specialist-email,
+.admin-specialist-specialization,
+.admin-specialist-license-number, 
+.admin-specialist-photo-path,
+.admin-specialist-description
+{
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: bold;
+}

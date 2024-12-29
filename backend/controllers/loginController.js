@@ -34,12 +34,13 @@ module.exports = (app) => {
             let role = null;
             const [isSpecialist] = await db.query(`SELECT * FROM Specialist WHERE user_id = ?`, [user.id]);
             const [isPatient] = await db.query(`SELECT * FROM Patient WHERE user_id = ?`, [user.id]);
+            const [isAdmin] = await db.query(`SELECT * FROM Admin WHERE user_id = ?`, [user.id]);
 
             if (isSpecialist.length > 0) {
                 role = 'Specialist';
             } else if (isPatient.length > 0) {
                 role = 'Patient';
-            } else {
+            } else if (isAdmin.length > 0){
                 role = 'Admin';
             }
 

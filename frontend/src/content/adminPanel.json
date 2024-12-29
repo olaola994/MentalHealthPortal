@@ -1,0 +1,16 @@
+{
+    "admin-panel-elements":[
+        {
+            "name": "Pacjenci",
+            "url": "/admin-pacjenci"
+        },
+        {
+            "name": "Specjaliści",
+            "url": "/admin-specjalisci"
+        },
+        {
+            "name": "Wizyty",
+            "url": "/admin-wizyty"
+        }
+    ]
+}

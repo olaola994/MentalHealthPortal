@@ -1,0 +1,40 @@
+.admin-patients-header {
+    font-size: 28px;
+    text-align: center;
+    color: #333;
+    font-family: "Abril Fatface", serif;
+    padding: 3rem 0rem;
+}
+
+.admin-patients-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.admin-patient-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-patient-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.admin-patient-id,
+.admin-patient-surname,
+.admin-patient-name,
+.admin-patient-pesel,
+.admin-patient-email,
+.admin-patient-birth-date {
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: bold;
+}

@@ -4,9 +4,23 @@ import '../../styles/Login/LoginPanelComponent.css';
 const LoginPanelComponent = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({ name: '', surname: '', email: '', password: '', dateOfBirth: '', pesel: '' });
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!isLogin) {
+            const today = new Date();
+            const selectedDate = new Date(formData.dateOfBirth);
+
+            if (selectedDate > today) {
+                setError('Data urodzenia nie może być z przyszłości.');
+                return;
+            } else {
+                setError('');
+            }
+        }
+
         try {
             const url = isLogin ? 'http://localhost:3001/api/zaloguj' : 'http://localhost:3001/api/zarejestruj/pacjent';
             
@@ -20,8 +34,13 @@ const LoginPanelComponent = () => {
             if (isLogin && data.token) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('role', data.role);
-                alert('Zalogowano pomyślnie');
-                window.location.href = '/panel';
+                if (data.role === 'Admin') {
+                    window.location.href = '/admin-panel';
+                } else if (data.role === 'Patient') {
+                    window.location.href = '/panel';
+                } else {
+                    alert('Nieznana rola użytkownika.');
+                }
             } else {
                 alert(data.message || 'Wystąpił błąd podczas logowania.');
             }

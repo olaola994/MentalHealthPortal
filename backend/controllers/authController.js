@@ -34,7 +34,7 @@ module.exports = (app) => {
 
             const [userResult] = await db.query(
                 `INSERT INTO User (address_id, name, surname, email, password) VALUES (?, ?, ?, ?, ?)`,
-                [1, name, surname, email, hashedPassword]
+                [null, name, surname, email, hashedPassword]
             );
 
             const userId = userResult.insertId;
@@ -64,7 +64,7 @@ module.exports = (app) => {
 
             const [userResult] = await db.query(
                 `INSERT INTO User (address_id, name, surname, email, password, must_change_password) VALUES (?, ?, ?, ?, ?, ?)`,
-                [1, name, surname, email, hashedPassword, true]
+                [null, name, surname, email, hashedPassword, true]
             );
 
             const userId = userResult.insertId;
@@ -79,20 +79,4 @@ module.exports = (app) => {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     });
-
-    // app.post('/api/change-password', async (req, res) => {
-    //     const { userId, newPassword } = req.body;
-
-    //     try {
-    //         const hashedPassword = await hashPassword(newPassword);
-    //         await db.query(
-    //             `UPDATE User SET password = ?, must_change_password = FALSE WHERE id = ?`,
-    //             [hashedPassword, userId]
-    //         );
-    //         res.status(200).json({ message: 'Password updated successfully' });
-    //     } catch (error) {
-    //         console.error('Error updating password:', error.message);
-    //         res.status(500).json({ error: 'Internal Server Error' });
-    //     }
-    // });
 };

@@ -1,6 +1,6 @@
 import '../../styles/UserPanel/UserPanelNavbar.css';
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UserPanelNavbar = () => {
     const navigate = useNavigate();
@@ -12,7 +12,15 @@ const UserPanelNavbar = () => {
         navigate('/');
     };
     const goToPanel = () => {
-        navigate('/panel');
+        const role = localStorage.getItem('role');
+        if (role === 'Admin') {
+            navigate('/admin-panel');
+        } else if (role === 'Patient') {
+            navigate('/user-panel');
+        } else {
+            alert('Nieznana rola. Zaloguj się ponownie.');
+            handleLogout();
+        }
     };
 
     return (

@@ -1,5 +1,5 @@
 .user-account-info-component-container{
-    padding: 1rem;
+    padding: 2rem;
     background-color: #f7f7f7;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -15,12 +15,12 @@
     color: #333;
     font-family: "Abril Fatface", serif;
 }
-.user-info-list{
+.user-info-list, .address-info-list{
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.user-info-item{
+.user-info-item, .address-info-item{
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -30,4 +30,99 @@
     flex-direction: column;
     gap: 10px;
     transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.address-form {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.address-form-header {
+    margin-bottom: 2rem;
+    font-size: 1.5em;
+    color: #333;
+    text-align: center;
+    font-family: "Abril Fatface", serif;
+}
+.add-user-address-button{
+    max-width: 10rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    background-color: #0c3056;
+    padding: 0.5rem;
+    color: white;
+}
+.add-user-address-button:hover{
+    background-color: #265b94;
+}
+.address-form-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.address-form-item label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.address-form-item input {
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.address-form-item input:focus {
+    border-color: #78808a;
+    outline: none;
+}
+
+.submit-address-button,
+.cancel-address-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.submit-address-button {
+    background-color: #0c3056;
+    color: #fff;
+}
+
+.submit-address-button:hover {
+    background-color: #265b94;
+}
+
+.cancel-address-button {
+    background-color: #430c08;
+    color: #fff;
+}
+
+.cancel-address-button:hover {
+    background-color: #81251b;
+}
+
+@media (max-width: 600px) {
+    .address-form {
+        padding: 15px;
+    }
+
+    .submit-address-button,
+    .cancel-address-button {
+        font-size: 0.9em;
+    }
 }

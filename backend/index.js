@@ -24,8 +24,8 @@ app.get('/api/specjalisci', async (req, res) => {
       const [results] = await db.query(query);
       res.json(results);
     } catch (err) {
-      console.error('Error fetching appointments:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Błąd przy pobiernaiu listy specjalistów: ', err);
+      res.status(500).json({ error: 'Błąd serwera' });
     }
   });
 app.get('/api/specjalisci/:id', async (req, res) => {
@@ -41,8 +41,8 @@ app.get('/api/specjalisci/:id', async (req, res) => {
 
         res.status(200).json(results);
     } catch (err) {
-        console.error('Error fetching specialist details:', err.message);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Błąd przy pobiernaiu danych specjalisty: ', err.message);
+        res.status(500).json({ error: 'Błąd serwera' });
     }
 });
 
@@ -59,8 +59,8 @@ app.get('/api/moje-wizyty', verifyToken, async (req, res) => {
         const [appointments] = await db.query(query, [userId]);
         res.status(200).json(appointments);
     } catch (err) {
-        console.error('Error fetching appointments:', err.message);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Błąd przy pobiernaiu listy wizyt: ', err.message);
+        res.status(500).json({ error: 'Błąd serwera' });
     }
 });
 
@@ -119,7 +119,7 @@ app.get('/api/dostepne-terminy', async (req, res) => {
 
     res.status(200).json(availableSlots);
 } catch (err) {
-    console.error('Error fetching available slots:', err.message);
+    console.error('Błąd przy pobiernaiu listy dostępnych slotów: ', err.message);
     res.status(500).json({ error: 'Błąd serwera' });
 }
 });
@@ -148,7 +148,7 @@ app.post('/api/umow-wizyte', verifyToken, async (req, res) => {
     res.status(201).json({ message: 'Wizyta została pomyślnie zapisana.' });
   } catch (err) {
       console.error('Błąd przy dodawaniu wizyty:', err.message);
-      res.status(500).json({ error: 'Wystąpił problem podczas zapisywania wizyty.' });
+      res.status(500).json({ error: 'Błąd serwera' });
   }
 
 });
@@ -165,7 +165,7 @@ app.delete('/api/wizyta/:id', verifyToken, async (req, res) => {
     res.status(200).json({ message: 'Wizyta została pomyślnie usunięta.' });
   }catch (err) {
     console.error('Błąd przy usuwaniu wizyty:', err.message);
-    res.status(500).json({ error: 'Wystąpił problem podczas usuwania wizyty.' });
+    res.status(500).json({ error: 'Błąd serwera' });
   }
 });
 
@@ -173,19 +173,150 @@ app.get('/api/pacjent-info', verifyToken, async (req, res) => {
   const userId = req.user.id;
 
   try {
-      const query = `SELECT U.id as id, U.name as imie, U.surname as nazwisko, U.email as email, P.pesel as pesel, P.date_of_birth as data_urodzenia From User U INNER JOIN Patient P On U.id = P.USER_ID WHERE U.id = ?;`
+      const query = `SELECT U.id as id, U.name as imie,
+      U.surname as nazwisko, U.email as email, P.pesel as pesel,
+      P.date_of_birth as data_urodzenia, U.address_id as adres, A.city as miasto,
+      A.postal_code as kod_pocztowy, A.street as ulica, A.street_number as numer_budynku,
+      A.apartament_number as numer_mieszkania, A.country as kraj
+      From User U INNER JOIN Patient P On U.id = P.USER_ID
+      LEFT JOIN Address A ON U.address_id = A.id
+      WHERE U.id = ?;`
       const [patientInfo] = await db.query(query, [userId]);
       if (patientInfo.length === 0) {
         return res.status(404).json({ message: 'Nie znaleziono danych użytkownika.' });
       }
-      res.status(200).json(patientInfo);
+      res.status(200).json(patientInfo[0]);
   } catch (err) {
-      console.error('Error fetching appointments:', err.message);
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Błąd przy pobiernaiu informacji o pacjencie: ', err.message);
+      res.status(500).json({ error: 'Błąd serwera' });
   }
 });
+app.post('/api/dodaj-adres', verifyToken, async (req, res) => {
+  const { city, postal_code, street, street_number, apartament_number, country } = req.body;
+  const userId = req.user.id;
 
+  if (!city || !postal_code || !street || !street_number || !country) {
+      return res.status(400).json({ error: 'Brak wymaganych danych adresowych.' });
+  }
 
+  try {
+      const [user] = await db.query(`SELECT address_id FROM User WHERE id = ?`, [userId]);
+      if (!user || user.length === 0) {
+          return res.status(404).json({ message: 'Nie znaleziono użytkownika.' });
+      }
+
+      const addressId = user[0].address_id;
+
+      if (addressId) {
+          await db.query(
+              `UPDATE Address SET city = ?, postal_code = ?, street = ?, street_number = ?, apartament_number = ?, country = ? WHERE id = ?`,
+              [city, postal_code, street, street_number, apartament_number || '', country, addressId]
+          );
+          return res.status(200).json({ message: 'Adres został zaktualizowany.' });
+      } else {
+          const [result] = await db.query(
+              `INSERT INTO Address (city, postal_code, street, street_number, apartament_number, country) VALUES (?, ?, ?, ?, ?, ?)`,
+              [city, postal_code, street, street_number, apartament_number || '', country]
+          );
+          await db.query(`UPDATE User SET address_id = ? WHERE id = ?`, [result.insertId, userId]);
+          return res.status(201).json({ message: 'Adres został dodany.' });
+      }
+  } catch (err) {
+      console.error('Błąd podczas dodawania lub edycji adresu: ', err.message);
+      res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+app.get('/api/admin-pacjenci', verifyToken, async (req, res) => {
+  try{
+    const query = `SELECT 
+        U.id AS user_id,
+        U.name AS imie,
+        U.surname AS nazwisko,
+        U.email AS email,
+        P.pesel AS pesel,
+        P.date_of_birth AS data_urodzenia
+    FROM User U
+    INNER JOIN Patient P ON U.id = P.user_id;`;
+    const [patientsInfo] = await db.query(query);
+    res.status(200).json(patientsInfo);
+  }catch (err) {
+    console.error('Błąd przy pobiernaiu listy pacjentów: ', err.message);
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+app.get('/api/admin-specjalisci', verifyToken, async (req, res) => {
+  try{
+    const query = `SELECT 
+        U.id AS user_id,
+        U.name AS imie,
+        U.surname AS nazwisko,
+        U.email AS email,
+        S.specialization AS specjalizacja,
+        S.license_number AS numer_licencji,
+        S.photo_path AS zdjecie,
+        S.description AS opis
+    FROM User U
+    INNER JOIN Specialist S ON U.id = S.user_id;`;
+    const [specialistsInfo] = await db.query(query);
+    res.status(200).json(specialistsInfo);
+  }catch (err) {
+    console.error('Błąd przy pobiernaiu listy specjalistów: ', err.message);
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+app.get('/api/admin-wizyty', verifyToken, async (req, res) => {
+  try{
+    const query = `SELECT 
+    A.id AS appointment_id,
+    CONCAT_WS(' ', PUser.name, PUser.surname) AS pacjent_imie,
+    CONCAT_WS(' ', SUser.name, SUser.surname) AS specjalista_imie,
+    A.date_time AS data_wizyty,
+    A.duration AS dlugosc_wizyty,
+    St.name AS status
+    FROM 
+        Appointment A
+    JOIN 
+        User PUser ON A.patient_user_id = PUser.id
+    JOIN 
+        User SUser ON A.specialist_user_id = SUser.id
+    JOIN 
+    Status St ON A.Status_id = St.id
+    ORDER BY A.date_time DESC;`;
+    const [appointmentsInfo] = await db.query(query);
+    res.status(200).json(appointmentsInfo);
+  }catch (err) {
+    console.error('Błąd przy pobiernaiu listy wizyt: ', err.message);
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+app.delete('/api/admin-usun-pacjenta/:id', verifyToken, async (req, res) => {
+  const patientId = req.params.id;
+  try{
+    const [existingPatient] = await db.query('SELECT * FROM PATIENT WHERE user_id = ?', [patientId]);
+    if(existingPatient.length === 0){
+      return res.status(400).json({ message: 'Pacjent nie został znaleziony'});
+    }
+    const [user] = await db.query('SELECT address_id FROM USER WHERE id = ?', [patientId]);
+    const addressId = user[0]?.address_id;
+
+    await db.query('DELETE FROM Appointment WHERE patient_user_id = ?', [patientId]);
+
+    await db.query('DELETE FROM PATIENT WHERE user_id = ?', [patientId]);
+
+    await db.query('DELETE FROM USER WHERE id = ?', [patientId]);
+
+    if (addressId) {
+      const [otherUsers] = await db.query('SELECT * FROM USER WHERE address_id = ?', [addressId]);
+      if (otherUsers.length === 0) {
+        await db.query('DELETE FROM Address WHERE id = ?', [addressId]);
+      }
+    }
+    res.status(200).json({ message: 'Pacjent, wizyty i powiązany adres zostały pomyślnie usunięte.' });
+  }catch(err){
+    console.error("Błąd przy usuwaniu pacjenta: ", err.message);
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
   
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

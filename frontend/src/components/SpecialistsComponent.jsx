@@ -8,6 +8,9 @@ const SpecialistsComponent = () => {
     const [filteredSpecialists, setFilteredSpecialists] = useState([]);
     const [specializationFilter, setSpecializationFilter] = useState('');
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const specialistsPerPage = 6;
+
     useEffect(() => {
         const fetchSpecialists = async () => {
             try {
@@ -41,7 +44,30 @@ const SpecialistsComponent = () => {
                 )
             );
         }
+        setCurrentPage(1);
     };
+    const totalSpecialists = filteredSpecialists.length;
+    let totalPages = Math.floor(totalSpecialists / specialistsPerPage);
+    if (totalSpecialists % specialistsPerPage !== 0) {
+        totalPages += 1;
+    }
+
+    const lastIndexOnPage = currentPage * specialistsPerPage;
+    const firstIndexOnPage = lastIndexOnPage - specialistsPerPage;
+
+    const currentSpecialists = filteredSpecialists.slice(firstIndexOnPage, lastIndexOnPage);    
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // paginacja
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push(
+            <button key={i} className={`pagination-button ${currentPage === i ? 'active' : ''}`} onClick={() => handlePageChange(i)}>{i}</button>
+        );
+    }
 
     return (
             <div className='specialists-container'>
@@ -60,7 +86,7 @@ const SpecialistsComponent = () => {
                 </div>
 
                 <ul>
-                {filteredSpecialists.map((specialist, index) => (
+                {currentSpecialists.map((specialist, index) => (
                     <li key={index}>
                         <img 
                             src={specialist.sciezka} 
@@ -75,6 +101,9 @@ const SpecialistsComponent = () => {
                     </li>
                 ))}
                 </ul>
+                <div className="pagination-container">
+                    {pages}
+                </div>
             </div>
     );
 };

@@ -194,6 +194,50 @@ app.get('/api/pacjent-info', verifyToken, async (req, res) => {
       res.status(500).json({ error: 'Błąd serwera' });
   }
 });
+
+app.get('/api/specjalista-info', verifyToken, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+      const query = `SELECT U.id AS id, U.name AS imie,
+      U.surname AS nazwisko, U.email AS email, S.specialization AS specjalizacja, S.license_number AS numer_licencji, S.description AS opis
+      FROM User U INNER JOIN Specialist S ON U.id = S.USER_ID
+      WHERE U.id = ?;`
+      const [specialistInfo] = await db.query(query, [userId]);
+      if (specialistInfo.length === 0) {
+        return res.status(404).json({ message: 'Nie znaleziono danych użytkownika.' });
+      }
+      res.status(200).json(specialistInfo[0]);
+  } catch (err) {
+      console.error('Błąd przy pobiernaiu informacji o specjaliście: ', err.message);
+      res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+
+app.post('/api/specjalista-dodaj-opis', verifyToken, async (req, res) => {
+  const {description} = req.body; 
+  const userId = req.user.id;
+  if(!description){
+    return res.status(400).json( {error: 'Brak opisu'} );
+  }
+
+  try {
+    const [user] = await db.query(`SELECT description FROM Specialist WHERE user_id = ?`, [userId]);
+
+    if(description){
+      await db.query(`UPDATE Specialist SET decription = ?`, [description]);
+      return res.status(200).json({ message: 'Opis został zaaktualizowany.' });
+    }
+    else{
+      await db.query(`INSERT INTO Specialist (description) VALUES (?)`, [description]);
+      return res.status(201).json({ message: 'Opis został dodany.' });
+    }
+  } catch (err) {
+      console.error('Błąd przy pobiernaiu informacji o specjaliście: ', err.message);
+      res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+
 app.post('/api/dodaj-adres', verifyToken, async (req, res) => {
   const { city, postal_code, street, street_number, apartament_number, country } = req.body;
   const userId = req.user.id;

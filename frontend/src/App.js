@@ -18,6 +18,7 @@ import AdminAddSpecialistPage from './pages/AdminPanel/AdminAddSpecialistPage';
 import ChangePasswordPage from './pages/Login/ChangePasswordPage';
 import SpecialistPanelPage from './pages/SpecialistPanel/SpecialistPanelPage';
 import SpecialistAppointmentsPage from './pages/SpecialistPanel/SpecialistAppointmentsPage';
+import SpecialistAccountInfoPage from './pages/SpecialistPanel/SpecialistAccountInfoPage';
 
 function App() {
     return (
@@ -40,6 +41,7 @@ function App() {
                 {/* specjalista */}
                 <Route path='/specialist-panel' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistPanelPage /></ProtectedRoute>}/>
                 <Route path='/specjalista-moje-wizyty' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistAppointmentsPage /></ProtectedRoute>}/>
+                <Route path='/specjalista-moje-konto' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistAccountInfoPage /></ProtectedRoute>}/>
 
                 {/* admin */}
                 <Route path="/admin-panel" element={<ProtectedRoute allowedRoles={['Admin']}><AdminPanelPage /></ProtectedRoute>}/>

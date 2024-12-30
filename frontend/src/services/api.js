@@ -79,6 +79,18 @@ export const getPatientInfo = async () => {
     });
     return response.data;
 }
+export const getSpecialistInfo = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+    const response = await apiClient.get(`${API_URL}/specjalista-info`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+}
 
 export const addUserAddress = async (addressData) => {
     const token = localStorage.getItem('token');

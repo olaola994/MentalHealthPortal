@@ -31,14 +31,22 @@ const LoginPanelComponent = () => {
             });
             
             const data = await response.json();
+
             if (isLogin && data.token) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('role', data.role);
+                if (data.mustChangePassword) {
+                    window.location.href = '/zmien-haslo';
+                    return;
+                }
                 if (data.role === 'Admin') {
                     window.location.href = '/admin-panel';
                 } else if (data.role === 'Patient') {
                     window.location.href = '/user-panel';
-                } else {
+                }else if (data.role === 'Specialist') {
+                    window.location.href = '/specialist-panel';
+                }
+                else {
                     alert('Nieznana rola użytkownika.');
                 }
             } else {

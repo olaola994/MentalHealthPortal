@@ -1,0 +1,12 @@
+{
+    "specialist-panel-elements":[
+        {
+            "name": "Moje konto",
+            "url": "/specjalista-moje-konto"
+        },
+        {
+            "name": "Moje wizyty",
+            "url": "/specjalista-moje-wizyty"
+        }
+    ]
+}

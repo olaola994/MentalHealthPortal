@@ -50,33 +50,4 @@ module.exports = (app) => {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     });
-
-    app.post('/api/admin/create-doctor', async (req, res) => {
-        const { name, surname, email, specialization, licenseNumber } = req.body;
-
-        if (!name || !surname || !email || !specialization || !licenseNumber) {
-            return res.status(400).json({ message: 'Wszystkie pola są wymagane' });
-        }
-
-        try {
-            const tempPassword = 'TempPassword123';
-            const hashedPassword = await hashPassword(tempPassword);
-
-            const [userResult] = await db.query(
-                `INSERT INTO User (address_id, name, surname, email, password, must_change_password) VALUES (?, ?, ?, ?, ?, ?)`,
-                [null, name, surname, email, hashedPassword, true]
-            );
-
-            const userId = userResult.insertId;
-            await db.query(
-                `INSERT INTO Specialist (user_id, specialization, license_number) VALUES (?, ?, ?)`,
-                [userId, specialization, licenseNumber]
-            );
-
-            res.status(201).json({ message: 'Doctor account created successfully with temporary password' });
-        } catch (error) {
-            console.error('Error during doctor creation:', error.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    });
 };

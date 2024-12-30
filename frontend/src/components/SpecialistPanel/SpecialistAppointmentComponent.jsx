@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/UserPanel/UserAppointmentsComponent.css';
-import { useNavigate } from 'react-router-dom';
-import { getUserAppointments, cancelAppointment} from '../../services/api';
-import Button from '../Button';
+import { getSpecialistAppointments, cancelAppointment} from '../../services/api';
 
-
-const UserAppointmentsComponent = () => {
+const SpecialistAppointmentsComponent = () => {
     const [appointments, setAppointments]= useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedStatus, setSelectedStatus] = useState('');
@@ -13,7 +10,7 @@ const UserAppointmentsComponent = () => {
     useEffect(()=> {
         const fetchAppointments = async () => {
             try{
-                const data = await getUserAppointments();
+                const data = await getSpecialistAppointments();
                 setAppointments(data);
             }catch(err){
                 console.error('Error fetching appointments:', err)
@@ -40,7 +37,7 @@ const UserAppointmentsComponent = () => {
         selectedStatus === '' || appointment.status === selectedStatus
     );
     const handleCancelAppointment = async (appointmentId) => {
-        console.log('Usuwanie wizyty o ID:', appointmentId);
+        console.log('Usuwanie wizyty o ID:', appointmentId); 
         if (!window.confirm(`Czy na pewno chcesz odwołać tą wizytę?`)) {
             return;
         }
@@ -58,15 +55,6 @@ const UserAppointmentsComponent = () => {
     return (
         <div className='user-appointments-component-container'>
             <div className='user-appointment-component-header'>Moje Wizyty</div>
-            <div className='user-appointment-component-booking-button'>
-                <Button 
-                text='Umów się na wizytę'
-                to='/umow-wizyte'
-                backgroundColor="#3c74ef"
-                borderColor="#3c74ef"
-                textColor="white"
-                />
-            </div>
             <div className="filter-container">
                 <label htmlFor="status-filter">Status:</label>
                 <select
@@ -115,4 +103,4 @@ const UserAppointmentsComponent = () => {
     );
 };
 
-export default UserAppointmentsComponent;
+export default SpecialistAppointmentsComponent;

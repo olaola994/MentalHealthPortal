@@ -14,6 +14,10 @@ import AdminPanelPage from './pages/AdminPanel/AdminPanelPage';
 import AdminPatientsPage from './pages/AdminPanel/AdminPatientsPage';
 import AdminSpecialistsPage from './pages/AdminPanel/AdminSpecialistsPage';
 import AdminAppointmentsPage from './pages/AdminPanel/AdminAppointmentsPage';
+import AdminAddSpecialistPage from './pages/AdminPanel/AdminAddSpecialistPage';
+import ChangePasswordPage from './pages/Login/ChangePasswordPage';
+import SpecialistPanelPage from './pages/SpecialistPanel/SpecialistPanelPage';
+import SpecialistAppointmentsPage from './pages/SpecialistPanel/SpecialistAppointmentsPage';
 
 function App() {
     return (
@@ -25,6 +29,7 @@ function App() {
                 <Route path="/obszaryPomocy" element={<HelpFieldsPage />} />
                 <Route path="/obszaryPomocy/:name" element={<HelpFieldElementComponent />} />
                 <Route path="/zarejestruj" element={<LoginPanelPage />} />
+                <Route path="/zmien-haslo" element={<ChangePasswordPage />} />
 
                 {/* pacjent */}
                 <Route path="/user-panel" element={<ProtectedRoute allowedRoles={['Patient']}><UserPanelPage /></ProtectedRoute>}/>
@@ -32,11 +37,16 @@ function App() {
                 <Route path='/umow-wizyte' element={<ProtectedRoute allowedRoles={['Patient']}><AddUserAppointmentsPage /></ProtectedRoute>}/>
                 <Route path='/moje-konto' element={<ProtectedRoute allowedRoles={['Patient']}><UserAccountInfoPage /></ProtectedRoute>}/>
 
+                {/* specjalista */}
+                <Route path='/specialist-panel' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistPanelPage /></ProtectedRoute>}/>
+                <Route path='/specjalista-moje-wizyty' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistAppointmentsPage /></ProtectedRoute>}/>
+
                 {/* admin */}
                 <Route path="/admin-panel" element={<ProtectedRoute allowedRoles={['Admin']}><AdminPanelPage /></ProtectedRoute>}/>
                 <Route path="/admin-pacjenci" element={<ProtectedRoute allowedRoles={['Admin']}><AdminPatientsPage /></ProtectedRoute>}/>
                 <Route path="/admin-specjalisci" element={<ProtectedRoute allowedRoles={['Admin']}><AdminSpecialistsPage /></ProtectedRoute>}/>
                 <Route path="/admin-wizyty" element={<ProtectedRoute allowedRoles={['Admin']}><AdminAppointmentsPage /></ProtectedRoute>}/>
+                <Route path="/dodaj-specjaliste" element={<ProtectedRoute allowedRoles={['Admin']}><AdminAddSpecialistPage/></ProtectedRoute>}/>
             </Routes>
         </Router>
     );

@@ -5,6 +5,8 @@ const db = require('./db/db.js');
 const authController = require('./controllers/authController');
 const loginController = require('./controllers/loginController');
 const verifyToken = require('./middleware/verifyToken');
+const { sendEmail } = require('./controllers/emailController');
+const bcrypt = require('bcrypt');
 
 
 const app = express();
@@ -17,6 +19,7 @@ app.use(bodyParser.json());
 
 authController(app);
 loginController(app);
+
 
 app.get('/api/specjalisci', async (req, res) => {
     try {
@@ -340,7 +343,7 @@ app.delete('/api/admin-usun-specjaliste/:id', verifyToken, async (req, res) => {
   }
 });
 
-app.get('/api/check-patient/:id', async (req, res) => {
+app.get('/api/sprawdz-pacjenta/:id', async (req, res) => {
   const { id } = req.params;
   try {
       const [result] = await db.query('SELECT 1 FROM Patient WHERE user_id = ?', [id]);
@@ -351,7 +354,7 @@ app.get('/api/check-patient/:id', async (req, res) => {
   }
 });
 
-app.get('/api/check-specialist/:id', async (req, res) => {
+app.get('/api/sprawdz-specjaliste/:id', async (req, res) => {
   const { id } = req.params;
   try {
       const [result] = await db.query('SELECT 1 FROM Specialist WHERE user_id = ?', [id]);
@@ -361,7 +364,60 @@ app.get('/api/check-specialist/:id', async (req, res) => {
       res.status(500).json({ exists: false });
   }
 });
+app.post('/api/dodaj-specjaliste', verifyToken, async (req, res) => {
+  const {address_id, name, surname, email, password, specialization, license_number, photo_path} = req.body;
+  if (!name || !surname || !email || !specialization || !license_number) {
+    return res.status(400).json({ message: 'Wszystkie pola są wymagane' });
+  }
+  try {
+    const tempPassword = `Temp-${Math.random().toString(36).slice(-8)}`;
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
+    const [userResult] = await db.query(`INSERT INTO USER (name, surname, email, password,must_change_password) VALUES (?,?,?,?,?)`, [name, surname, email, hashedPassword, true]);
 
+    const userId = userResult.insertId;
+
+    await db.query(`INSERT INTO SPECIALIST (user_id, specialization, license_number, photo_path) VALUES (?,?,?,?)`, [userId, specialization, license_number, photo_path]);
+
+    await sendEmail(email, 'Twoje konto w serwisie',`Witaj ${name} ${surname}, Twoje tymczasowe hasło to: ${tempPassword}`);
+    res.status(201).json({ message: 'Specjalista został dodany pomyślnie.' });
+  }catch (error) {
+        console.error('Błąd podczas dodawania specjalisty:', error.message);
+        res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+app.post('/api/zmien-haslo', verifyToken, async (req, res) => {
+  const { newPassword } = req.body;
+  const userId = req.user.id;
+  if (!newPassword) {
+    return res.status(400).json({ message: 'Nowe hasło jest wymagane.' });
+  }
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+    await db.query(`UPDATE User SET password = ?, must_change_password = false WHERE id = ?`, [hashedPassword, userId]);
+
+    res.status(200).json({ message: 'Hasło zostało zmienione pomyślnie.' });
+  } catch (error) {
+      console.error('Błąd podczas zmiany hasła:', error.message);
+      res.status(500).json({ error: 'Błąd serwera.' });
+  }
+});
+app.get('/api/specjalista-wizyty', verifyToken, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+      const query = `SELECT A.id as id, U.name as imie, U.surname as nazwisko, S.specialization as specjalizacja,
+            A.date_time as data, A.duration as czas_trwania, St.name as status FROM Appointment A
+            Inner Join Specialist S on A.specialist_user_id = S.user_id
+            Inner Join User U on S.user_id = U.id
+            Inner Join Status St on St.id = A.Status_id where A.specialist_user_id = ? ORDER BY data ASC;`
+      const [appointments] = await db.query(query, [userId]);
+      res.status(200).json(appointments);
+  } catch (err) {
+      console.error('Błąd przy pobiernaiu listy wizyt: ', err.message);
+      res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

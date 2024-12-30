@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import {getAdminSpecialists} from '../../services/api';
 import '../../styles/AdminPanel/AdminMenageSpecialistsComponent.css';
 import AdminRemoveElementComponent from './AdminRemoveElementComponent';
+import AdminAddSpecialistComponent from './AdminAddSpecialistComponent';
+import { useNavigate } from 'react-router-dom';
 
 const AdminMenageSpecialistsComponent = () => {
     const [specialists, setSpecialists] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSpecialists = async () => {
@@ -39,11 +42,14 @@ const AdminMenageSpecialistsComponent = () => {
     if (error) {
         return <div>{error}</div>;
     }
-    
+    const goToAddSpecialistPage = () => {
+        navigate('/dodaj-specjaliste');
+    }
 
     return (
         <div>
           <div className='admin-specialists-header'>Lista Specjalistów</div>
+          <button className='' onClick={goToAddSpecialistPage}>Dodaj Specjalistę</button>
           <AdminRemoveElementComponent userType="specialist" onRemoveSuccess={handleRemoveSuccess}/>
           {successMessage && <div className="success-message">{successMessage}</div>}
           {specialists.length === 0 ? (

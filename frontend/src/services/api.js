@@ -17,6 +17,14 @@ export const getUserAppointments = async () => {
     
     return response.data;
 }
+export const getSpecialistAppointments = async () => {
+    const token = localStorage.getItem('token');
+    const response = await apiClient.get(`${API_URL}/specjalista-wizyty`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    
+    return response.data;
+}
 
 export const getSpecialistAvailableSlots = async (specialistId, date) => {
     if (!specialistId || !date) {
@@ -154,7 +162,7 @@ export const removeSpecialist = async (specialistId) => {
 
 export const checkUserExists = async (userId, userType) => {
     try {
-        const endpoint = userType === 'patient' ? 'check-patient' : 'check-specialist';
+        const endpoint = userType === 'patient' ? 'sprawdz-pacjenta' : 'sprawdz-specjaliste';
         const response = await apiClient.get(`${API_URL}/${endpoint}/${userId}`);
         return response.data.exists;
     } catch (error) {
@@ -162,3 +170,40 @@ export const checkUserExists = async (userId, userType) => {
         return false;
     }
 };
+
+export const addSpecialist = async (specialistData) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+    try{
+        const response = await apiClient.post(`${API_URL}/dodaj-specjaliste`, specialistData,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log(specialistData);
+        return response.data;
+    }catch (error) {
+        console.error('Błąd podczas dodawania specjalisty:', error.response?.data || error.message);
+        throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas dodawania specjalisty.');
+    }
+}
+
+export const changePassword = async (newPassword) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+    try{
+        const response = await apiClient.post(`${API_URL}/zmien-haslo`, newPassword, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    }catch (error) {
+        console.error('Błąd podczas zmiany hasła:', error.response?.data || error.message);
+        throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas zmiany hasła.');
+    }
+}

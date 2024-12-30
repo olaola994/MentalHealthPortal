@@ -27,10 +27,6 @@ module.exports = (app) => {
                 return res.status(401).json({ message: 'Nieprawidłowe dane' });
             }
 
-            if (user.must_change_password) {
-                return res.status(200).json({ message: 'Change password required', mustChangePassword: true });
-            }
-
             let role = null;
             const [isSpecialist] = await db.query(`SELECT * FROM Specialist WHERE user_id = ?`, [user.id]);
             const [isPatient] = await db.query(`SELECT * FROM Patient WHERE user_id = ?`, [user.id]);
@@ -43,13 +39,24 @@ module.exports = (app) => {
             } else if (isAdmin.length > 0){
                 role = 'Admin';
             }
-
+            
+            if (user.must_change_password) {
+                const limitedToken = jwt.sign(
+                    { id: user.id, role, limitedAccess: true },
+                    'SECRET_KEY',
+                    { expiresIn: '30m' } 
+                );
+                return res.status(200).json({
+                    message: 'Wymagana zmiana hasła',
+                    token: limitedToken,
+                    mustChangePassword: true,
+                });
+            }
             const token = jwt.sign({ id: user.id, role }, 'SECRET_KEY', { expiresIn: '2h' });
-
             res.status(200).json({ message: 'Zalogowanano pomyślnie',token, role, mustChangePassword: false });
         } catch (error) {
-            console.error('Login error:', error.message);
-            res.status(500).json({ error: 'Internal Server Error' });
+            console.error('Bląd logowania:', error.message);
+            res.status(500).json({ error: 'Błąd serwera' });
         }
     });
 };

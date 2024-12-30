@@ -1,0 +1,71 @@
+.admin-add-specialist-container {
+    padding: 1rem 2rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 2rem auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-add-specialist-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.admin-add-specialist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-add-specialist-form input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #555;
+    transition: border-color 0.3s ease;
+}
+
+.admin-add-specialist-form input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0px 0px 4px rgba(52, 152, 219, 0.5);
+}
+
+.admin-add-specialist-form .submit-button {
+    background-color: #3498db;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: center;
+}
+
+.admin-add-specialist-form .submit-button:hover {
+    background-color: #2980b9;
+    transform: scale(1.02);
+}
+
+.admin-add-specialist-success-message {
+    color: #297ab9;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.admin-add-specialist-error-message {
+    color: #e74c3c;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+}

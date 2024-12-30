@@ -17,7 +17,10 @@ const UserPanelNavbar = () => {
             navigate('/admin-panel');
         } else if (role === 'Patient') {
             navigate('/user-panel');
-        } else {
+        } else if (role === 'Specialist') {
+            navigate('/specialist-panel');
+        }
+        else {
             alert('Nieznana rola. Zaloguj się ponownie.');
             handleLogout();
         }

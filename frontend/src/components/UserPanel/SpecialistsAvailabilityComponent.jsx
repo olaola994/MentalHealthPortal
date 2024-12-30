@@ -85,7 +85,7 @@ const SpecialistsAvailabilityComponent = () => {
             setSelectedSlot('');
             setAppointmentDuration('');
         } catch (error) {
-            setMessage(error.response?.data?.error || 'Wystąpił błąd podczas rezerwacji.');
+            setMessage('Wystąpił błąd podczas rezerwacji.');
         }
     };
 
@@ -99,14 +99,12 @@ const SpecialistsAvailabilityComponent = () => {
                 <SpecialistSelector 
                     specialists={specialists} 
                     onSpecialistSelect={handleSpecialistSelect} 
-                    selectedSpecialist={selectedSpecialist}
-                />
+                    selectedSpecialist={selectedSpecialist}/>
                 <input
                     type="date"
                     value={selectedDate}
                     min={new Date().toISOString().split('T')[0]}
-                    onChange={(e) => handleDateChange(e.target.value)}
-                />
+                    onChange={(e) => handleDateChange(e.target.value)}/>
 
                 {availableSlots.length > 0 ? (
                     <div className="available-booking-container">
@@ -124,8 +122,7 @@ const SpecialistsAvailabilityComponent = () => {
                                 <label>Długość wizyty: </label>
                                 <select
                                     onChange={(e) => setAppointmentDuration(e.target.value)}
-                                    value={appointmentDuration}
-                                >
+                                    value={appointmentDuration}>
                                     <option value="">Wybierz</option>
                                     <option value="30">30 minut</option>
                                     <option value="45">45 minut</option>

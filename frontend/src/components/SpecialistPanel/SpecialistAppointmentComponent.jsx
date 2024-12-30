@@ -13,7 +13,7 @@ const SpecialistAppointmentsComponent = () => {
                 const data = await getSpecialistAppointments();
                 setAppointments(data);
             }catch(err){
-                console.error('Error fetching appointments:', err)
+                console.error('Błąd podczas pobierania danych wizyt:', err)
             }finally {
                 setLoading(false);
             }
@@ -22,7 +22,7 @@ const SpecialistAppointmentsComponent = () => {
     },[]);
 
     if (loading) {
-        return <div>Ładowanie wizyt...</div>;
+        return <div>Ładowanie danych...</div>;
     }
     
     const formatDate = (dateString) => {
@@ -33,9 +33,11 @@ const SpecialistAppointmentsComponent = () => {
     const handleStatusChange = (status) => {
         setSelectedStatus(status);
     };
+
     const filteredAppointments = appointments.filter((appointment) => 
         selectedStatus === '' || appointment.status === selectedStatus
     );
+
     const handleCancelAppointment = async (appointmentId) => {
         console.log('Usuwanie wizyty o ID:', appointmentId); 
         if (!window.confirm(`Czy na pewno chcesz odwołać tą wizytę?`)) {
@@ -60,8 +62,7 @@ const SpecialistAppointmentsComponent = () => {
                 <select
                     id="status-filter"
                     value={selectedStatus}
-                    onChange={(e) => handleStatusChange(e.target.value)}
-                >
+                    onChange={(e) => handleStatusChange(e.target.value)}>
                     <option value="">Wszystkie</option>
                     <option value="Zaplanowana">Zaplanowane</option>
                     <option value="Zakończona">Zakończone</option>

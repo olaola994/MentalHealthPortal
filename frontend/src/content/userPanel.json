@@ -7,10 +7,6 @@
         {
             "name": "Moje wizyty",
             "url": "/moje-wizyty"
-        },
-        {
-            "name": "Zalecenia",
-            "url": "/moje-zalecenia"
         }
     ]
 }

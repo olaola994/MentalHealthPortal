@@ -95,30 +95,32 @@ app.get('/api/dostepne-terminy', async (req, res) => {
 
 
     const availableSlots = [];
-    let currentTime = new Date(`${date} ${time_from}`);
-    const endTime = new Date(`${date} ${time_to}`);
+    for (const { time_from, time_to } of timetable) {
+      let currentTime = new Date(`${date} ${time_from}`);
+      const endTime = new Date(`${date} ${time_to}`);
 
-    while (currentTime < endTime) {
-        const nextSlotStart = new Date(currentTime);
+      while (currentTime < endTime) {
+          const nextSlotStart = new Date(currentTime);
 
-        const isOccupied = appointments.some((appointment) => {
-            const appointmentStart = new Date(appointment.date_time);
-            const appointmentEnd = new Date(
-                appointmentStart.getTime() + appointment.duration * 60000
-            );
+          const isOccupied = appointments.some((appointment) => {
+              const appointmentStart = new Date(appointment.date_time);
+              const appointmentEnd = new Date(
+                  appointmentStart.getTime() + appointment.duration * 60000
+              );
 
-            return (
-                (nextSlotStart >= appointmentStart && nextSlotStart < appointmentEnd)
-            );
-        });
+              return (
+                  nextSlotStart >= appointmentStart && nextSlotStart < appointmentEnd
+              );
+          });
 
-        if (!isOccupied) {
-            availableSlots.push(nextSlotStart.toTimeString().slice(0, 5));
-        }
-
-        currentTime.setHours(currentTime.getHours() + 1);
-        currentTime.setMinutes(0);
-    }
+          if (!isOccupied) {
+              availableSlots.push(nextSlotStart.toTimeString().slice(0, 5));
+          }
+          
+          currentTime.setHours(currentTime.getHours() + 1);
+          currentTime.setMinutes(0);
+      }
+  }
 
     res.status(200).json(availableSlots);
 } catch (err) {
@@ -442,11 +444,11 @@ app.get('/api/specjalista-wizyty', verifyToken, async (req, res) => {
   const userId = req.user.id;
 
   try {
-      const query = `SELECT A.id as id, U.name as imie, U.surname as nazwisko, S.specialization as specjalizacja,
-            A.date_time as data, A.duration as czas_trwania, St.name as status FROM Appointment A
-            Inner Join Specialist S on A.specialist_user_id = S.user_id
-            Inner Join User U on S.user_id = U.id
-            Inner Join Status St on St.id = A.Status_id where A.specialist_user_id = ? ORDER BY data ASC;`
+      const query = `SELECT A.id AS id, U.name AS imie, U.surname AS nazwisko, S.specialization AS specjalizacja,
+            A.date_time AS data, A.duration AS czas_trwania, St.name AS status FROM Appointment A
+            INNER JOIN Specialist S ON A.specialist_user_id = S.user_id
+            INNER JOIN User U ON S.user_id = U.id
+            INNER JOIN Status St ON St.id = A.Status_id where A.specialist_user_id = ? ORDER BY data ASC;`
       const [appointments] = await db.query(query, [userId]);
       res.status(200).json(appointments);
   } catch (err) {
@@ -454,12 +456,50 @@ app.get('/api/specjalista-wizyty', verifyToken, async (req, res) => {
       res.status(500).json({ error: 'Błąd serwera' });
   }
 });
+app.get('/api/specjalista-dostepnosc', verifyToken, async (req, res) => {
+  const userId = req.user.id;
+  try{
+    const query = `SELECT T.week_day AS dzien_tygdonia, T.time_from AS od, T.time_to AS do FROM Specialist S INNER JOIN Timetable T ON S.user_id = T.specialist_user_id where S.user_id = ?;`
+    const [calendar] = await db.query(query, [userId]);
+    res.status(200).json(calendar);
+  }catch (err) {
+    console.error('Błąd przy pobiernaiu grafiku: ', err.message);
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+
+app.post('/api/specjalista-dodaj-dostepnosc', verifyToken, async (req, res) => {
+  const userId = req.user.id;
+  const { week_day, time_from, time_to } = req.body;
+  console.log('Dane wejściowe:', { week_day, time_from, time_to });
+
+  if (!week_day || !time_from || !time_to) {
+    return res.status(400).json({ error: 'Brak wymaganych danych: week_day, time_from, time_to' });
+  }
+  try{
+    const isConflict = `SELECT 1 FROM Timetable WHERE specialist_user_id = ?
+        AND week_day = ? AND NOT (time_to <= ? OR time_from >= ?);`;
+        
+    const [conflicts] = await db.query(isConflict, [userId, week_day, time_from, time_to]);
+    console.log('Wynik zapytania:', conflicts);
+    if (conflicts.length > 0) {
+      return res.status(400).json({ message: 'Istnieje już dostępność w nakładającym się przedziale czasowym.' });
+    }
+
+    const addTimetablerecord = `INSERT INTO Timetable (specialist_user_id, week_day, time_from, time_to) 
+        VALUES (?, ?, ?, ?);`;
+    await db.query(addTimetablerecord, [userId, week_day, time_from, time_to]);
+    res.status(201).json({ message: 'Dostępność została pomyślnie dodana.' });
+  }catch (err) {
+    console.error('Błąd przy dodawaniu dostępności:', {
+      message: err.message,
+      stack: err.stack,
+      sql: err.sql, // jeśli problem jest związany z SQL
+    });
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-app.post('/api/specjailista-dodaj-dostepnosc', verifyToken, async (req, res) => {
-  const userId = req.user.id;
-  const {day, } = req.body;
 });

@@ -17,14 +17,14 @@ const AdminMenageAppointmentsComponent = () => {
                 setError('Nie udało się pobrać listy wizyt.');
             }finally {
                 setLoading(false);
-              }
+            }
         };
         fetchAppointments();
     }, []);
 
     if (loading) {
         return <div>Ładowanie danych...</div>;
-      }
+    }
     
     if (error) {
         return <div>{error}</div>;

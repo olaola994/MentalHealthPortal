@@ -18,7 +18,7 @@ const ChangePasswordComponent = () => {
 
             localStorage.removeItem('token');
             localStorage.removeItem('role');
-            
+
             setTimeout(() => {
                 navigate('/zarejestruj');
             }, 2000);
@@ -43,8 +43,8 @@ const ChangePasswordComponent = () => {
                 />
                 <button type="submit" className="change-password-button">Zmień hasło</button>
             </form>
-            {message && <p className="change-password-success">{message}</p>}
-            {errorMessage && <p className="change-password-error">{errorMessage}</p>}
+            {message && <div className="change-password-success">{message}</div>}
+            {errorMessage && <div className="change-password-error">{errorMessage}</div>}
         </div>
     );
 

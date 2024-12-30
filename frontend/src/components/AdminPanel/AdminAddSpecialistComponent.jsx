@@ -12,7 +12,6 @@ const AdminAddSpecialistComponent = () => {
         license_number: '',
         photo_path: '',
     });
-
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 

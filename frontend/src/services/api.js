@@ -31,15 +31,10 @@ export const getSpecialistAvailableSlots = async (specialistId, date) => {
       throw new Error('Brak wymaganych parametrów: specialistId, date');
     }
   
-    try {
-      const response = await apiClient.get(`${API_URL}/dostepne-terminy`, {
+    const response = await apiClient.get(`${API_URL}/dostepne-terminy`, {
         params: { specialistId, date },
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Błąd pobierania dostępności specjalisty:', error.response?.data || error.message);
-      throw error;
-    }
+    });
+    return response.data;
 };
 export const bookAppointment = async (appointmentData) => {
     const token = localStorage.getItem('token');
@@ -106,8 +101,8 @@ export const addUserAddress = async (addressData) => {
         console.log(addressData);
         return response.data;
     }catch (error) {
-        console.error('Błąd podczas dodawania adresu:', error.response?.data || error.message);
-        throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas dodawania adresu.');
+        console.error('Błąd podczas dodawania adresu:');
+        throw new Error('Wystąpił błąd podczas dodawania adresu.');
     }
 }
 
@@ -197,8 +192,8 @@ export const addSpecialist = async (specialistData) => {
         console.log(specialistData);
         return response.data;
     }catch (error) {
-        console.error('Błąd podczas dodawania specjalisty:', error.response?.data || error.message);
-        throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas dodawania specjalisty.');
+        console.error('Błąd podczas dodawania specjalisty:');
+        throw new Error('Wystąpił błąd podczas dodawania specjalisty.');
     }
 }
 
@@ -215,8 +210,8 @@ export const changePassword = async (newPassword) => {
         });
         return response.data;
     }catch (error) {
-        console.error('Błąd podczas zmiany hasła:', error.response?.data || error.message);
-        throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas zmiany hasła.');
+        console.error('Błąd podczas zmiany hasła:');
+        throw new Error('Wystąpił błąd podczas zmiany hasła.');
     }
 }
 
@@ -233,7 +228,38 @@ export const addSpecialistDescription = async (description) => {
         });
         return response.data;
     }catch (error) {
-        console.error('Błąd podczas dodawania opisu:', error.response?.data || error.message);
-        throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas dodawania opisu.');
+        console.error('Błąd podczas dodawania opisu:');
+        throw new Error('Wystąpił błąd podczas dodawania opisu.');
     }
 }
+
+export const addTimetableRecord = async (timetablerecordData) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+    try{
+        const response = await apiClient.post(`${API_URL}/specjalista-dodaj-dostepnosc`, timetablerecordData,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    }catch (error) {
+        console.error('Błąd podczas dodawania dostępności:');
+        throw new Error('Wystąpił błąd podczas dodawania dostępności.');
+    }
+}
+
+export const getSpecialistCalendar = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+    const response = await apiClient.get(`${API_URL}/specjalista-dostepnosc`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};

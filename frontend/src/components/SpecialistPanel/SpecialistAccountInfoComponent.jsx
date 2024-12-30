@@ -14,7 +14,6 @@ const SpecialistAccountInfoComponent = () => {
         const fetchInfo = async () =>{
             try{
                 const data = await getSpecialistInfo();
-
                 setInfo(data);
                 if (data.opis) {
                     setDescription(data.opis);
@@ -31,11 +30,11 @@ const SpecialistAccountInfoComponent = () => {
 
 
     if (loading) {
-        return <div className='loading'>Ładowanie danych użytkownika...</div>;
+        return <div>Ładowanie danych...</div>;
     }
-
+    
     if (error) {
-        return <div className='error'>{error}</div>;
+        return <div>{error}</div>;
     }
 
     const handleInputChange = (e) => {

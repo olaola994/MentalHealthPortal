@@ -96,7 +96,7 @@ const SpecialistAppointmentsComponent = () => {
             </ul>
         ) : (
             <div className="no-appointments">
-                Nie masz jeszcze wizyt. Kliknij przycisk, aby umówić się na wizytę.
+                Nie masz jeszcze wizyt.
             </div>
         )}
         </div>

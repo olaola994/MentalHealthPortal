@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { getSpecialistInfo} from '../../services/api';
+import { getSpecialistInfo, addSpecialistDescription} from '../../services/api';
 import '../../styles/UserPanel/UserAccountInfo/UserAccountInfoComponent.css';
 
 const SpecialistAccountInfoComponent = () => {
     const [info, setInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [addressFormVisible, setAddressFormVisible] = useState(false);
+    const [descriptionFormVisible, setDescriptionFormVisible] = useState(false);
     const [message, setMessage] = useState('');
+    const [description, setDescription] = useState('');
 
     useEffect(() => {
         const fetchInfo = async () =>{
             try{
                 const data = await getSpecialistInfo();
+
                 setInfo(data);
+                if (data.opis) {
+                    setDescription(data.opis);
+                }
             }catch(err){
                 console.error('Błąd podczas pobierania danych użytkownika:', err.message);
                 setError('Nie udało się załadować danych użytkownika.');
@@ -34,18 +39,17 @@ const SpecialistAccountInfoComponent = () => {
     }
 
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setAddressData({ ...addressData, [name]: value });
+        setDescription(e.target.value);
     };
 
-    const handleAddressSubmit = async (e) =>{
+    const handleDescriptionSubmit = async (e) => {
         e.preventDefault();
         try{
-            const response = await addUserAddress(addressData);
-            setMessage(response.message || 'Dane adresowe zostały zapisane.');
-            setAddressFormVisible(false);
+            const response = await addSpecialistDescription(description);
+            setMessage(response.message || 'Opis został zapisany.');
+            setDescriptionFormVisible(false);
 
-            const updatedInfo = await getPatientInfo();
+            const updatedInfo = await getSpecialistInfo();
             setInfo(updatedInfo);
         }catch (err) {
             console.error('Błąd podczas zapisywania danych adresowych:', err.message);
@@ -66,6 +70,26 @@ const SpecialistAccountInfoComponent = () => {
                 <li className='user-info-item'>Opis: {info.opis}</li>
             </ul>
             )}
+            {!descriptionFormVisible ? (
+            <button className="add-user-address-button" onClick={()=> setDescriptionFormVisible(true)}>{info.opis ? 'Edytuj opis' : 'Dodaj opis'}</button>
+        ):(
+            <form className="address-form" onSubmit={handleDescriptionSubmit}>
+                <div className='address-form-header'>{info.miasto ? 'Edytuj' : 'Dodaj'} opis</div>
+                <div className='address-form-item'>
+                    <label>Opis</label>
+                    <input
+                    type="text"
+                    name="description"
+                    value={description}
+                    onChange={handleInputChange}
+                    required
+                    />
+                </div>
+                <button type="submit" className="submit-address-button">Zapisz</button>
+                <button className="cancel-address-button" onClick={() => setDescrptionFormVisible(false)}>Anuluj</button>
+            </form>
+        )
+        }
         </div>
     );
 };

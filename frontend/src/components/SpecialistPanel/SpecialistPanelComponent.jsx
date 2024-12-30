@@ -2,7 +2,6 @@ import React from 'react';
 import '../../styles/SpecialistPanel/SpecialistPanelComponent.css';
 import { useNavigate } from 'react-router-dom';
 import specialistPanelElementsData from '../../content/specialistPanel.json'
-import { getUserAppointments} from '../../services/api';
 
 const SpecialistPanelComponent = () => {
 

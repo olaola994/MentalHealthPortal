@@ -219,3 +219,21 @@ export const changePassword = async (newPassword) => {
         throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas zmiany hasła.');
     }
 }
+
+export const addSpecialistDescription = async (description) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+    try{
+        const response = await apiClient.post(`${API_URL}/specjalista-dodaj-opis`, {description},{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    }catch (error) {
+        console.error('Błąd podczas dodawania opisu:', error.response?.data || error.message);
+        throw new Error(error.response?.data?.message || 'Wystąpił błąd podczas dodawania opisu.');
+    }
+}

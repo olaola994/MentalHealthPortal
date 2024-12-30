@@ -222,18 +222,10 @@ app.post('/api/specjalista-dodaj-opis', verifyToken, async (req, res) => {
   }
 
   try {
-    const [user] = await db.query(`SELECT description FROM Specialist WHERE user_id = ?`, [userId]);
-
-    if(description){
-      await db.query(`UPDATE Specialist SET decription = ?`, [description]);
+      await db.query(`UPDATE Specialist SET description = ? WHERE user_id = ?`, [description,userId]);
       return res.status(200).json({ message: 'Opis został zaaktualizowany.' });
-    }
-    else{
-      await db.query(`INSERT INTO Specialist (description) VALUES (?)`, [description]);
-      return res.status(201).json({ message: 'Opis został dodany.' });
-    }
   } catch (err) {
-      console.error('Błąd przy pobiernaiu informacji o specjaliście: ', err.message);
+      console.error('Błąd przy zapisywaniu opisu: ', err.message);
       res.status(500).json({ error: 'Błąd serwera' });
   }
 });
@@ -465,4 +457,9 @@ app.get('/api/specjalista-wizyty', verifyToken, async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+app.post('/api/specjailista-dodaj-dostepnosc', verifyToken, async (req, res) => {
+  const userId = req.user.id;
+  const {day, } = req.body;
 });

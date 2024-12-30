@@ -19,6 +19,7 @@ import ChangePasswordPage from './pages/Login/ChangePasswordPage';
 import SpecialistPanelPage from './pages/SpecialistPanel/SpecialistPanelPage';
 import SpecialistAppointmentsPage from './pages/SpecialistPanel/SpecialistAppointmentsPage';
 import SpecialistAccountInfoPage from './pages/SpecialistPanel/SpecialistAccountInfoPage';
+import SpecialistCalendarPage from './pages/SpecialistPanel/SpecialistCalendarPage';
 
 function App() {
     return (
@@ -42,6 +43,7 @@ function App() {
                 <Route path='/specialist-panel' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistPanelPage /></ProtectedRoute>}/>
                 <Route path='/specjalista-moje-wizyty' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistAppointmentsPage /></ProtectedRoute>}/>
                 <Route path='/specjalista-moje-konto' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistAccountInfoPage /></ProtectedRoute>}/>
+                <Route path='/specjalista-kalendarz' element={<ProtectedRoute allowedRoles={['Specialist']}><SpecialistCalendarPage /></ProtectedRoute>}/>
 
                 {/* admin */}
                 <Route path="/admin-panel" element={<ProtectedRoute allowedRoles={['Admin']}><AdminPanelPage /></ProtectedRoute>}/>

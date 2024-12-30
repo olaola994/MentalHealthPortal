@@ -7,7 +7,7 @@ function SpecialistPanelPage() {
     return (
         <>
         <UserPanelNavbar />
-        <div className='u-panel-page-container'>
+        <div className='user-panel-page-container'>
             <SpecialistPanelComponent/>
         </div>
         </>

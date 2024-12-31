@@ -49,7 +49,7 @@ const AdminMenageSpecialistsComponent = () => {
     return (
         <div>
           <div className='admin-specialists-header'>Lista Specjalistów</div>
-          <button className='' onClick={goToAddSpecialistPage}>Dodaj Specjalistę</button>
+          <button className='admin-add-specialist-button' onClick={goToAddSpecialistPage}>Dodaj Specjalistę</button>
           <AdminRemoveElementComponent userType="specialist" onRemoveSuccess={handleRemoveSuccess}/>
           {successMessage && <div className="success-message">{successMessage}</div>}
           {specialists.length === 0 ? (

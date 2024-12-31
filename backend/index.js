@@ -23,11 +23,12 @@ loginController(app);
 
 app.get('/api/specjalisci', async (req, res) => {
     try {
-      const query = 'SELECT User.id as id, User.name as imie, user.surname as nazwisko, Specialist.specialization as specjalizacja, Specialist.description as opis, Specialist.photo_path as sciezka FROM User Inner Join Specialist On User.id = Specialist.user_id;';
+      const query = `SELECT User.id as id, User.name as imie, user.surname as nazwisko, Specialist.specialization as specjalizacja, Specialist.description as opis, Specialist.photo_path as sciezka FROM User Inner Join Specialist On User.id = Specialist.user_id;`;
+
       const [results] = await db.query(query);
       res.json(results);
     } catch (err) {
-      console.error('Błąd przy pobiernaiu listy specjalistów: ', err);
+      console.error('Błąd przy pobiernaiu listy specjalistów: ', err.message);
       res.status(500).json({ error: 'Błąd serwera' });
     }
   });
@@ -36,6 +37,7 @@ app.get('/api/specjalisci/:id', async (req, res) => {
 
     try {
         const query = `SELECT U.name as imie, U.surname as nazwisko, S.specialization as specjalizacja, S.description as opis, S.photo_path as sciezka, T.week_day as dzien_tygodnia, DATE_FORMAT(T.time_from, '%H:%i') as godzina_od, DATE_FORMAT(T.time_to, '%H:%i') as godzina_do FROM Specialist S INNER JOIN  User U ON S.user_id = U.id LEFT JOIN  Timetable T ON S.user_id = T.specialist_user_id WHERE  S.user_id = ?;`;
+
         const [results] = await db.query(query, [specialistId]);
 
         if (results.length === 0) {
@@ -59,6 +61,7 @@ app.get('/api/moje-wizyty', verifyToken, async (req, res) => {
               Inner Join Specialist S on A.specialist_user_id = S.user_id
               Inner Join User U on S.user_id = U.id
               Inner Join Status St on St.id = A.Status_id where A.patient_user_id = ? ORDER BY data ASC;`
+
         const [appointments] = await db.query(query, [userId]);
         res.status(200).json(appointments);
     } catch (err) {
@@ -71,12 +74,11 @@ app.get('/api/dostepne-terminy', async (req, res) => {
   const { specialistId, date } = req.query;
 
   try {
-    const timetableQuery = `
-        SELECT time_from, time_to
+    const timetableQuery = `SELECT time_from, time_to
         FROM Timetable
         WHERE specialist_user_id = ?
-          AND week_day = DAYNAME(?)
-    `;
+          AND week_day = DAYNAME(?)`;
+
     const [timetable] = await db.query(timetableQuery, [specialistId, date]);
 
     if (timetable.length === 0) {
@@ -85,12 +87,11 @@ app.get('/api/dostepne-terminy', async (req, res) => {
 
     const { time_from, time_to } = timetable[0];
 
-    const appointmentsQuery = `
-        SELECT date_time, duration
+    const appointmentsQuery = `SELECT date_time, duration
         FROM Appointment
         WHERE specialist_user_id = ?
-          AND DATE(date_time) = ?
-    `;
+          AND DATE(date_time) = ?`;
+
     const [appointments] = await db.query(appointmentsQuery, [specialistId, date]);
 
 
@@ -116,7 +117,7 @@ app.get('/api/dostepne-terminy', async (req, res) => {
           if (!isOccupied) {
               availableSlots.push(nextSlotStart.toTimeString().slice(0, 5));
           }
-          
+
           currentTime.setHours(currentTime.getHours() + 1);
           currentTime.setMinutes(0);
       }
@@ -146,9 +147,9 @@ app.post('/api/umow-wizyte', verifyToken, async (req, res) => {
     return res.status(400).json({ error: 'Wszystkie pola są wymagane' });
   }
   try {
-    const query = `
-        INSERT INTO Appointment (specialist_user_id, patient_user_id, date_time, duration, Status_id)
+    const query = `INSERT INTO Appointment (specialist_user_id, patient_user_id, date_time, duration, Status_id)
         VALUES (?, ?, ?, ?, 1)`;
+
     await db.query(query, [specialistId, userId, dateTime, duration]);
     res.status(201).json({ message: 'Wizyta została pomyślnie zapisana.' });
   } catch (err) {
@@ -161,11 +162,11 @@ app.post('/api/umow-wizyte', verifyToken, async (req, res) => {
 app.delete('/api/wizyta/:id', verifyToken, async (req, res) => {
   const appointmentId = req.params.id;
   try{
-    const [existingAppointment] = await db.query('SELECT * FROM Appointment WHERE id = ?', [appointmentId]);
+    const [existingAppointment] = await db.query(`SELECT * FROM Appointment WHERE id = ?`, [appointmentId]);
     if (existingAppointment.length === 0){
       return res.status(404).json({ message: 'Wizyta nie została znaleziona.' });
     }
-    await db.query('DELETE FROM Appointment WHERE id = ?', [appointmentId]);
+    await db.query(`DELETE FROM Appointment WHERE id = ?`, [appointmentId]);
 
     res.status(200).json({ message: 'Wizyta została pomyślnie usunięta.' });
   }catch (err) {
@@ -186,6 +187,7 @@ app.get('/api/pacjent-info', verifyToken, async (req, res) => {
       From User U INNER JOIN Patient P On U.id = P.USER_ID
       LEFT JOIN Address A ON U.address_id = A.id
       WHERE U.id = ?;`
+
       const [patientInfo] = await db.query(query, [userId]);
       if (patientInfo.length === 0) {
         return res.status(404).json({ message: 'Nie znaleziono danych użytkownika.' });
@@ -205,6 +207,7 @@ app.get('/api/specjalista-info', verifyToken, async (req, res) => {
       U.surname AS nazwisko, U.email AS email, S.specialization AS specjalizacja, S.license_number AS numer_licencji, S.description AS opis
       FROM User U INNER JOIN Specialist S ON U.id = S.USER_ID
       WHERE U.id = ?;`
+
       const [specialistInfo] = await db.query(query, [userId]);
       if (specialistInfo.length === 0) {
         return res.status(404).json({ message: 'Nie znaleziono danych użytkownika.' });
@@ -225,6 +228,7 @@ app.post('/api/specjalista-dodaj-opis', verifyToken, async (req, res) => {
 
   try {
       await db.query(`UPDATE Specialist SET description = ? WHERE user_id = ?`, [description,userId]);
+
       return res.status(200).json({ message: 'Opis został zaaktualizowany.' });
   } catch (err) {
       console.error('Błąd przy zapisywaniu opisu: ', err.message);
@@ -250,9 +254,7 @@ app.post('/api/dodaj-adres', verifyToken, async (req, res) => {
 
       if (addressId) {
           await db.query(
-              `UPDATE Address SET city = ?, postal_code = ?, street = ?, street_number = ?, apartament_number = ?, country = ? WHERE id = ?`,
-              [city, postal_code, street, street_number, apartament_number || '', country, addressId]
-          );
+              `UPDATE Address SET city = ?, postal_code = ?, street = ?, street_number = ?, apartament_number = ?, country = ? WHERE id = ?`,[city, postal_code, street, street_number, apartament_number || '', country, addressId]);
           return res.status(200).json({ message: 'Adres został zaktualizowany.' });
       } else {
           const [result] = await db.query(
@@ -276,8 +278,8 @@ app.get('/api/admin-pacjenci', verifyToken, async (req, res) => {
         U.email AS email,
         P.pesel AS pesel,
         P.date_of_birth AS data_urodzenia
-    FROM User U
-    INNER JOIN Patient P ON U.id = P.user_id;`;
+    FROM User U INNER JOIN Patient P ON U.id = P.user_id;`;
+
     const [patientsInfo] = await db.query(query);
     res.status(200).json(patientsInfo);
   }catch (err) {
@@ -333,28 +335,28 @@ app.get('/api/admin-wizyty', verifyToken, async (req, res) => {
 app.delete('/api/admin-usun-pacjenta/:id', verifyToken, async (req, res) => {
   const patientId = req.params.id;
   try{
-    const [existingPatient] = await db.query('SELECT * FROM PATIENT WHERE user_id = ?', [patientId]);
+    const [existingPatient] = await db.query(`SELECT * FROM PATIENT WHERE user_id = ?`, [patientId]);
     if(existingPatient.length === 0){
       return res.status(400).json({ message: 'Pacjent nie został znaleziony'});
     }
     const [user] = await db.query('SELECT address_id FROM USER WHERE id = ?', [patientId]);
     const addressId = user[0]?.address_id;
 
-    await db.query('DELETE FROM Appointment WHERE patient_user_id = ?', [patientId]);
+    await db.query(`DELETE FROM Appointment WHERE patient_user_id = ?`, [patientId]);
 
-    await db.query('DELETE FROM PATIENT WHERE user_id = ?', [patientId]);
+    await db.query(`DELETE FROM PATIENT WHERE user_id = ?`, [patientId]);
 
-    await db.query('DELETE FROM USER WHERE id = ?', [patientId]);
+    await db.query(`DELETE FROM USER WHERE id = ?`, [patientId]);
 
     if (addressId) {
-      const [otherUsers] = await db.query('SELECT * FROM USER WHERE address_id = ?', [addressId]);
+      const [otherUsers] = await db.query(`SELECT * FROM USER WHERE address_id = ?`, [addressId]);
       if (otherUsers.length === 0) {
-        await db.query('DELETE FROM Address WHERE id = ?', [addressId]);
+        await db.query(`DELETE FROM Address WHERE id = ?`, [addressId]);
       }
     }
     res.status(200).json({ message: 'Pacjent, wizyty i powiązany adres zostały pomyślnie usunięte.' });
   }catch(err){
-    console.error("Błąd przy usuwaniu pacjenta: ", err.message);
+    console.error('Błąd przy usuwaniu pacjenta: ', err.message);
     res.status(500).json({ error: 'Błąd serwera' });
   }
 });
@@ -362,21 +364,21 @@ app.delete('/api/admin-usun-pacjenta/:id', verifyToken, async (req, res) => {
 app.delete('/api/admin-usun-specjaliste/:id', verifyToken, async (req, res) => {
   const specialistId = req.params.id;
   try{
-    const [existingSpecialist] = await db.query('SELECT * FROM Specialist WHERE user_id = ?', [specialistId]);
+    const [existingSpecialist] = await db.query(`SELECT * FROM Specialist WHERE user_id = ?`, [specialistId]);
     if(existingSpecialist.length === 0){
       return res.status(400).json({ message: 'Specjalista nie został znaleziony'});
     }
     
-    await db.query('DELETE FROM Appointment WHERE specialist_user_id = ?', [specialistId]);
-    await db.query('DELETE FROM Timetable WHERE specialist_user_id = ?', [specialistId]);
+    await db.query(`DELETE FROM Appointment WHERE specialist_user_id = ?`, [specialistId]);
+    await db.query(`DELETE FROM Timetable WHERE specialist_user_id = ?`, [specialistId]);
 
-    await db.query('DELETE FROM SPECIALIST WHERE user_id = ?', [specialistId]);
+    await db.query(`DELETE FROM SPECIALIST WHERE user_id = ?`, [specialistId]);
 
-    await db.query('DELETE FROM USER WHERE id = ?', [specialistId]);
+    await db.query(`DELETE FROM USER WHERE id = ?`, [specialistId]);
 
     res.status(200).json({ message: 'Specjalista, wizyty zostały pomyślnie usunięte.' });
   }catch(err){
-    console.error("Błąd przy usuwaniu specjalisty: ", err.message);
+    console.error('Błąd przy usuwaniu specjalisty: ', err.message);
     res.status(500).json({ error: 'Błąd serwera' });
   }
 });
@@ -384,7 +386,7 @@ app.delete('/api/admin-usun-specjaliste/:id', verifyToken, async (req, res) => {
 app.get('/api/sprawdz-pacjenta/:id', async (req, res) => {
   const { id } = req.params;
   try {
-      const [result] = await db.query('SELECT 1 FROM Patient WHERE user_id = ?', [id]);
+      const [result] = await db.query(`SELECT 1 FROM Patient WHERE user_id = ?`, [id]);
       res.json({ exists: result.length > 0 });
   } catch (err) {
       console.error('Błąd przy sprawdzaniu pacjenta:', err.message);
@@ -395,7 +397,7 @@ app.get('/api/sprawdz-pacjenta/:id', async (req, res) => {
 app.get('/api/sprawdz-specjaliste/:id', async (req, res) => {
   const { id } = req.params;
   try {
-      const [result] = await db.query('SELECT 1 FROM Specialist WHERE user_id = ?', [id]);
+      const [result] = await db.query(`SELECT 1 FROM Specialist WHERE user_id = ?`, [id]);
       res.json({ exists: result.length > 0 });
   } catch (err) {
       console.error('Błąd przy sprawdzaniu specjalisty:', err.message);
@@ -491,11 +493,7 @@ app.post('/api/specjalista-dodaj-dostepnosc', verifyToken, async (req, res) => {
     await db.query(addTimetablerecord, [userId, week_day, time_from, time_to]);
     res.status(201).json({ message: 'Dostępność została pomyślnie dodana.' });
   }catch (err) {
-    console.error('Błąd przy dodawaniu dostępności:', {
-      message: err.message,
-      stack: err.stack,
-      sql: err.sql, // jeśli problem jest związany z SQL
-    });
+    console.error('Błąd przy dodawaniu dostępności:', err.message)
     res.status(500).json({ error: 'Błąd serwera' });
   }
 });

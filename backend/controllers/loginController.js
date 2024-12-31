@@ -4,7 +4,7 @@ const db = require('../db/db.js');
 
 async function comparePassword(password, hash) {
     if (!password || !hash) {
-        throw new Error('Password and hash are required for comparison');
+        throw new Error('Hasło i hash są neizbędne do porównania');
     }
     return await bcrypt.compare(password, hash);
 }

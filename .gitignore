@@ -131,3 +131,4 @@ dist
 
 
 backend/db/db.js
+backend/controllers/emailController.js

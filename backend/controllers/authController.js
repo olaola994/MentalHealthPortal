@@ -47,7 +47,7 @@ module.exports = (app) => {
             res.status(201).json({ message: 'Poprawnie zarejestrowano uzytkownika' });
         } catch (error) {
             console.error('Błąd podczas rejestrowania uytkownika', error.message);
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: 'Bląd serwera' });
         }
     });
 };

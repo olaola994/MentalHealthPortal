@@ -5,26 +5,48 @@ const API_URL = 'http://localhost:3001/api';
 
 
 export const getSpecialists = async () => {
-    const response = await apiClient.get(`${API_URL}/specjalisci`);
-    return response.data;
+    try {
+        const response = await apiClient.get(`${API_URL}/specjalisci`);
+        return response.data;
+    } catch (error) {
+        console.error('Błąd podczas pobierania listy specjalistów:', error.response?.data || error.message);
+        throw new Error('Nie udało się pobrać listy specjalistów.');
+    }
 };
 
 export const getUserAppointments = async () => {
     const token = localStorage.getItem('token');
-    const response = await apiClient.get(`${API_URL}/moje-wizyty`, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-    
-    return response.data;
-}
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+
+    try {
+        const response = await apiClient.get(`${API_URL}/moje-wizyty`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Błąd podczas pobierania wizyt użytkownika:', error.response?.data || error.message);
+        throw new Error('Nie udało się pobrać wizyt użytkownika.');
+    }
+};
+
 export const getSpecialistAppointments = async () => {
     const token = localStorage.getItem('token');
-    const response = await apiClient.get(`${API_URL}/specjalista-wizyty`, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-    
-    return response.data;
-}
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+
+    try {
+        const response = await apiClient.get(`${API_URL}/specjalista-wizyty`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Błąd podczas pobierania wizyt specjalisty:', error.response?.data || error.message);
+        throw new Error('Nie udało się pobrać wizyt specjalisty.');
+    }
+};
 
 export const getSpecialistAvailableSlots = async (specialistId, date) => {
     if (!specialistId || !date) {

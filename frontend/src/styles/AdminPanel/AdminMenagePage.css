@@ -84,3 +84,16 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+.admin-add-specialist-button{
+    background-color: #187bb0;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.admin-add-specialist-button:hover{
+    background-color: #0d4b6c;
+}

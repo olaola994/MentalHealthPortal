@@ -44,14 +44,14 @@ a {
 }
 
 .navbar-links a:hover {
-  color: #3975dc;
+  color: #3c74ef;
 }
 
 .navbar-toggle {
   display: none;
 }
 .navbar-profile-button {
-  background-color: #007bff;
+  background-color: #3c74ef;
   color: #ffffff;
   border: none;
   border-radius: 5px;

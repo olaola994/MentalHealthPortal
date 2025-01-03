@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/SpecialistPanel/SpecialistCalendarComponent.css';
-import { addTimetableRecord, getSpecialistCalendar } from '../../services/api';
+import { addTimetableRecord, getSpecialistCalendar, deleteTimetableRecord } from '../../services/api';
 
 const SpecialistCalendarComponent = () => {
     const [calendar, setCalendar] = useState([]);
@@ -59,12 +59,25 @@ const SpecialistCalendarComponent = () => {
     const handleInputChange = (e) => {
         setTimetableRecordData({ ...timetableRecordData, [e.target.name]: e.target.value });
     };
+    const handleInputTimeChange = (e) => {
+        const { name, value } = e.target;
+    
+        const [hours, minutes] = value.split(':');
+        const correctedValue = `${hours}:00`;
+    
+        if (minutes !== '00') {
+            alert('Dostępne są tylko pełne godziny.');
+        }
+    
+        setTimetableRecordData({ ...timetableRecordData, [name]: correctedValue });
+    };
+    
     
     const handleAddTimetableRecordSubmit = async (e) => {
         e.preventDefault();
 
         try{
-            const response = await addTimetableRecord(timetableRecordData);
+            await addTimetableRecord(timetableRecordData);
 
             setMessage('Dodano rekord do kalendarza.');
             setTimetableRecordFormVisible(false);
@@ -75,6 +88,21 @@ const SpecialistCalendarComponent = () => {
         }catch (err) {
             console.error('Błąd podczas dodawania terminu do kalendarza:', err.message);
             setMessage('Nie udało się dodać terminu do kalendarza. Konflikt godzin w kalendarzu');
+        }
+    }
+    const handleDeleteTimetableRecord = async (timetableRecordId) => {
+        console.log('Usuwanie terminu o ID:', timetableRecordId);
+        if (!window.confirm(`Czy na pewno chcesz usunąć termin dostępności z kalendarza?`)) {
+            return;
+        }
+        try{
+            await deleteTimetableRecord(timetableRecordId);
+            console.log('Termin dostępności został usunięty.'); 
+            const updatedTimetable = await getSpecialistCalendar();
+            const sortedAndGroupedData = groupAndSortCalendar(updatedTimetable);
+            setCalendar(sortedAndGroupedData);
+        }catch (err) {
+            console.log('Nie udało się anulować wizyty.');
         }
     }
 
@@ -105,8 +133,9 @@ const SpecialistCalendarComponent = () => {
                         <input
                             type="time"
                             name="time_from"
+                            step="3600"
                             value={timetableRecordData.time_from}
-                            onChange={handleInputChange}
+                            onChange={handleInputTimeChange}
                             required/>
                     </label>
                     <label>
@@ -114,8 +143,9 @@ const SpecialistCalendarComponent = () => {
                         <input
                             type="time"
                             name="time_to"
+                            step="3600"
                             value={timetableRecordData.time_to}
-                            onChange={handleInputChange}
+                            onChange={handleInputTimeChange}
                             required/>
                     </label>
                     <button type="submit">Dodaj termin</button>
@@ -129,14 +159,19 @@ const SpecialistCalendarComponent = () => {
                     <div className='appointment-week-day'>
                         {daysInPolish[dayItem.day] || dayItem.day}
                     </div>
-                    {dayItem.records.map((record, recordIndex) => (
-                        <div key={recordIndex} className='appointment-time'>
+                    {dayItem.records.map((subItem, subItemIndex) => (
+                        <div key={subItemIndex} className='appointment-time'>
                             <div className='appointment-time-from'>
-                                od: {record.od}
+                                od: {subItem.od}
                             </div>
                             <div className='appointment-time-to'>
-                                do: {record.do}
+                                do: {subItem.do}
                             </div>
+                            <button
+                            onClick={() => handleDeleteTimetableRecord(subItem.id)}
+                            >
+                                Usuń
+                            </button>
                         </div>
                     ))}
                 </li>

@@ -10,7 +10,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        setIsLoggedIn(!!token);
+        setIsLoggedIn(localStorage.getItem('token') ? true : false);
     }, []);
 
     const toggleMenu = () => {

@@ -4,6 +4,7 @@ import '../styles/Home/HomePage.css';
 import HomeComponent from '../components/HomeComponent';
 import HelpFieldsGeneralComponent from '../components/HelpField/HelpFieldsGeneralComponent';
 import PromotionComponent from '../components/PromotionComponent';
+import Footer from '../components/Footer';
 
 function HomePage() {
     return (
@@ -14,6 +15,7 @@ function HomePage() {
         </div>
         <HelpFieldsGeneralComponent/>
         <PromotionComponent/>
+        <Footer/>
         </>
     );
 }

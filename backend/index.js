@@ -461,7 +461,7 @@ app.get('/api/specjalista-wizyty', verifyToken, async (req, res) => {
 app.get('/api/specjalista-dostepnosc', verifyToken, async (req, res) => {
   const userId = req.user.id;
   try{
-    const query = `SELECT T.week_day AS dzien_tygdonia, T.time_from AS od, T.time_to AS do FROM Specialist S INNER JOIN Timetable T ON S.user_id = T.specialist_user_id where S.user_id = ?;`
+    const query = `SELECT T.id as id, T.week_day AS dzien_tygdonia, T.time_from AS od, T.time_to AS do FROM Specialist S INNER JOIN Timetable T ON S.user_id = T.specialist_user_id where S.user_id = ?;`
     const [calendar] = await db.query(query, [userId]);
     res.status(200).json(calendar);
   }catch (err) {
@@ -494,6 +494,24 @@ app.post('/api/specjalista-dodaj-dostepnosc', verifyToken, async (req, res) => {
     res.status(201).json({ message: 'Dostępność została pomyślnie dodana.' });
   }catch (err) {
     console.error('Błąd przy dodawaniu dostępności:', err.message)
+    res.status(500).json({ error: 'Błąd serwera' });
+  }
+});
+
+/////////////////////
+app.delete('/api/specjalista-usun-dostepnosc/:id', verifyToken, async (req, res) => {
+  const timetablerecordId = req.params.id;
+
+  try{
+    const [timetableRecord] = await db.query(`SELECT * FROM Timetable WHERE id = ?`, [timetablerecordId]);
+    if(timetableRecord.length === 0){
+      return res.status(400).json({ message: 'Termin nie został znaleziony'});
+    }
+    await db.query(`DELETE FROM Timetable WHERE id = ?`, [timetablerecordId]);
+
+    res.status(201).json({ message: 'Dostępność została pomyślnie usunięta.' });
+  }catch (err) {
+    console.error('Błąd przy usuwaniu dostępności:', err.message)
     res.status(500).json({ error: 'Błąd serwera' });
   }
 });

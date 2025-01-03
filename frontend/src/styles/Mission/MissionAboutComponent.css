@@ -1,0 +1,11 @@
+.mission-component-about-container{
+    display: flex;
+    flex-direction: column;
+}
+.mission-component-about-photo-and-text{
+    
+}
+.help-field-photo img{
+    width: 400px;
+    height: auto;
+}

@@ -22,6 +22,7 @@
     font-size: 1.1rem;
     line-height: 1.6;
     color: rgb(85, 85, 85);
+    white-space: pre-line;
 }
 
 .help-field-section2{
@@ -53,6 +54,7 @@
 .help-field-answer2, .help-field-answer3{
     font-size: 1.1rem;
     color: rgb(85, 85, 85);
+    white-space: pre-line;
 }
 .help-field-section3{
     padding: 2rem 9rem 2rem 9rem;

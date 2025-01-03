@@ -26,8 +26,8 @@ const HelpFieldsComponent = () => {
                         <Button
                             text="Czytaj więcej"
                             onClick={() => handleReadMore(field.name)}
-                            backgroundColor='#333'
-                            borderColor="black"
+                            backgroundColor='#f5b761'
+                            borderColor="#f5b761"
                             textColor="white"
                         />
                     </div>

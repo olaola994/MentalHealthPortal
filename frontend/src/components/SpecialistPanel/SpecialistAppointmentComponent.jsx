@@ -71,7 +71,7 @@ const SpecialistAppointmentsComponent = () => {
 
             {filteredAppointments.length > 0 ? (
             <ul className="appointments-list">
-                {appointments.map((appointment, index) => (
+                {filteredAppointments.map((appointment, index) => (
                     <li key={index} className='appointment-item'>
                         <div className='appointment-date'>
                             data: {formatDate(appointment.data)}
@@ -91,7 +91,9 @@ const SpecialistAppointmentsComponent = () => {
                         <div className='appointment-status'>
                             status: {appointment.status}
                         </div>
+                        {appointment.status !== 'Zakończona' && (
                         <button className='cancel-booking-button' onClick={() => handleCancelAppointment(appointment.id)}>Odwołaj wizytę</button>
+                        )}
                     </li>
                 ))}
             </ul>

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import apiClient from './apiClient';
 
 const API_URL = 'http://localhost:3001/api';
@@ -279,6 +278,19 @@ export const getSpecialistCalendar = async () => {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
     const response = await apiClient.get(`${API_URL}/specjalista-dostepnosc`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};
+
+export const deleteTimetableRecord = async (timetableRecordId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Brak tokenu uwierzytelniającego');
+    }
+    const response = await apiClient.delete(`${API_URL}/specjalista-usun-dostepnosc/${timetableRecordId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

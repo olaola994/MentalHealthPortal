@@ -4,6 +4,7 @@ import helpFieldsData from '../../content/helpFields.json';
 import Navbar from '../../components/Navbar';
 import Header from '../Header';
 import '../../styles/HelpField/HelpFieldElementComponent.css';
+import Footer from '../Footer';
 
 
 const HelpFieldElementComponent = () => {
@@ -42,6 +43,7 @@ const HelpFieldElementComponent = () => {
                 <div className="help-field-answer3">{field.answer3}</div>
             </div>
         </div>
+        <Footer/>
         </>
     );
 };

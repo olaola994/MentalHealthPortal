@@ -11,6 +11,10 @@
       {
         "text": "Specjaliści",
         "url": "/specjalisci"
+      },
+      {
+        "text": "O nas",
+        "url": "/nasza-misja"
       }
     ],
     "ctaButton": {

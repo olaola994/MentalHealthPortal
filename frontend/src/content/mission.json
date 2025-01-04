@@ -10,22 +10,29 @@
         "ctaButton": "WYBIERZ SPECJALISTĘ"
     },
     "mission-statistics":{
-        "text": "Co czwarty Polak wg. badań, odczuwa lub będzie odczuwał dolegliwości i zaburzenia psychiczne1. Co trzeci wykazuje objawy zaburzeń lękowych lub depresji.2 Około 10% mieszkańców Polski nie ma dostępu do opieki w obszarze zdrowia psychicznego3. Dla wielu wciąż jest to temat tabu i nie prosi o pomoc."
+        "text": "Co czwarty Polak wg. badań, odczuwa lub będzie odczuwał dolegliwości i zaburzenia psychiczne. Co trzeci wykazuje objawy zaburzeń lękowych lub depresji. Około 10% mieszkańców Polski nie ma dostępu do opieki w obszarze zdrowia psychicznego. Dla wielu wciąż jest to temat tabu i nie prosi o pomoc.",
+        "links":[
+            "https://serwisy.gazetaprawna.pl/zdrowie/artykuly/1031785,zaburzenia-psychiczne-polakow-stan-psychiatrii.html",
+            "https://portal.abczdrowie.pl/dane-z-aptek-ujawniaja-fatalna-kodycje-psychiczna-polakow-depresja-juz-nie-jest-tabu-1-3-z-nas-ma-inny-problem",
+            "https://www.nik.gov.pl/aktualnosci/pomoc-panstwa-dla-osob-z-zaburzeniami-psychicznymi.html"
+        ]
     },
     "mission-challenges":{
         "header": "Stajemy naprzeciw współczesnym wyzwaniom",
-        "text": "Co czwarty Polak, wg. badań, odczuwa lub będzie odczuwał zaburzenia psychiczne1. Wg. statystyk 7,5mln Polaków odczuwa regularnie dolegliwości i zaburzenia związane ze zdrowiem psychicznym2. Obecny stan opieki i wsparcia zdrowia obrazuje kontrola NIK przeprowadzona w 2019 roku (czyli jeszcze przed pandemią), która wykazała, że praktycznie co dziesiąty mieszkaniec Polski jest nie ma dostępu do opieki zdrowia psychicznego. Wciąż na mapie Polski są białe plamy, gdzie mieszkańcy nie mają jakiegokolwiek dostępu do opieki zdrowia psychicznego. Sytuację tę pogłębił okres pandemii, co odczuli specjaliści zdrowia psychicznego na całym świecie, mierząc się z napływem nowych Klientów i Pacjentów. Powyższy obraz dopełnia, wciąż obecne w naszym społeczeństwie, tabuizowanie zaburzeń psychicznych i dolegliwości związanych ze zdrowiem psychicznym.\n\nW Holisticum wychodzimy naprzeciw tym wyzwaniom. Naszym celem jest zwiększenie dostępności opieki zdrowia psychicznego, obalenie tabu jakim jest korzystanie z takich usług i zapewnienie bezpiecznej przestrzeni do skorzystania z wiarygodnej pomocy. Zapewniamy to poprzez bezpieczną i przystępną technologiczne formę online oraz profesjonalny zespół specjalistów. Rozumiemy jak ważna jest regularna troska o nasz dobrostan i zdrowie psychiczne – zwłaszcza w obecnych czasach.",
+        "text": "Co czwarty Polak, wg. badań, odczuwa lub będzie odczuwał zaburzenia psychiczne. Wg. statystyk 7,5mln Polaków odczuwa regularnie dolegliwości i zaburzenia związane ze zdrowiem psychicznym. Obecny stan opieki i wsparcia zdrowia obrazuje kontrola NIK przeprowadzona w 2019 roku (czyli jeszcze przed pandemią), która wykazała, że praktycznie co dziesiąty mieszkaniec Polski jest nie ma dostępu do opieki zdrowia psychicznego. Wciąż na mapie Polski są białe plamy, gdzie mieszkańcy nie mają jakiegokolwiek dostępu do opieki zdrowia psychicznego. Sytuację tę pogłębił okres pandemii, co odczuli specjaliści zdrowia psychicznego na całym świecie, mierząc się z napływem nowych Klientów i Pacjentów. Powyższy obraz dopełnia, wciąż obecne w naszym społeczeństwie, tabuizowanie zaburzeń psychicznych i dolegliwości związanych ze zdrowiem psychicznym.\n\nW Holisticum wychodzimy naprzeciw tym wyzwaniom. Naszym celem jest zwiększenie dostępności opieki zdrowia psychicznego, obalenie tabu jakim jest korzystanie z takich usług i zapewnienie bezpiecznej przestrzeni do skorzystania z wiarygodnej pomocy. Zapewniamy to poprzez bezpieczną i przystępną technologiczne formę online oraz profesjonalny zespół specjalistów. Rozumiemy jak ważna jest regularna troska o nasz dobrostan i zdrowie psychiczne – zwłaszcza w obecnych czasach.",
         "ctaButton": "ZNAJDŹ SPECJALISTĘ"
     },
     "mission-understand":{
         "name":"understand",
         "header": "Rozumiemy wagę Twojej sprawy",
+        "photo-url":"/images/understand.png",
         "text": "Tylko około 30% specjalistów na rynku spełnia nasze standardy i przechodzi nasz proces rekrutacji. Współpracujemy wyłącznie z najlepszymi i doświadczonymi profesjonalistami i profesjonalistkami w obszarze zdrowia psychicznego.\n\nHolisticum to przestrzeń profesjonalnego wsparcia, które tworzymy ze szczególną uważnością. Twoje zaufanie jest dla nas priorytetem. Możesz być pewien, że w procesie powrotu do równowagi obecni są z Tobą tutaj wyłącznie doświadczeni i kompetentni specjaliści.",
         "ctaButton": "WYBIERZ SPECJALISTĘ"
     },
     "mission-what-you-deserve":{
         "name":"what you deserve",
         "header": "Zasługujesz na dobre życie!",
+        "photo-url":"/images/what_you_deserve.png",
         "text": "Łączy nas przekonanie, że każdy z nas zasługuje na dobre życie i zwłaszcza dziś, w czasach wielu wyzwań, szczególnie potrzebujemy wsparcia. Wierzymy, że jest to możliwe, aby włączyć je do naszego obecnego życia. Wiemy jak to jest przeżywać trud w życiu i znamy też to uczucie ukojenia, kiedy podejmujemy decyzje o sięgnięciu po pomoc. Wiemy jak to jest, dzięki czemu potrafimy zrozumieć też Ciebie. Kiedy człowiek nie ma już zasobów do tego, aby sobie poradzić, a jego życie staje się ciągłą walką o przetrwanie, potrzebuje sięgnąć po wsparcie. Potrzebuje bezpiecznej przystani, w której może odzyskać siły. I tym właśnie jest serwis Holisticum.",
         "ctaButton": "WYBIERZ SPECJALISTĘ"
     }

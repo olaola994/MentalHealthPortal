@@ -1,0 +1,22 @@
+.mission-deserve-component-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 8rem 0rem;
+    gap: 3rem;
+    text-align: center;
+}
+.mission-deserve-component-photo-and-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4rem;
+}
+.mission-about-component-text{
+    width: 70%;
+    text-align: justify;
+}
+.mission-deserve-component-photo-and-text img{
+    width: 80%;
+}

@@ -1,0 +1,18 @@
+.mission-component-challenges-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4rem;
+    gap: 3rem;
+}
+.mission-challenges-component-text{
+    display: flex;
+    flex-direction: row;
+    font-size: 1.2rem;
+    align-items: center;
+    line-height: 1.7rem;
+    text-align: justify;
+    width: 90%;
+    color: rgb(115, 115, 115);
+}

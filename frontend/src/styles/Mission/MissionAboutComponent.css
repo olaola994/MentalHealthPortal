@@ -1,11 +1,24 @@
 .mission-component-about-container{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4rem;
 }
 .mission-component-about-photo-and-text{
-    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    padding: 4rem 3rem;
+    color: rgb(115, 115, 115);
 }
 .help-field-photo img{
-    width: 400px;
+    width: 80%;
     height: auto;
+}
+.mission-about-component-text{
+    max-width: 50%;
+    line-height: 2rem;
+    font-size: 1.2rem;
 }

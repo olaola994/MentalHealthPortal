@@ -1,0 +1,15 @@
+.mission-understand-component-container{
+    background-color:rgb(251, 249, 238);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5rem 0rem;
+    gap: 3rem
+}
+.mission-understand-component-text{
+    color: rgb(115, 115, 115);
+    width: 90%;
+    line-height: 1.7rem;
+    text-align: justify;
+}

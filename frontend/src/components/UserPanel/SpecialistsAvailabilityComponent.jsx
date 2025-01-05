@@ -124,8 +124,7 @@ const SpecialistsAvailabilityComponent = () => {
                                     onChange={(e) => setAppointmentDuration(e.target.value)}
                                     value={appointmentDuration}>
                                     <option value="">Wybierz</option>
-                                    <option value="30">30 minut</option>
-                                    <option value="45">45 minut</option>
+                                    <option value="50">50 minut</option>
                                     <option value="60">60 minut</option>
                                 </select>
                                 <button onClick={handleBookAppointment}>Zarezerwuj</button>
@@ -138,6 +137,11 @@ const SpecialistsAvailabilityComponent = () => {
                     )
                 )}
             </div>
+            {message && (
+                <div className="message-container">
+                    {message}
+                </div>
+            )}
         </div>
     );
 };

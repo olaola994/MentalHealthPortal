@@ -119,6 +119,14 @@ input[type="date"]:focus {
     color: #e74c3c;
     margin-top: 20px;
 }
+.available-booking-container select{
+    margin: 0rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    font-size: 0.9rem;
+}
 
 @media (max-width: 480px) {
     .specialists-availability-component {

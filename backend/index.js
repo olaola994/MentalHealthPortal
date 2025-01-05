@@ -94,12 +94,20 @@ app.get('/api/dostepne-terminy', async (req, res) => {
 
 
     const availableSlots = [];
+    const now = new Date();
+
     for (const { time_from, time_to } of timetable) {
       let currentTime = new Date(`${date} ${time_from}`);
       const endTime = new Date(`${date} ${time_to}`);
 
       while (currentTime < endTime) {
+        
           const nextSlotStart = new Date(currentTime);
+          if (new Date(date).toDateString() === now.toDateString() && nextSlotStart <= now) {
+                currentTime.setHours(currentTime.getHours() + 1);
+                currentTime.setMinutes(0);
+                continue;
+            }
 
           const isOccupied = appointments.some((appointment) => {
               const appointmentStart = new Date(appointment.date_time);

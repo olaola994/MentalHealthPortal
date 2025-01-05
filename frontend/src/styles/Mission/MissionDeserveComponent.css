@@ -16,6 +16,8 @@
 .mission-about-component-text{
     width: 70%;
     text-align: justify;
+    color: rgb(115, 115, 115);
+    line-height: 1.7rem;
 }
 .mission-deserve-component-photo-and-text img{
     width: 80%;

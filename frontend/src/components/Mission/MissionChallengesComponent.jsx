@@ -12,7 +12,7 @@ const MissionChallengesComponent = () => {
                 {missionData['mission-challenges'].header}
             </div>
             <div className='mission-challenges-component-text'>
-                {missionData['mission-about'].text}
+                {missionData['mission-challenges'].text}
             </div>
             <div>
                 <Button 

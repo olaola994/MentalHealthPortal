@@ -85,8 +85,6 @@ app.get('/api/dostepne-terminy', async (req, res) => {
         return res.status(404).json({ message: 'Brak dostępności w tym dniu' });
     }
 
-    const { time_from, time_to } = timetable[0];
-
     const appointmentsQuery = `SELECT date_time, duration
         FROM Appointment
         WHERE specialist_user_id = ?
@@ -498,7 +496,6 @@ app.post('/api/specjalista-dodaj-dostepnosc', verifyToken, async (req, res) => {
   }
 });
 
-/////////////////////
 app.delete('/api/specjalista-usun-dostepnosc/:id', verifyToken, async (req, res) => {
   const timetablerecordId = req.params.id;
 

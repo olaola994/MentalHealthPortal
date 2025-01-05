@@ -12,7 +12,7 @@ const MissionDeserveComponent = () => {
             </div>
             <div className='mission-deserve-component-photo-and-text'>
                 <div className='mission-about-component-text'>
-                    {missionData['mission-about'].text}
+                    {missionData['mission-what-you-deserve'].text}
                 </div>
                 <div>
                     <img 
@@ -23,7 +23,7 @@ const MissionDeserveComponent = () => {
             </div>
             <div>
                 <Button 
-                    text={missionData['mission-about'].ctaButton}
+                    text={missionData['mission-what-you-deserve'].ctaButton}
                     to='/specjalisci'
                     backgroundColor="#3c74ef"
                     borderColor="#3c74ef"

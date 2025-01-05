@@ -60,7 +60,7 @@ const AdminRemoveElementComponent = ({ userType, onRemoveSuccess}) => {
             {showForm && (
                 <form onSubmit={handleSubmit} className="admin-remove-element-form">
                     <div>
-                        <label>Numer {userType === 'patient' ? 'pacjenta' : 'specjalistę'}</label>
+                        <label>Numer {userType === 'patient' ? 'pacjenta' : 'specjalisty'}</label>
                         <input
                             type="text"
                             value={userId}

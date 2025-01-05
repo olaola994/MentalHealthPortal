@@ -11,14 +11,6 @@ module.exports = (app) => {
     app.post('/api/zarejestruj/pacjent', async (req, res) => {
         const { name, surname, email, password, dateOfBirth, pesel } = req.body;
 
-        if (!name || !surname || !email || !password || !dateOfBirth || !pesel) {
-            return res.status(400).json({ message: 'Wszystkie pola są wymagane' });
-        }
-
-        if (pesel.length !== 11 || isNaN(pesel)) {
-            return res.status(400).json({ message: 'Niepoprawny format PESEL' });
-        }
-
         try {
             const hashedPassword = await hashPassword(password);
 

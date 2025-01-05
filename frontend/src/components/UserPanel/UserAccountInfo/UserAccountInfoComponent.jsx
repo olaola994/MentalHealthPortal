@@ -148,7 +148,7 @@ const UserAccountInfoComponent = () => {
                         />
                     </div>
                     <div className="address-form-item">
-                        <label>Numer mieszkania</label>
+                        <label>Numer mieszkania (opcjonalny)</label>
                         <input
                             type="text"
                             name="apartament_number"

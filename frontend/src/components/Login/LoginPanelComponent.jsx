@@ -5,21 +5,28 @@ const LoginPanelComponent = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({ name: '', surname: '', email: '', password: '', dateOfBirth: '', pesel: '' });
     const [error, setError] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!isLogin) {
             const today = new Date();
-            const selectedDate = new Date(formData.dateOfBirth);
+            const birthDate = new Date(formData.dateOfBirth);
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const isBeforeBirthday = today < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
 
-            if (selectedDate > today) {
-                setError('Data urodzenia nie może być z przyszłości.');
+            if (!formData.dateOfBirth || age < 18 || (age === 18 && isBeforeBirthday)) {
+                setErrorMessage('Aby zalozyć konto nalezy mieć conajmniej 18lat.');
                 return;
-            } else {
-                setError('');
+            }
+
+            if (formData.pesel.length !== 11) {
+                setErrorMessage('PESEL musi zawierać dokładnie 11 cyfr.');
+                return;
             }
         }
+        setErrorMessage('');
 
         try {
             const url = isLogin ? 'http://localhost:3001/api/zaloguj' : 'http://localhost:3001/api/zarejestruj/pacjent';
@@ -31,6 +38,11 @@ const LoginPanelComponent = () => {
             });
             
             const data = await response.json();
+
+            if (!response.ok) {
+                setErrorMessage(data.message || 'Wystąpił błąd podczas logowania.');
+                return;
+            }
 
             if (isLogin && data.token) {
                 localStorage.setItem('token', data.token);
@@ -73,22 +85,26 @@ const LoginPanelComponent = () => {
                                 name="name"
                                 placeholder="Imię"
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                required
                             />
                             <input
                                 name="surname"
                                 placeholder="Nazwisko"
                                 onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
+                                required
                             />
                             <input
                                 name="dateOfBirth"
                                 type="date"
                                 placeholder="Data urodzenia"
                                 onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                                required
                             />
                             <input
                                 name="pesel"
                                 placeholder="PESEL"
                                 onChange={(e) => setFormData({ ...formData, pesel: e.target.value })}
+                                required
                             />
                         </>
                     )}
@@ -97,13 +113,16 @@ const LoginPanelComponent = () => {
                         type="email"
                         placeholder="Email"
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
                     />
                     <input
                         name="password"
                         type="password"
                         placeholder="Hasło"
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        required
                     />
+                    {errorMessage && <div className="login-error">{errorMessage}</div>}
                     <button type="submit">{isLogin ? 'Zaloguj się' : 'Zarejestruj się'}</button>
                 </form>
                 <div className="login-panel-component-switch-form">

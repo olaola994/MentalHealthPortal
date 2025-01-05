@@ -62,4 +62,7 @@
     padding-top: 0.3rem;
     color: rgb(80, 131, 224);
 }
-
+.login-error{
+    color: red;
+    padding: 0.7rem 0rem;
+}

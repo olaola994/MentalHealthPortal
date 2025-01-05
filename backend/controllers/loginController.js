@@ -14,17 +14,18 @@ module.exports = (app) => {
         const { email, password } = req.body;
 
         try {
+            
             const query = `SELECT * FROM User WHERE email = ?`;
             const [results] = await db.query(query, [email]);
 
             const user = results[0];
             if (!user) {
-                return res.status(401).json({ message: 'Nieprawidłowe dane' });
+                return res.status(401).json({ message: 'Uzytkownik o podanym e-mailu nie istnieje' });
             }
 
             const passwordMatches = await comparePassword(password, user.password);
             if (!passwordMatches) {
-                return res.status(401).json({ message: 'Nieprawidłowe dane' });
+                return res.status(401).json({ message: 'Nieprawidłowe hasło' });
             }
 
             let role = null;

@@ -4,8 +4,8 @@ import '../../styles/Login/LoginPanelComponent.css';
 const LoginPanelComponent = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({ name: '', surname: '', email: '', password: '', dateOfBirth: '', pesel: '' });
-    const [error, setError] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +44,11 @@ const LoginPanelComponent = () => {
                 return;
             }
 
-            if (isLogin && data.token) {
+            if (!isLogin) {
+                setSuccessMessage('Poprawnie zarejestrowano użytkownika. Możesz się teraz zalogować.');
+                setTimeout(() => setIsLogin(true), 3000);
+            }
+            else if (isLogin && data.token) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('role', data.role);
                 if (data.mustChangePassword) {
@@ -123,6 +127,7 @@ const LoginPanelComponent = () => {
                         required
                     />
                     {errorMessage && <div className="login-error">{errorMessage}</div>}
+                    {successMessage && <div className="login-success">{successMessage}</div>}
                     <button type="submit">{isLogin ? 'Zaloguj się' : 'Zarejestruj się'}</button>
                 </form>
                 <div className="login-panel-component-switch-form">

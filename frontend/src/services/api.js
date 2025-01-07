@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:3001/api';
 
 export const getSpecialists = async () => {
     try {
-        const response = await apiClient.get(`${API_URL}/specjalisci`);
+        const response = await apiClient.get(`/specjalisci`);
         return response.data;
     } catch (error) {
         console.error('Błąd podczas pobierania listy specjalistów:', error.response?.data || error.message);
@@ -20,7 +20,7 @@ export const getUserAppointments = async () => {
     }
 
     try {
-        const response = await apiClient.get(`${API_URL}/moje-wizyty`, {
+        const response = await apiClient.get(`/moje-wizyty`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.data;

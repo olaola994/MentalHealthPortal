@@ -1,0 +1,12 @@
+{
+    "user-panel-elements":[
+        {
+            "name": "Moje konto",
+            "url": "/moje-konto"
+        },
+        {
+            "name": "Moje wizyty",
+            "url": "/moje-wizyty"
+        }
+    ]
+}

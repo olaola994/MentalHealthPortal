@@ -21,8 +21,12 @@
       "text": "Umów wizytę",
       "url": "/"
     },
+    
     "logOutButton":{
       "text": "Wyloguj się",
       "url": "/"
+    },
+    "langueageButton":{
+      "text": "Wybierz język"
     }
   }

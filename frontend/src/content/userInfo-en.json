@@ -1,0 +1,59 @@
+{
+    "info": {
+        "name": "Name",
+        "surname": "Surname",
+        "pesel": "PESEL",
+        "birth-date": "Date of Birth",
+        "email": "Email",
+        "city": "City",
+        "postal-code": "Postal Code",
+        "street": "Street",
+        "building-number": "Building Number",
+        "apartment-number": "Apartment Number",
+        "country": "Country"
+    },
+    "no-address": "No address data. Add an address.",
+    "edit": "Edit",
+    "add": "Add",
+    "address-data": "address data",
+    "save": "Save",
+    "cancel": "Cancel",
+    "texts": {
+        "header": "Book a New Session",
+        "subHeader": "Choose a specialist and a date to see available slots.",
+        "availableSlotsHeader": "Available Slots",
+        "selectedSlotLabel": "Selected Slot:",
+        "appointmentDurationLabel": "Appointment Duration:",
+        "noAvailableSlots": "No available slots for this specialist on the selected day.",
+        "bookingSuccess": "Booking completed successfully.",
+        "confirmButton": "Book",
+        "cancelButton": "Cancel",
+        "selectDurationPlaceholder": "Choose",
+        "durationOption50": "50 minutes",
+        "durationOption60": "60 minutes",
+        "chooseSpecialist": "Choose a specialist",
+        "header": "My Appointments",
+        "bookingButton": "Book an Appointment",
+        "statusFilterLabel": "Status"
+    },
+    "statusFilterOptions": {
+        "all": "All",
+        "planned": "Planned",
+        "completed": "Completed"
+    },
+    "appointmentDateLabel": "Date:",
+    "specialistNameLabel": "First Name:",
+    "specialistSurnameLabel": "Last Name:",
+    "specialistSpecializationLabel": "Specialization:",
+    "appointmentDurationLabel": "Duration:",
+    "appointmentStatusLabel": "Status:",
+    "cancelButton": "Cancel Appointment",
+    "noAppointmentsMessage": "You don't have any appointments yet. Click the button to book an appointment.",
+    "cancelConfirmation": "Are you sure you want to cancel this appointment?",
+    "welcome-to-patient-panel": "Welcome to the Patient Panel",
+    "user-panel-navbar": {
+        "main-page": "Home Page",
+        "back-to-panel": "Back to Panel",
+        "log-out": "Log Out"
+    }
+}

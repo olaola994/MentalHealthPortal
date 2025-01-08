@@ -1,0 +1,31 @@
+{
+    "promotion-header": "Embark on the path to a happy life.",
+    "promotion-sub-header": "Meet someone who understands your struggles.",
+    "promotion-elements": [
+        {
+            "photo-url": "/images/promotion/promotion1.png",
+            "text-header": "Only certified specialists",
+            "text": "We work exclusively with specialists certified by professional associations. Additionally, we apply our own verification system."
+        },
+        {
+            "photo-url": "/images/promotion/promotion2.png",
+            "text-header": "Only specialists with positive client and patient reviews",
+            "text": "Our clients and patients have regular opportunities to rate our specialists. We maintain cooperation only with those who receive the highest ratings."
+        }
+    ],
+    "animated-text": [
+        {
+            "mainText": "9 out of 10 clients",
+            "subText": "Are satisfied with our service"
+        },
+        {
+            "mainText": "5000+",
+            "subText": "People have trusted our specialists"
+        },
+        {
+            "mainText": "Over 30 specialists",
+            "subText": "Are waiting for you in our service"
+        }
+    ],
+    "ctaButton": "SEE WHO YOU CAN MEET"
+}

@@ -37,7 +37,7 @@ export const getSpecialistAppointments = async () => {
     }
 
     try {
-        const response = await apiClient.get(`${API_URL}/specjalista-wizyty`, {
+        const response = await apiClient.get(`/specjalista-wizyty`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.data;
@@ -52,7 +52,7 @@ export const getSpecialistAvailableSlots = async (specialistId, date) => {
       throw new Error('Brak wymaganych parametrów: specialistId, date');
     }
   
-    const response = await apiClient.get(`${API_URL}/dostepne-terminy`, {
+    const response = await apiClient.get(`/dostepne-terminy`, {
         params: { specialistId, date },
     });
     return response.data;
@@ -62,7 +62,7 @@ export const bookAppointment = async (appointmentData) => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.post(`${API_URL}/umow-wizyte`, appointmentData, {
+    const response = await apiClient.post(`/umow-wizyte`, appointmentData, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -75,7 +75,7 @@ export const cancelAppointment = async (appointmentId) => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.delete(`${API_URL}/wizyta/${appointmentId}`, {
+    const response = await apiClient.delete(`/wizyta/${appointmentId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -88,7 +88,7 @@ export const getPatientInfo = async () => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.get(`${API_URL}/pacjent-info`,{
+    const response = await apiClient.get(`/pacjent-info`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -100,7 +100,7 @@ export const getSpecialistInfo = async () => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.get(`${API_URL}/specjalista-info`,{
+    const response = await apiClient.get(`/specjalista-info`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -114,7 +114,7 @@ export const addUserAddress = async (addressData) => {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
     try{
-        const response = await apiClient.post(`${API_URL}/dodaj-adres`, addressData,{
+        const response = await apiClient.post(`/dodaj-adres`, addressData,{
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -132,7 +132,7 @@ export const getAdminPatients = async () => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.get(`${API_URL}/admin-pacjenci`,{
+    const response = await apiClient.get(`/admin-pacjenci`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -144,7 +144,7 @@ export const getAdminSpecialists = async () => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.get(`${API_URL}/admin-specjalisci`,{
+    const response = await apiClient.get(`/admin-specjalisci`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -156,7 +156,7 @@ export const getAdminAppointments = async () => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.get(`${API_URL}/admin-wizyty`,{
+    const response = await apiClient.get(`/admin-wizyty`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -168,7 +168,7 @@ export const removePatient = async (patientId) => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.delete(`${API_URL}/admin-usun-pacjenta/${patientId}`, {
+    const response = await apiClient.delete(`/admin-usun-pacjenta/${patientId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -180,7 +180,7 @@ export const removeSpecialist = async (specialistId) => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.delete(`${API_URL}/admin-usun-specjaliste/${specialistId}`, {
+    const response = await apiClient.delete(`/admin-usun-specjaliste/${specialistId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -191,7 +191,7 @@ export const removeSpecialist = async (specialistId) => {
 export const checkUserExists = async (userId, userType) => {
     try {
         const endpoint = userType === 'patient' ? 'sprawdz-pacjenta' : 'sprawdz-specjaliste';
-        const response = await apiClient.get(`${API_URL}/${endpoint}/${userId}`);
+        const response = await apiClient.get(`/${endpoint}/${userId}`);
         return response.data.exists;
     } catch (error) {
         console.error('Błąd przy sprawdzaniu istnienia użytkownika:', error);
@@ -205,7 +205,7 @@ export const addSpecialist = async (specialistData) => {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
     try{
-        const response = await apiClient.post(`${API_URL}/dodaj-specjaliste`, specialistData,{
+        const response = await apiClient.post(`/dodaj-specjaliste`, specialistData,{
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -224,7 +224,7 @@ export const changePassword = async (newPassword) => {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
     try{
-        const response = await apiClient.post(`${API_URL}/zmien-haslo`, newPassword, {
+        const response = await apiClient.post(`/zmien-haslo`, newPassword, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -242,7 +242,7 @@ export const addSpecialistDescription = async (description) => {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
     try{
-        const response = await apiClient.post(`${API_URL}/specjalista-dodaj-opis`, {description},{
+        const response = await apiClient.post(`/specjalista-dodaj-opis`, {description},{
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -260,7 +260,7 @@ export const addTimetableRecord = async (timetablerecordData) => {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
     try{
-        const response = await apiClient.post(`${API_URL}/specjalista-dodaj-dostepnosc`, timetablerecordData,{
+        const response = await apiClient.post(`/specjalista-dodaj-dostepnosc`, timetablerecordData,{
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -277,7 +277,7 @@ export const getSpecialistCalendar = async () => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.get(`${API_URL}/specjalista-dostepnosc`,{
+    const response = await apiClient.get(`/specjalista-dostepnosc`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -290,7 +290,7 @@ export const deleteTimetableRecord = async (timetableRecordId) => {
     if (!token) {
         throw new Error('Brak tokenu uwierzytelniającego');
     }
-    const response = await apiClient.delete(`${API_URL}/specjalista-usun-dostepnosc/${timetableRecordId}`, {
+    const response = await apiClient.delete(`/specjalista-usun-dostepnosc/${timetableRecordId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

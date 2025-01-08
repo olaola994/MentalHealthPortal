@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/Login/LoginPanelComponent.css';
+import loginPanelData from '../../content/loginPanel-pl.json';
 
 const LoginPanelComponent = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -75,11 +76,11 @@ const LoginPanelComponent = () => {
 
     return (
         <div className="login-panel-component-container">
-            <div className='login-panel-component-info1'>DZIEŃ DOBRY!</div>
-            <div className='login-panel-component-info2'>Witaj w panelu Klienta.</div>
-            <div className='login-panel-component-info3'>Zaloguj się, aby zarządzać swoimi rezerwacjami.</div>
+            <div className='login-panel-component-info1'>{loginPanelData.info1}</div>
+            <div className='login-panel-component-info2'>{loginPanelData.info2}</div>
+            <div className='login-panel-component-info3'>{loginPanelData.info3}</div>
             <div className="login-panel-component-header">
-                {isLogin ? 'ZALOGUJ SIĘ' : 'ZAREJESTRUJ SIĘ'}
+                {isLogin ? loginPanelData.login.toUpperCase() : loginPanelData.register.toUpperCase()}
             </div>
             <div className="login-panel-component-form">
                 <form onSubmit={handleSubmit}>
@@ -87,13 +88,13 @@ const LoginPanelComponent = () => {
                         <>
                             <input
                                 name="name"
-                                placeholder="Imię"
+                                placeholder={loginPanelData.placeholders.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 required
                             />
                             <input
                                 name="surname"
-                                placeholder="Nazwisko"
+                                placeholder={loginPanelData.placeholders.surname}
                                 onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
                                 required
                             />
@@ -122,7 +123,7 @@ const LoginPanelComponent = () => {
                     <input
                         name="password"
                         type="password"
-                        placeholder="Hasło"
+                        placeholder={loginPanelData.placeholders.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         required
                     />
@@ -133,16 +134,16 @@ const LoginPanelComponent = () => {
                 <div className="login-panel-component-switch-form">
                     {isLogin ? (
                         <div className='login-panel-component-switch-form-element-container'>
-                            Nie masz konta?
+                            {loginPanelData['dont-have-password']}
                             <div className='login-panel-component-switch-form-element' onClick={() => setIsLogin(false)}>
-                                Załóż je
+                                {loginPanelData['dont-have-password-register']}
                             </div>
                         </div>
                     ) : (
                         <div className='login-panel-component-switch-form-element-container'>
-                            Masz już konto?{' '}
+                            {loginPanelData['have-password']}
                             <div className='login-panel-component-switch-form-element' onClick={() => setIsLogin(true)}>
-                                Zaloguj się
+                                {loginPanelData.login}
                             </div>
                         </div>
                     )}

@@ -1,9 +1,27 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../styles/Home/HomeComponent.css';
-import HomeData from '../content/home.json';
 import Button from '../components/Button.jsx';
 
 const HomeComponent = () => {
+
+    const [HomeData, setHomeData] = useState(null);
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../content/home-${language}.json`);
+                setHomeData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
+
+    if (!HomeData) {
+        return <></>;
+    }
+
     return (
         <div className='home-component-container'>
             <div className='home-component-main-header'>

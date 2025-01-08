@@ -1,5 +1,5 @@
 import React from 'react';
-import helpFieldsData from '../../content/helpFields.json';
+import helpFieldsData from '../../content/helpFields-pl.json';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/HelpField/HelpFieldsComponent.css';
 import Button from '../Button';
@@ -24,7 +24,7 @@ const HelpFieldsComponent = () => {
                         </div>
                         
                         <Button
-                            text="Czytaj więcej"
+                            text={helpFieldsData.readMoreButton}
                             onClick={() => handleReadMore(field.name)}
                             backgroundColor='#f5b761'
                             borderColor="#f5b761"

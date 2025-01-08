@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Footer.css';
-import FooterData from '../content/footer.json';
+import FooterData from '../content/footer-pl.json';
 
 const Footer = () => {
 

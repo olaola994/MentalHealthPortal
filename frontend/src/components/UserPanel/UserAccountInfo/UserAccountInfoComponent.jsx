@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPatientInfo, addUserAddress } from '../../../services/api';
 import '../../../styles/UserPanel/UserAccountInfo/UserAccountInfoComponent.css';
+import userInfoData from '../../../content/userInfo-pl.json'
 
 const UserAccountInfoComponent = () => {
     const [info, setInfo] = useState(null);
@@ -81,34 +82,34 @@ const UserAccountInfoComponent = () => {
             <div className='user-account-info-component-container-header'>Twoje konto</div>
             {info && (
             <ul className="user-info-list">
-                <li className='user-info-item'>Imię: {info.imie}</li>
-                <li className='user-info-item'>Nazwisko: {info.nazwisko}</li>
-                <li className='user-info-item'>PESEL: {info.pesel}</li>
-                <li className='user-info-item'>Data: urodzenia {formatDate(info.data_urodzenia)}</li>
-                <li className='user-info-item'>Email: {info.email}</li>
+                <li className='user-info-item'>{userInfoData.info.name}: {info.imie}</li>
+                <li className='user-info-item'>{userInfoData.info.surname}: {info.nazwisko}</li>
+                <li className='user-info-item'>{userInfoData.info.pesel}: {info.pesel}</li>
+                <li className='user-info-item'>{userInfoData.info['birth-date']}: urodzenia {formatDate(info.data_urodzenia)}</li>
+                <li className='user-info-item'>{userInfoData.info.email}: {info.email}</li>
             </ul>
             )}
             {info.miasto ? (
             <ul className="address-info-list">
-                <li className='address-info-item'>Miasto: {info.miasto}</li>
-                <li className='address-info-item'>Kod pocztowy: {info.kod_pocztowy}</li>
-                <li className='address-info-item'>Ulica: {info.ulica}</li>
-                <li className='address-info-item'>Numer budynku: {info.numer_budynku}</li>
+                <li className='address-info-item'>{userInfoData.info.city}: {info.miasto}</li>
+                <li className='address-info-item'>{userInfoData.info['postal-code']}: {info.kod_pocztowy}</li>
+                <li className='address-info-item'>{userInfoData.info.street}: {info.ulica}</li>
+                <li className='address-info-item'>{userInfoData.info['building-number']}: {info.numer_budynku}</li>
                 {info.numer_mieszkania && (
-                    <li className='address-info-item'>Numer mieszkania: {info.numer_mieszkania}</li>
+                    <li className='address-info-item'>{userInfoData.info['apartment-number']}: {info.numer_mieszkania}</li>
                 )}
-                <li className='address-info-item'>Kraj: {info.kraj}</li>
+                <li className='address-info-item'>{userInfoData.info.country}: {info.kraj}</li>
             </ul>
         ) : (
-            <div className='address-info-no-address-data'>Brak danych adresowych. Dodaj adres.</div>
+            <div className='address-info-no-address-data'>{userInfoData['no-address']}</div>
         )}
         {!addressFormVisible ? (
             <button className="add-user-address-button" onClick={()=> setAddressFormVisible(true)}>{info.miasto ? 'Edytuj adres' : 'Dodaj adres'}</button>
         ):(
             <form className="address-form" onSubmit={handleAddressSubmit}>
-                <div className='address-form-header'>{info.miasto ? 'Edytuj' : 'Dodaj'} dane adresowe</div>
+                <div className='address-form-header'>{info.miasto ? userInfoData.edit : userInfoData.add} {userInfoData['address-data']}</div>
                 <div className="address-form-item">
-                        <label>Miasto</label>
+                        <label>{userInfoData.info.city}</label>
                         <input
                             type="text"
                             name="city"
@@ -118,7 +119,7 @@ const UserAccountInfoComponent = () => {
                         />
                     </div>
                     <div className="address-form-item">
-                        <label>Kod pocztowy</label>
+                        <label>{userInfoData.info['postal-code']}</label>
                         <input
                             type="text"
                             name="postal_code"
@@ -128,7 +129,7 @@ const UserAccountInfoComponent = () => {
                         />
                     </div>
                     <div className="address-form-item">
-                        <label>Ulica</label>
+                        <label>{userInfoData.info.street}</label>
                         <input
                             type="text"
                             name="street"
@@ -138,7 +139,7 @@ const UserAccountInfoComponent = () => {
                         />
                     </div>
                     <div className="address-form-item">
-                        <label>Numer budynku</label>
+                        <label>{userInfoData.info['building-number']}</label>
                         <input
                             type="text"
                             name="street_number"
@@ -148,7 +149,7 @@ const UserAccountInfoComponent = () => {
                         />
                     </div>
                     <div className="address-form-item">
-                        <label>Numer mieszkania (opcjonalny)</label>
+                        <label>{userInfoData.info['apartment-number']} (opcjonalny)</label>
                         <input
                             type="text"
                             name="apartament_number"
@@ -157,7 +158,7 @@ const UserAccountInfoComponent = () => {
                         />
                     </div>
                     <div className="address-form-item">
-                        <label>Kraj</label>
+                        <label>{userInfoData.info.country}</label>
                         <input
                             type="text"
                             name="country"
@@ -166,8 +167,8 @@ const UserAccountInfoComponent = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="submit-address-button">Zapisz</button>
-                    <button className="cancel-address-button" onClick={() => setAddressFormVisible(false)}>Anuluj</button>
+                    <button type="submit" className="submit-address-button">{userInfoData.save}</button>
+                    <button className="cancel-address-button" onClick={() => setAddressFormVisible(false)}>{userInfoData.cancel}</button>
             </form>
         )}
         </div>

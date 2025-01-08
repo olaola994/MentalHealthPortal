@@ -1,6 +1,7 @@
 import '../../styles/UserPanel/UserPanelNavbar.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import userData from '../../content/userInfo-pl.json'
 
 const UserPanelNavbar = () => {
     const navigate = useNavigate();
@@ -33,13 +34,13 @@ const UserPanelNavbar = () => {
         <nav className="user-panel-navbar">
             <div className="user-panel-links">
                 <button className="user-panel-main-page-button" onClick={goToMainPage}>
-                    Strona główna
+                    {userData['user-panel-navbar']['main-page']}
                 </button>
                 <button className="user-panel-back-button" onClick={goToPanel}>
-                    Powrót do panelu
+                    {userData['user-panel-navbar']['back-to-panel']}
                 </button>
                 <button className="user-panel-logout-button" onClick={handleLogout}>
-                    Wyloguj się
+                    {userData['user-panel-navbar']['log-out']}
                 </button>
             </div>
         </nav>

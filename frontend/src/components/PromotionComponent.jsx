@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import promotionData from '../content/promotion.json';
+import promotionData from '../content/promotion-pl.json';
 import '../styles/Promotion/PromotionComponent.css';
 import Button from './Button';
 

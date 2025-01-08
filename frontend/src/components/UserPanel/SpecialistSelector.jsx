@@ -1,4 +1,5 @@
 import React from 'react';
+import userData from '../../content/userInfo-pl.json'
 
 const SpecialistSelector = ({ specialists, onSpecialistSelect, selectedSpecialist }) => {
     return (
@@ -7,7 +8,8 @@ const SpecialistSelector = ({ specialists, onSpecialistSelect, selectedSpecialis
                 onChange={(e) => onSpecialistSelect(e.target.value)}
                 value={selectedSpecialist || ''}
             >
-                <option value="" disabled>Wybierz specjalistę</option>
+
+                <option value="" disabled>{userData.texts.chooseSpecialist}</option>
                 {specialists.map((specialist) => (
                     <option key={specialist.id} value={specialist.id}>
                         {specialist.imie} {specialist.nazwisko} - {specialist.specjalizacja}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getSpecialists } from '../services/api';
 import '../styles/Specialists/SpecialistsComponent.css';
+import data from '../content/specialists-pl.json';
 
 const SpecialistsComponent = () => {
     const [specialists, setSpecialists] = useState([]);
@@ -47,21 +48,22 @@ const SpecialistsComponent = () => {
         setCurrentPage(1);
     };
     const totalSpecialists = filteredSpecialists.length;
-    let totalPages = Math.floor(totalSpecialists / specialistsPerPage);
-    if (totalSpecialists % specialistsPerPage !== 0) {
-        totalPages += 1;
-    }
-
-    const lastIndexOnPage = currentPage * specialistsPerPage;
-    const firstIndexOnPage = lastIndexOnPage - specialistsPerPage;
-
-    const currentSpecialists = filteredSpecialists.slice(firstIndexOnPage, lastIndexOnPage);    
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
+    let totalPages = Math.floor(totalSpecialists / specialistsPerPage);
+    if (totalSpecialists % specialistsPerPage !== 0) {
+        totalPages += 1;
+    }
+
     // paginacja
+    const lastIndexOnPage = currentPage * specialistsPerPage;
+    const firstIndexOnPage = lastIndexOnPage - specialistsPerPage;
+
+    const currentSpecialists = filteredSpecialists.slice(firstIndexOnPage, lastIndexOnPage);
+
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
         pages.push(
@@ -72,16 +74,16 @@ const SpecialistsComponent = () => {
     return (
             <div className='specialists-container'>
                 <div className='filter-container'>
-                <label htmlFor="specializationFilter">Filtruj po specjalizacji:</label>
+                <label htmlFor="specializationFilter">{data['specialization-filter']}:</label>
                 <select
                     id="specializationFilter"
                     value={specializationFilter}
                     onChange={handleFilterChange}
                 >
-                    <option value="">Wszystkie</option>
-                    <option value="Psycholog">Psycholog</option>
-                    <option value="Psychiatra">Psychiatra</option>
-                    <option value="Terapeuta">Terapeuta</option>
+                    <option value="">{data['all-specializations-filter']}</option>
+                    <option value="Psycholog">{data['psychologist-filter']}</option>
+                    <option value="Psychiatra">{data['psychiatric-filter']}</option>
+                    <option value="Terapeuta">{data['therapist-filter']}</option>
                 </select>
                 </div>
 

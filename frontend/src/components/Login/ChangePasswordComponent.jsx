@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { changePassword } from '../../services/api';
 import '../../styles/Login/ChangePasswordComponent.css';
+import changePasswordData from '../../content/changePassword-pl.json';
 
 const ChangePasswordComponent = () => {
     const [newPassword, setNewPassword] = useState('')
@@ -13,7 +14,7 @@ const ChangePasswordComponent = () => {
         e.preventDefault();
         try {
             await changePassword({ newPassword });
-            setMessage('Hasło zostało zmienione pomyślnie.');
+            setMessage(changePasswordData.passwordChangedCorrect);
             setErrorMessage('');
 
             localStorage.removeItem('token');
@@ -30,18 +31,18 @@ const ChangePasswordComponent = () => {
     }
     return(
         <div className="change-password-container">
-            <h2>Zmień hasło</h2>
+            <h2>{changePasswordData.changePassword}</h2>
             <form onSubmit={handleSubmit} className="change-password-form">
                 <input
                     type="password"
                     name="newPassword"
-                    placeholder="Nowe hasło"
+                    placeholder={changePasswordData.newPassword}
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
                     className="change-password-input"
                 />
-                <button type="submit" className="change-password-button">Zmień hasło</button>
+                <button type="submit" className="change-password-button">{changePasswordData.changePassword}</button>
             </form>
             {message && <div className="change-password-success">{message}</div>}
             {errorMessage && <div className="change-password-error">{errorMessage}</div>}

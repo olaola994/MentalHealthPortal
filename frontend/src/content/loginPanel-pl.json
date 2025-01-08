@@ -1,0 +1,16 @@
+{
+    "info1":"DZIEŃ DOBRY!",
+    "info2":"Witaj w panelu Klienta.",
+    "info3":"Zaloguj się, aby zarządzać swoimi rezerwacjami.",
+    "login":"Zaloguj się",
+    "register":"Zarejestruj się",
+    "placeholders":{
+        "name":"Imię",
+        "surname":"Nazwisko",
+        "name":"Imię",
+        "password":"Hasło"
+    },
+    "dont-have-password":"Nie masz konta?",
+    "have-password":"Masz juz konto?",
+    "dont-have-password-register":"Załóz je"
+}

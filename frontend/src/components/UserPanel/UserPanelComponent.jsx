@@ -1,7 +1,8 @@
 import React from 'react';
 import '../../styles/UserPanel/UserPanelComponent.css';
 import { useNavigate } from 'react-router-dom';
-import userPanelElementsData from '../../content/userPanel.json'
+import userPanelElementsData from '../../content/userPanel-pl.json'
+import userData from '../../content/userInfo-pl.json'
 
 const UserPanelComponent = () => {
 
@@ -12,7 +13,7 @@ const UserPanelComponent = () => {
 
     return (
         <div className='user-panel-header-and-container'>
-            <div className='user-panel-header'>Witaj w panelu pacjenta</div>
+            <div className='user-panel-header'>{userData['welcome-to-patient-panel']}</div>
             <div className='user-panel-component-container'>
                 <div className='user-panel-elements-container'>
                     {userPanelElementsData['user-panel-elements'].map((element,index)=>(

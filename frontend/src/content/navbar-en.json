@@ -1,0 +1,31 @@
+{
+  "name": {
+      "brand-name": "Mentivita",
+      "url": "/"
+  },
+  "links": [
+      {
+          "text": "In which areas do we help?",
+          "url": "/obszaryPomocy"
+      },
+      {
+          "text": "Specialists",
+          "url": "/specjalisci"
+      },
+      {
+          "text": "About us",
+          "url": "/nasza-misja"
+      }
+  ],
+  "ctaButton": {
+      "text": "Book an appointment",
+      "url": "/"
+  },
+  "logOutButton": {
+      "text": "Log out",
+      "url": "/"
+  },
+  "langueageButton": {
+      "text": "Choose language"
+  }
+}

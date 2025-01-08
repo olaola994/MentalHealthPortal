@@ -1,0 +1,61 @@
+{
+    "info":{
+        "name":"Imię",
+        "surname":"Nazwisko",
+        "pesel":"PESEL",
+        "birth-date":"Data urodzenia",
+        "email":"Email",
+        "city":"Miasto",
+        "postal-code":"Kod pocztowy",
+        "street":"Ulica",
+        "city":"Miasto",
+        "building-number":"Numer budynku",
+        "apartment-number":"Numer mieszkania",
+        "country":"Kraj"
+    },
+    "no-address":"Brak danych adresowych. Dodaj adres.",
+    "edit":"Edytuj",
+    "add": "Dodaj",
+    "address-data":"dane adresowe",
+    "save":"Zapisz",
+    "cancel":"Anuluj",
+
+    "texts": {
+    "header": "Zarezerwuj nowy termin sesji",
+    "subHeader": "Wybierz specjalistę oraz datę, aby zobaczyć dostępne terminy.",
+    "availableSlotsHeader": "Dostępne terminy",
+    "selectedSlotLabel": "Wybrany termin:",
+    "appointmentDurationLabel": "Długość wizyty:",
+    "noAvailableSlots": "Brak dostępnych terminów dla tego specjalisty w wybranym dniu.",
+    "bookingSuccess": "Rezerwacja zakończona sukcesem.",
+    "confirmButton": "Zarezerwuj",
+    "cancelButton": "Anuluj",
+    "selectDurationPlaceholder": "Wybierz",
+    "durationOption50": "50 minut",
+    "durationOption60": "60 minut",
+    "chooseSpecialist": "Wybierz specjalistę",
+    "header": "Moje Wizyty",
+    "bookingButton": "Umów się na wizytę",
+    "statusFilterLabel": "Status"
+  },
+  "statusFilterOptions": {
+        "all": "Wszystkie",
+        "planned": "Zaplanowane",
+        "completed": "Zakończone"
+    },
+    "appointmentDateLabel": "data:",
+    "specialistNameLabel": "imię:",
+    "specialistSurnameLabel": "nazwisko:",
+    "specialistSpecializationLabel": "specjalizacja:",
+    "appointmentDurationLabel": "czas trwania:",
+    "appointmentStatusLabel": "status:",
+    "cancelButton": "Odwołaj wizytę",
+    "noAppointmentsMessage": "Nie masz jeszcze wizyt. Kliknij przycisk, aby umówić się na wizytę.",
+    "cancelConfirmation": "Czy na pewno chcesz odwołać tą wizytę?",
+    "welcome-to-patient-panel": "Witaj w panelu pacjenta",
+    "user-panel-navbar":{
+        "main-page":"Strona główna",
+        "back-to-panel":"Powrót do panelu",
+        "log-out":"Wyloguj się"
+    }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import missionData from '../../content/mission.json';
+import missionData from '../../content/mission-pl.json';
 import '../../styles/Mission/MissionGeneralComponent.css';
 import '../../styles/Mission/MissionAboutComponent.css';
 import '../../styles/Mission/MissionChallengesComponent.css';

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
-import navbarData from '../content/navbar.json';
+import navbarData from '../content/navbar-pl.json';
+import data from '../content/loginPanel-pl.json';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [language, setLanguage] = useState(localStorage.getItem('language') || 'pl');
+    
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,6 +20,14 @@ const Navbar = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleLanguageChange = (e) => {
+        const selectedLanguage = e.target.value;
+        setLanguage(selectedLanguage);
+        localStorage.setItem('language', selectedLanguage);
+        window.location.reload();
+    };
+
 
     const goToProfile = () => {
         const role = localStorage.getItem('role');
@@ -51,7 +63,16 @@ const Navbar = () => {
                             Profil
                         </button>
                     ) : (
-                        <Link to="/zarejestruj">Zaloguj się</Link>
+                        <div className='login-and-language-container'>
+                            <Link to="/zarejestruj">{data.login}</Link>
+                            <select 
+                            className='language-select' 
+                            onChange={handleLanguageChange}
+                            value={language}> 
+                                <option value='pl'>PL</option>
+                                <option value='en'>EN</option>
+                            </select>
+                        </div>
                     )}
                 </li>
             </ul>

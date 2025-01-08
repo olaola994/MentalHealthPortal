@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/UserPanel/UserAppointmentsComponent.css';
-import { useNavigate } from 'react-router-dom';
 import { getUserAppointments, cancelAppointment} from '../../services/api';
 import Button from '../Button';
+import userData from '../../content/userInfo-pl.json'
 
 
 const UserAppointmentsComponent = () => {
@@ -41,12 +41,11 @@ const UserAppointmentsComponent = () => {
     );
     const handleCancelAppointment = async (appointmentId) => {
         console.log('Usuwanie wizyty o ID:', appointmentId);
-        if (!window.confirm(`Czy na pewno chcesz odwołać tą wizytę?`)) {
+        if (!window.confirm(`${userData.cancelConfirmation}`)) {
             return;
         }
         try{
             await cancelAppointment(appointmentId);
-            console.log('Wizyta została pomyślnie anulowana.'); 
             setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId)
             );
         }catch (err) {
@@ -57,10 +56,10 @@ const UserAppointmentsComponent = () => {
 
     return (
         <div className='user-appointments-component-container'>
-            <div className='user-appointment-component-header'>Moje Wizyty</div>
+            <div className='user-appointment-component-header'>{userData.texts.header}</div>
             <div className='user-appointment-component-booking-button'>
                 <Button 
-                text='Umów się na wizytę'
+                text={userData.texts.bookingButton}
                 to='/umow-wizyte'
                 backgroundColor="#3c74ef"
                 borderColor="#3c74ef"
@@ -68,15 +67,15 @@ const UserAppointmentsComponent = () => {
                 />
             </div>
             <div className="filter-container">
-                <label htmlFor="status-filter">Status:</label>
+                <label htmlFor="status-filter">{userData.texts.statusFilterLabel}:</label>
                 <select
                     id="status-filter"
                     value={selectedStatus}
                     onChange={(e) => handleStatusChange(e.target.value)}
                 >
-                    <option value="">Wszystkie</option>
-                    <option value="Zaplanowana">Zaplanowane</option>
-                    <option value="Zakończona">Zakończone</option>
+                    <option value="">{userData.statusFilterOptions.all}</option>
+                    <option value="Zaplanowana">{userData.statusFilterOptions.planned}</option>
+                    <option value="Zakończona">{userData.statusFilterOptions.completed}</option>
                 </select>
             </div>
 
@@ -85,32 +84,32 @@ const UserAppointmentsComponent = () => {
                 {filteredAppointments.map((appointment, index) => (
                     <li key={index} className='appointment-item'>
                         <div className='appointment-date'>
-                            data: {formatDate(appointment.data)}
+                            {userData.appointmentDateLabel}: {formatDate(appointment.data)}
                         </div>
                         <div className='appointment-specialist-name'>
-                            imie: {appointment.imie}
+                            {userData.specialistNameLabel}: {appointment.imie}
                         </div>
                         <div className='appointment-specialist-surname'>
-                            nazwisko: {appointment.nazwisko}
+                            {userData.specialistSurnameLabel}: {appointment.nazwisko}
                         </div>
                         <div className='appointment-specialist-specialization'>
-                            specjalizacja: {appointment.specjalizacja}
+                            {userData.specialistSpecializationLabel}: {appointment.specjalizacja}
                         </div>
                         <div className='appointment-duration'>
-                            czas trwania: {appointment.czas_trwania} minut
+                            {userData.appointmentDurationLabel}: {appointment.czas_trwania} minut
                         </div>
                         <div className='appointment-status'>
-                            status: {appointment.status}
+                            {userData.appointmentStatusLabel}: {appointment.status}
                         </div>
                         {appointment.status !== 'Zakończona' && (
-                        <button className='cancel-booking-button' onClick={() => handleCancelAppointment(appointment.id)}>Odwołaj wizytę</button>
+                        <button className='cancel-booking-button' onClick={() => handleCancelAppointment(appointment.id)}>{userData.cancelButton}</button>
                         )}
                     </li>
                 ))}
             </ul>
         ) : (
             <div className="no-appointments">
-                Nie masz jeszcze wizyt. Kliknij przycisk, aby umówić się na wizytę.
+                {userData.noAppointmentsMessage}
             </div>
         )}
         </div>

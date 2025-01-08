@@ -3,6 +3,7 @@ import { getSpecialists, getSpecialistAvailableSlots } from '../../services/api'
 import SpecialistSelector from './SpecialistSelector';
 import '../../styles/UserPanel/SpecialistsAvailabilityComponent.css';
 import { bookAppointment } from '../../services/api';
+import userData from '../../content/userInfo-pl.json'
 
 
 const SpecialistsAvailabilityComponent = () => {
@@ -92,8 +93,8 @@ const SpecialistsAvailabilityComponent = () => {
     
     return (
         <div className='specialists-availability-component'>
-            <div className='specialists-availability-component-header'>Zarezerwuj nowy termin sesji</div>
-            <div className='specialists-availability-component-sub-header'>Wybierz specjalistę oraz datę, aby zobaczyć dostępne terminy.</div>
+            <div className='specialists-availability-component-header'>{userData.texts.header}</div>
+            <div className='specialists-availability-component-sub-header'>{userData.texts.subHeader}</div>
             
             <div className="selector-and-availability-container">
                 <SpecialistSelector 
@@ -108,7 +109,7 @@ const SpecialistsAvailabilityComponent = () => {
 
                 {availableSlots.length > 0 ? (
                     <div className="available-booking-container">
-                        <div className='available-booking-container-header'>Dostępne terminy</div>
+                        <div className='available-booking-container-header'>{userData.texts.availableSlotsHeader}</div>
                         <ul>
                             {availableSlots.map((slot, index) => (
                                 <li key={index}>
@@ -118,22 +119,22 @@ const SpecialistsAvailabilityComponent = () => {
                         </ul>
                         {selectedSlot && (
                             <div>
-                                <p>Wybrany termin: {selectedSlot}</p>
-                                <label>Długość wizyty: </label>
+                                <p>{userData.texts.selectedSlotLabel}: {selectedSlot}</p>
+                                <label>{userData.texts.appointmentDurationLabel}: </label>
                                 <select
                                     onChange={(e) => setAppointmentDuration(e.target.value)}
                                     value={appointmentDuration}>
-                                    <option value="">Wybierz</option>
-                                    <option value="50">50 minut</option>
-                                    <option value="60">60 minut</option>
+                                    <option value="">{userData.texts.selectDurationPlaceholder}</option>
+                                    <option value="50">{userData.texts.durationOption50}</option>
+                                    <option value="60">{userData.texts.durationOption60}</option>
                                 </select>
-                                <button onClick={handleBookAppointment}>Zarezerwuj</button>
+                                <button onClick={handleBookAppointment}>{userData.texts.confirmButton}</button>
                             </div>
                         )}
                     </div>
                 ) : (
                     selectedDate && (
-                        <div className='not-available-booking-container-header'>Brak dostępnych terminów dla tego specjalisty w wybranym dniu.</div>
+                        <div className='not-available-booking-container-header'>{userData.texts.noAvailableSlots}</div>
                     )
                 )}
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import missionData from '../../content/mission.json';
+import missionData from '../../content/mission-pl.json';
 import '../../styles/Mission/MissionGeneralComponent.css';
 import '../../styles/Mission/MissionStatisticsComponent.css';
 
@@ -12,9 +12,7 @@ const MissionStatisticsComponent = () => {
                         <li>
                             <a 
                                 key={index} 
-                                href={link} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
+                                href={link}
                                 className='mission-statistics-link'>
                                 {link}
                             </a>

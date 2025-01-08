@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import helpFieldsData from '../../content/helpFields.json';
 import Navbar from '../../components/Navbar';
 import Header from '../Header';
 import '../../styles/HelpField/HelpFieldElementComponent.css';
@@ -8,6 +7,25 @@ import Footer from '../Footer';
 
 
 const HelpFieldElementComponent = () => {
+
+    const [helpFieldsData, setHelpFieldsData] = useState(null);
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../../content/helpFields-${language}.json`);
+                setHelpFieldsData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
+
+    if (!helpFieldsData) {
+        return <></>;
+    }
+
     const { name } = useParams();
 
     const field = helpFieldsData.fields.find((field) => field.name === name);

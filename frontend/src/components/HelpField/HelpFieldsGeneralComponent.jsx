@@ -1,5 +1,5 @@
 import React from 'react';
-import helpFieldsData from '../../content/helpFields.json';
+import helpFieldsData from '../../content/helpFields-pl.json';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/HelpField/HelpFieldsGeneralComponent.css';
 import Button from '../Button';

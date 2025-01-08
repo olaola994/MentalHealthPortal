@@ -1,0 +1,15 @@
+{
+    "info1": "GOOD MORNING!",
+    "info2": "Welcome to the Client Panel.",
+    "info3": "Log in to manage your reservations.",
+    "login": "Log in",
+    "register": "Register",
+    "placeholders": {
+        "name": "Name",
+        "surname": "Surname",
+        "password": "Password"
+    },
+    "dont-have-password": "Don't have an account?",
+    "have-password": "Already have an account?",
+    "dont-have-password-register": "Create one"
+}

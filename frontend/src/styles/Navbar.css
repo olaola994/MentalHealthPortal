@@ -65,6 +65,31 @@ a {
   background-color: #0056b3;
   transform: scale(1.05);
 }
+
+.login-and-language-container {
+  display: flex;
+  gap: 1rem;
+}
+.language-select{
+  padding: 0rem 0.5rem;
+  background-color: #ecf6fe;
+  border-radius: 10px;
+  border-color:  #ecf6fe;
+  cursor: pointer;
+  color: #0056b3;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.language-select{
+  padding: 0.3rem 0.5rem;
+  background-color: #ecf6fe;
+  border-radius: 10px;
+  border-color:  #ecf6fe;
+  cursor: pointer;
+  color: #0056b3;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 @media (max-width: 768px) {
   .navbar-logo {
     font-size: 2rem;

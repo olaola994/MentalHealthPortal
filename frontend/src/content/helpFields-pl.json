@@ -6,6 +6,7 @@
     "fields":[
         {
             "name":"ADHD",
+            "path":"ADHD",
             "description-header":"Jak sesje psychoterapii i coachingu mogą pomóc w ADHD?",
             "description": "Czy zdarza Ci się mieć trudności z koncentracją na jednym zadaniu przez dłuższy czas? Czy czasem trudno Ci przyswoić nową wiedzę lub zorganizować swoje zadania? Jeśli tak, to możesz cierpieć na ADHD – zaburzenie uwagi i/lub hiperaktywności. Istnieje wiele sposobów na radzenie sobie z tym problemem, ale najskuteczniejszym z nich są psychoterapia i coaching, która pozwoli Ci na rozwijanie umiejętności radzenia sobie z objawami ADHD, takimi jak brak skupienia, impulsywność czy trudności w organizacji czasu i planowaniu działań.",
             "question1":"Co to jest ADHD?",
@@ -18,6 +19,7 @@
         },
         {
             "name":"Bezsenność",
+            "path":"Bezsenność",
             "description-header":"Jak sesje z psychologiem lub psychoterapeutą mogą pomóc w bezsenności?",
             "description": "Zaburzenia snu, takie jak bezsenność, są powszechne i mogą być spowodowane różnymi czynnikami, takimi jak stres, choroby lub zmiany w stylu życia. Jeśli od dłuższego czasu odczuwasz trudności ze snem, warto poszukać pomocy i szukać sposobów na poprawę jakości swojego snu, gdyż  może mieć negatywny wpływ zarówno na zdrowie fizyczne i psychiczne.",
             "question1":"Czym jest bezsenność?",
@@ -30,6 +32,7 @@
         },
         {
             "name":"Brak pewności siebie",
+            "path":"Brak pewności siebie",
             "description-header":"Jak sesje z psychologiem, psychoterapeutą lub coachem mogą pomóc w braku pewności siebie?",
             "description": "Pewność siebie to poczucie wewnętrznej siły i stabilności, które pozwala czuć się komfortowo w swojej skórze i podejmować decyzje zgodne z własnymi wartościami. To umiejętność akceptacji siebie i pewność swoich umiejętności, co pozwala na odważne działanie i realizację swoich celów. Brak pewności siebie jest powszechnym problemem, który może wpływać na różne aspekty życia, w tym na relacje interpersonalne, osiągnięcia zawodowe i samopoczucie ogólne. Odczuwanie braku pewności siebie może wynikać z różnych czynników, takich jak doświadczenia życiowe, wychowanie, społeczne oczekiwania, porównywanie się z innymi i samopoczucie psychiczne.",
             "question1":"Czym w istocie jest pewność siebie?",
@@ -42,6 +45,7 @@
         },
         {
             "name":"Depresja",
+            "path":"Depresja",
             "description-header":"Jak sesje psychoterapii i konsultacje psychologiczne mogą pomóc w depresji?",
             "description": "Nie jesteś w tym sam/sama. Psychoterapia jest po to, aby być dla Ciebie cennym wsparciem i krokiem w kierunku Twojego uzdrowienia.",
             "question1":"Czym jest depresja?",
@@ -54,6 +58,7 @@
         },
         {
             "name":"Kariera",
+            "path":"Kariera",
             "description-header":"Jak sesje coachingu i psychoterapii mogą wesprzeć Twoją karierę?",
             "description": "64% pracowników chce dziś zmienić pracę lub się przekwalifikować, a 28% pracodawców nie może znaleźć pracownika o odpowiednich kwalifikacjach…. Zresztą… 70% pracodawców szuka dziś wyłącznie pracowników niskiego szczebla.1 A co mają zrobić Ci, którym to nie wystarcza i chcą czegoś więcej? W efekcie mamy sytuację, w której pracownik nie jest w pełni usatysfakcjonowany swoją pracą, traci motywację i spada jego efektywność a to finalnie przekłada się na wyniki biznesowe pracodawcy. Ani więc pracownik nie jest w miejscu w którym chce być, ani pracodawca nie ma pracownika, którego chce mieć. Tracą obydwie strony.",
             "question1":"Wizja Twojej kariery",
@@ -66,6 +71,7 @@
         },
         {
             "name":"Mobbing",
+            "path":"Mobbing",
             "description-header":"Jak sesje psychoterapii i konsultacje psychologiczne mogą pomóc osobom, które doświadczyły mobbingu?",
             "description": "Jeśli jesteś osobą dotkniętą mobbingiem w pracy, pamiętaj, że nie jesteś w tym sam/sama. Wielu ludzi doświadcza podobnych sytuacji i wcale nie musisz tego znosić samotnie. Psychoterapia może pomóc Ci zrozumieć swoje uczucia, zidentyfikować trudne sytuacje i znaleźć sposoby na radzenie sobie z nimi. Poprzez rozmowę z doświadczonym terapeutą, możesz nauczyć się technik radzenia sobie z trudnymi sytuacjami, które pomogą Ci zmniejszyć stres i poprawić samopoczucie. Nie bój się szukać pomocy i zacznij działać już dziś!",
             "question1":"Czym jest mobbing?",
@@ -78,6 +84,7 @@
         },
         {
             "name":"Odżywianie",
+            "path":"Odżywianie",
             "description-header":"Jak sesje wsparcia zdrowia psychicznego mogą pomóc w w zaburzeniach odżywiania?",
             "description": "Czy zdarzyło Ci się kiedykolwiek czuć, że Twoje myśli i emocje związane z jedzeniem wydają się nie do opanowania? Czy odczuwasz silną potrzebę kontrolowania swojego wyglądu i wagi? Czy odczuwasz poczucie winy w związku z jedzeniem? Zaburzenia odżywiania często są związane z problemami emocjonalnymi, takimi jak lęk, depresja, niskie poczucie własnej wartości, a także z trudnościami w radzeniu sobie ze stresem i emocjami. Istnieje wiele sposobów, aby uzdrowić swoją relację z jedzeniem. Jednym z najbardziej skutecznych jest psychoterapia.",
             "question1":"Czym są zaburzenia odżywiania?",

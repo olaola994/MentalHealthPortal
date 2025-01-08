@@ -1,10 +1,28 @@
 import '../../styles/UserPanel/UserPanelNavbar.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import userData from '../../content/userInfo-pl.json'
 
 const UserPanelNavbar = () => {
     const navigate = useNavigate();
+
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../../content/userInfo-${language}.json`);
+                setUserData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
+
+    if (!userData) {
+        return <></>;
+    }
 
     const handleLogout = () => {
         localStorage.removeItem('token');

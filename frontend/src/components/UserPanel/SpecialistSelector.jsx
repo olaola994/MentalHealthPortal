@@ -1,7 +1,26 @@
-import React from 'react';
-import userData from '../../content/userInfo-pl.json'
+import React, { useState, useEffect } from 'react';
 
 const SpecialistSelector = ({ specialists, onSpecialistSelect, selectedSpecialist }) => {
+
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../../content/userInfo-${language}.json`);
+                setUserData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
+
+    if (!userData) {
+        return <></>;
+    }
+
     return (
         <div className="specialist-selector">
             <select

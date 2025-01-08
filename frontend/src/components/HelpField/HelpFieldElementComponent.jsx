@@ -7,8 +7,9 @@ import Footer from '../Footer';
 
 
 const HelpFieldElementComponent = () => {
-
     const [helpFieldsData, setHelpFieldsData] = useState(null);
+    const { path } = useParams();
+
     useEffect(() => {
         const loadLanguageData = async () => {
             const language = localStorage.getItem('language') || 'pl'; 
@@ -26,9 +27,8 @@ const HelpFieldElementComponent = () => {
         return <></>;
     }
 
-    const { name } = useParams();
 
-    const field = helpFieldsData.fields.find((field) => field.name === name);
+    const field = helpFieldsData.fields.find((field) => field.path === path);
 
     if (!field) {
         return <p>Nie znaleziono danych dla tego tematu.</p>;
@@ -46,8 +46,7 @@ const HelpFieldElementComponent = () => {
             <div className="help-field-section2">
                 <div className="help-field-photo">
                 <img 
-                    src={field['photo-url']} 
-                    alt={`${field.name}`} 
+                    src={field['photo-url']}
                     className="obszarPomocy"
                 />
                 </div>

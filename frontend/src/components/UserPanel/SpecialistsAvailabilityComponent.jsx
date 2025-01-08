@@ -3,7 +3,6 @@ import { getSpecialists, getSpecialistAvailableSlots } from '../../services/api'
 import SpecialistSelector from './SpecialistSelector';
 import '../../styles/UserPanel/SpecialistsAvailabilityComponent.css';
 import { bookAppointment } from '../../services/api';
-import userData from '../../content/userInfo-pl.json'
 
 
 const SpecialistsAvailabilityComponent = () => {
@@ -15,6 +14,21 @@ const SpecialistsAvailabilityComponent = () => {
     const [appointmentDuration, setAppointmentDuration] = useState('');
     const [message, setMessage] = useState('');
 
+
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../../content/userInfo-${language}.json`);
+                setUserData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
 
     useEffect(() => {
         const fetchSpecialists = async () => {
@@ -44,6 +58,10 @@ const SpecialistsAvailabilityComponent = () => {
         }
     };
 
+    if (!userData) {
+        return <></>;
+    }
+    
     const handleSpecialistSelect = async (specialistId) => {
         setSelectedSpecialist(specialistId);
         if (selectedDate) {
@@ -63,14 +81,14 @@ const SpecialistsAvailabilityComponent = () => {
     }
     const handleBookAppointment = async () => {
         if (!selectedSlot || !appointmentDuration) {
-            setMessage('Proszę wybrać termin oraz długość wizyty.');
+            setMessage(`${userData['date-and-appointment-duration-message']}`);
             return;
         }
 
         const currentDateTime = new Date();
         const selectedDateTime = new Date(`${selectedDate}T${selectedSlot}:00`);
         if (selectedDateTime <= currentDateTime) {
-            setMessage('Nie można zarezerwować wizyty w przeszłości.');
+            setMessage(`${userData['appointment-in-the-future-message']}`);
             return;
         }
     

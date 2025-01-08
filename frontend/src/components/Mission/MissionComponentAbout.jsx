@@ -1,10 +1,29 @@
-import React from 'react';
-import missionData from '../../content/mission-pl.json';
+import React, {useEffect, useState} from 'react';
 import '../../styles/Mission/MissionGeneralComponent.css';
 import '../../styles/Mission/MissionAboutComponent.css';
 import Button from '../Button';
 
 const MissionComponentAbout = () => {
+
+    const [missionData, setMissionData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../../content/mission-${language}.json`);
+                setMissionData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
+
+    if (!missionData) {
+        return <></>;
+    }
+
     return(
         <div className='mission-component-about-container'>
             <div className='mission-component-header'>

@@ -6,6 +6,7 @@
     "fields":[
         {
             "name": "ADHD",
+            "path":"ADHD",
             "description-header": "How can psychotherapy and coaching sessions help with ADHD?",
             "description": "Do you often struggle to focus on one task for an extended period? Do you find it difficult to absorb new knowledge or organize your tasks? If so, you may suffer from ADHD – attention deficit and/or hyperactivity disorder. There are many ways to cope with this issue, but the most effective ones are psychotherapy and coaching. These approaches can help you develop skills to manage ADHD symptoms such as lack of focus, impulsiveness, or difficulties with time management and planning.",
             "question1": "What is ADHD?",
@@ -17,7 +18,8 @@
             "answer3": "Psychotherapy and coaching are two different therapeutic methods, but both can help individuals with ADHD manage symptoms and challenges associated with this condition.\n\nCognitive-behavioral therapy, which is often used in ADHD treatment, helps individuals develop skills to cope with negative thoughts and emotions, manage stress, improve concentration and attention, and build social skills. This therapy focuses on changing thought patterns and behaviors that may affect ADHD symptoms.\n\nCoaching, on the other hand, can help individuals with ADHD achieve their goals, tackle daily challenges posed by this condition, and achieve success. Coaching professionals can assist individuals with ADHD in identifying their strengths and utilizing them to succeed in school, work, and private life. Coaching can help individuals with ADHD increase self-awareness and positive thinking, as well as develop planning, organization, and time management skills.\n\nIn both cases, psychotherapy and coaching help individuals with ADHD build skills to manage symptoms, leading to better functioning and quality of life. However, it is important to note that therapy and coaching should be conducted by specialists experienced in working with individuals with ADHD."
         },
         {
-            "name": "Bezsenność",
+            "name": "Insomnia",
+            "path":"Bezsenność",
             "description-header": "How can sessions with a psychologist or psychotherapist help with insomnia?",
             "description": "Sleep disorders, such as insomnia, are common and can be caused by various factors, including stress, illnesses, or lifestyle changes. If you have been experiencing sleep difficulties for an extended period, it is worth seeking help and looking for ways to improve the quality of your sleep, as it can negatively impact both physical and mental health.",
             "question1": "What is insomnia?",
@@ -29,7 +31,8 @@
             "answer3": "Sessions with a psychologist or psychotherapist can help in treating insomnia in several ways:\n- Identifying the causes of insomnia: During therapeutic sessions/consultations, a psychotherapist or psychologist can help the patient identify factors of stress, anxiety, and other emotional problems contributing to sleep difficulties. This allows for a better understanding of the causes of insomnia, enabling a more effective therapeutic plan.\n- Introducing effective techniques for managing insomnia: A psychologist/psychotherapist can help the patient learn various relaxation techniques, meditation, and other methods for coping with stress that positively impact sleep quality.\n- Changing negative thoughts and beliefs: Negative thoughts and beliefs, such as “I can’t fall asleep” or “My insomnia will never end,” can exacerbate issues with falling and staying asleep. A specialist can help the patient identify and replace these thoughts and beliefs with more positive and constructive ones.\n- Emotional support: A psychotherapist can provide emotional support for the patient during the challenging process of treating insomnia. They can help the patient work through difficult emotions and feelings associated with sleep problems.\n\nIn summary, psychological consultations and psychotherapy sessions can help treat insomnia by identifying the causes of sleep disorders, teaching effective techniques for managing insomnia, changing negative thoughts and beliefs, and providing emotional support during the difficult treatment process."
         },
         {
-            "name": "Brak pewności siebie",
+            "name": "Lack of Self-Confidence",
+            "path":"Brak pewności siebie",
             "description-header": "How can sessions with a psychologist, psychotherapist, or coach help with a lack of self-confidence?",
             "description": "Self-confidence is a sense of inner strength and stability that allows you to feel comfortable in your own skin and make decisions aligned with your values. It is the ability to accept yourself and trust your abilities, enabling bold actions and the achievement of your goals. A lack of self-confidence is a common issue that can impact various aspects of life, including interpersonal relationships, professional achievements, and overall well-being. Feeling a lack of self-confidence may result from various factors such as life experiences, upbringing, societal expectations, comparisons with others, and psychological state.",
             "question1": "What is self-confidence at its core?",
@@ -42,6 +45,7 @@
         },        
         {
             "name": "Depression",
+            "path":"Depresja",
             "description-header": "How can psychotherapy sessions and psychological consultations help with depression?",
             "description": "You are not alone. Psychotherapy is here to be valuable support and a step toward your recovery.",
             "question1": "What is depression?",
@@ -54,6 +58,7 @@
         },
         {
             "name": "Career",
+            "path":"Kariera",
             "description-header": "How can coaching and psychotherapy sessions support your career?",
             "description": "64% of employees today want to change jobs or retrain, while 28% of employers cannot find workers with the right qualifications. Moreover, 70% of employers are now only looking for entry-level employees. So what about those who want more and are not satisfied with that? The result is a situation where employees are not fully satisfied with their work, lose motivation, and see decreased efficiency, which ultimately affects the employer's business outcomes. Neither the employee is in the place they want to be, nor does the employer have the worker they need. Both sides lose.",
             "question1": "Your career vision",
@@ -66,6 +71,7 @@
         },
         {
             "name": "Workplace Bullying",
+            "path":"Mobbing",
             "description-header": "How can psychotherapy sessions and psychological consultations help individuals who have experienced workplace bullying?",
             "description": "If you are a victim of workplace bullying, remember that you are not alone. Many people face similar situations, and you don’t have to endure it on your own. Psychotherapy can help you understand your feelings, identify difficult situations, and find ways to deal with them. Through conversations with an experienced therapist, you can learn coping techniques to reduce stress and improve your well-being. Don’t hesitate to seek help and start taking action today!",
             "question1": "What is workplace bullying?",
@@ -78,6 +84,7 @@
         },
         {
             "name": "Nutrition",
+            "path":"Odżywianie",
             "description-header": "How can mental health support sessions help with eating disorders?",
             "description": "Have you ever felt that your thoughts and emotions related to food seem uncontrollable? Do you feel a strong need to control your appearance and weight? Do you experience guilt related to eating? Eating disorders are often associated with emotional issues such as anxiety, depression, low self-esteem, and difficulties coping with stress and emotions. There are many ways to heal your relationship with food. One of the most effective is psychotherapy.",
             "question1": "What are eating disorders?",

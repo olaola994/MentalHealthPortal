@@ -30,7 +30,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/specjalisci" element={<SpecialistsPage />} />
                 <Route path="/obszaryPomocy" element={<HelpFieldsPage />} />
-                <Route path="/obszaryPomocy/:name" element={<HelpFieldElementComponent />} />
+                <Route path="/obszaryPomocy/:path" element={<HelpFieldElementComponent />} />
                 <Route path="/zarejestruj" element={<LoginPanelPage />} />
                 <Route path="/zmien-haslo" element={<ChangePasswordPage />} />
                 <Route path="/nasza-misja" element={<MissionPage />} />

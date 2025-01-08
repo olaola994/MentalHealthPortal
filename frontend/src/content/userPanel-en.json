@@ -1,11 +1,11 @@
 {
     "user-panel-elements":[
         {
-            "name": "Moje konto",
+            "name": "My account info",
             "url": "/moje-konto"
         },
         {
-            "name": "Moje wizyty",
+            "name": "Moje appointments",
             "url": "/moje-wizyty"
         }
     ]

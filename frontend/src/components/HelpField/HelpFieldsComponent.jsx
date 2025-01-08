@@ -1,5 +1,4 @@
-import React from 'react';
-import helpFieldsData from '../../content/helpFields-pl.json';
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/HelpField/HelpFieldsComponent.css';
 import Button from '../Button';
@@ -7,8 +6,27 @@ import Button from '../Button';
 const HelpFieldsComponent = () => {
     const navigate = useNavigate();
 
-    const handleReadMore = (name) => {
-        navigate(`/obszaryPomocy/${name}`);
+    const [helpFieldsData, setHelpFieldsData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../../content/helpFields-${language}.json`);
+                setHelpFieldsData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
+
+    if (!helpFieldsData) {
+        return <></>;
+    }
+
+    const handleReadMore = (path) => {
+        navigate(`/obszaryPomocy/${path}`);
     }
 
     return (
@@ -25,7 +43,7 @@ const HelpFieldsComponent = () => {
                         
                         <Button
                             text={helpFieldsData.readMoreButton}
-                            onClick={() => handleReadMore(field.name)}
+                            onClick={() => handleReadMore(field.path)}
                             backgroundColor='#f5b761'
                             borderColor="#f5b761"
                             textColor="white"

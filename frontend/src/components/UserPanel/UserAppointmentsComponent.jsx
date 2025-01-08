@@ -2,13 +2,27 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/UserPanel/UserAppointmentsComponent.css';
 import { getUserAppointments, cancelAppointment} from '../../services/api';
 import Button from '../Button';
-import userData from '../../content/userInfo-pl.json'
 
 
 const UserAppointmentsComponent = () => {
     const [appointments, setAppointments]= useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedStatus, setSelectedStatus] = useState('');
+
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../../content/userInfo-${language}.json`);
+                setUserData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
 
     useEffect(()=> {
         const fetchAppointments = async () => {
@@ -23,6 +37,10 @@ const UserAppointmentsComponent = () => {
         };
         fetchAppointments();
     },[]);
+
+    if (!userData) {
+        return <></>;
+    }
 
     if (loading) {
         return <div>Ładowanie wizyt...</div>;
@@ -96,7 +114,7 @@ const UserAppointmentsComponent = () => {
                             {userData.specialistSpecializationLabel}: {appointment.specjalizacja}
                         </div>
                         <div className='appointment-duration'>
-                            {userData.appointmentDurationLabel}: {appointment.czas_trwania} minut
+                            {userData.appointmentDurationLabel}: {appointment.czas_trwania} {userData.minutes}
                         </div>
                         <div className='appointment-status'>
                             {userData.appointmentStatusLabel}: {appointment.status}

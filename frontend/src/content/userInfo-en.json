@@ -22,8 +22,8 @@
         "header": "Book a New Session",
         "subHeader": "Choose a specialist and a date to see available slots.",
         "availableSlotsHeader": "Available Slots",
-        "selectedSlotLabel": "Selected Slot:",
-        "appointmentDurationLabel": "Appointment Duration:",
+        "selectedSlotLabel": "Selected Slot",
+        "appointmentDurationLabel": "Appointment Duration",
         "noAvailableSlots": "No available slots for this specialist on the selected day.",
         "bookingSuccess": "Booking completed successfully.",
         "confirmButton": "Book",
@@ -41,12 +41,12 @@
         "planned": "Planned",
         "completed": "Completed"
     },
-    "appointmentDateLabel": "Date:",
-    "specialistNameLabel": "First Name:",
-    "specialistSurnameLabel": "Last Name:",
-    "specialistSpecializationLabel": "Specialization:",
-    "appointmentDurationLabel": "Duration:",
-    "appointmentStatusLabel": "Status:",
+    "appointmentDateLabel": "Date",
+    "specialistNameLabel": "First Name",
+    "specialistSurnameLabel": "Last Name",
+    "specialistSpecializationLabel": "Specialization",
+    "appointmentDurationLabel": "Duration",
+    "appointmentStatusLabel": "Status",
     "cancelButton": "Cancel Appointment",
     "noAppointmentsMessage": "You don't have any appointments yet. Click the button to book an appointment.",
     "cancelConfirmation": "Are you sure you want to cancel this appointment?",
@@ -55,5 +55,11 @@
         "main-page": "Home Page",
         "back-to-panel": "Back to Panel",
         "log-out": "Log Out"
-    }
+    },
+    "user-account-info-header":"Your account info",
+    "edit-address": "Edit residential address",
+    "add-address": "Add residential address",
+    "date-and-appointment-duration-message":"Please select the date and duration of your appointment.",
+    "appointment-in-the-future-message":"You cannot book an appointment in the past",
+    "minutes":"mins"
 }

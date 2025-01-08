@@ -1,33 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
-import navbarData from '../content/navbar-pl.json';
-import data from '../content/loginPanel-pl.json';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
     const [language, setLanguage] = useState(localStorage.getItem('language') || 'pl');
-    
+    const [navbarData, setNavbarData] = useState(null);
+    const [loginPanelData, setLoginPanelData] = useState(null);
 
     const navigate = useNavigate();
 
+    const loadLanguageFile = async (fileName) => {
+        try {
+            const data = await import(`../content/${fileName}-${language}.json`);
+            return data;
+        } catch (error) {
+            console.error(`Error loading ${fileName} language file:`, error);
+            return null;
+        }
+    };
+
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        setIsLoggedIn(localStorage.getItem('token') ? true : false);
-    }, []);
+        const loadLanguageData = async () => {
+            const navbarData = await loadLanguageFile('navbar');
+            const loginPanelData = await loadLanguageFile('loginPanel');
+            setNavbarData(navbarData);
+            setLoginPanelData(loginPanelData);
+        };
+        loadLanguageData();
+    }, [language]);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleLanguageChange = (e) => {
+    const handleLanguageChange = async (e) => {
         const selectedLanguage = e.target.value;
         setLanguage(selectedLanguage);
         localStorage.setItem('language', selectedLanguage);
-        window.location.reload();
-    };
 
+        const navbarData = await loadLanguageFile('navbar');
+        const loginPanelData = await loadLanguageFile('loginPanel');
+        setNavbarData(navbarData);
+        setLoginPanelData(loginPanelData);
+    };
 
     const goToProfile = () => {
         const role = localStorage.getItem('role');
@@ -37,14 +54,17 @@ const Navbar = () => {
             navigate('/user-panel');
         } else if (role === 'Specialist') {
             navigate('/specialist-panel');
-        }
-        else {
+        } else {
             alert('Nieznana rola. Zaloguj się ponownie.');
             localStorage.removeItem('token');
             localStorage.removeItem('role');
             navigate('/zarejestruj');
         }
     };
+
+    if (!navbarData || !loginPanelData) {
+        return <div>Ładowanie danych...</div>;
+    }
 
     return (
         <nav className="navbar">
@@ -63,23 +83,20 @@ const Navbar = () => {
                             Profil
                         </button>
                     ) : (
-                        <div className='login-and-language-container'>
-                            <Link to="/zarejestruj">{data.login}</Link>
-                            <select 
-                            className='language-select' 
-                            onChange={handleLanguageChange}
-                            value={language}> 
-                                <option value='pl'>PL</option>
-                                <option value='en'>EN</option>
+                        <div className="login-and-language-container">
+                            <Link to="/zarejestruj">{loginPanelData.login}</Link>
+                            <select
+                                className="language-select"
+                                onChange={handleLanguageChange}
+                                value={language}>
+                                <option value="pl">PL</option>
+                                <option value="en">EN</option>
                             </select>
                         </div>
                     )}
                 </li>
             </ul>
-            <div
-                className={`navbar-toggle ${isOpen ? 'active' : ''}`}
-                onClick={toggleMenu}
-            >
+            <div className={`navbar-toggle ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
                 <span></span>
                 <span></span>
                 <span></span>

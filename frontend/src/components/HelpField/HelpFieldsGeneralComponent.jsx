@@ -17,7 +17,7 @@ const HelpFieldsGeneralComponent = () => {
             }
         };
         loadLanguageData();
-    }, []);
+    },[]);
 
     if (!helpFieldsData) {
         return <></>;

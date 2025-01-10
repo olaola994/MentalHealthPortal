@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/Login/LoginPanelComponent.css';
-import loginPanelData from '../../content/loginPanel-pl.json';
 
 const LoginPanelComponent = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({ name: '', surname: '', email: '', password: '', dateOfBirth: '', pesel: '' });
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+
+    const [loginPanelData, setLoginPanelData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl';
+            try {
+                const data = await import(`../../content/loginPanel-${language}.json`);
+                setLoginPanelData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []); 
+
+    if (!loginPanelData) {
+        return <></>;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -129,7 +147,7 @@ const LoginPanelComponent = () => {
                     />
                     {errorMessage && <div className="login-error">{errorMessage}</div>}
                     {successMessage && <div className="login-success">{successMessage}</div>}
-                    <button type="submit">{isLogin ? 'Zaloguj się' : 'Zarejestruj się'}</button>
+                    <button type="submit">{isLogin ? loginPanelData.login : loginPanelData.register}</button>
                 </form>
                 <div className="login-panel-component-switch-form">
                     {isLogin ? (

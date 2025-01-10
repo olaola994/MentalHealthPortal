@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getSpecialists } from '../services/api';
 import '../styles/Specialists/SpecialistsComponent.css';
-import data from '../content/specialists-pl.json';
 
 const SpecialistsComponent = () => {
     const [specialists, setSpecialists] = useState([]);
@@ -11,6 +10,22 @@ const SpecialistsComponent = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const specialistsPerPage = 6;
+
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const loadLanguageData = async () => {
+            const language = localStorage.getItem('language') || 'pl'; 
+            try {
+                const data = await import(`../content/specialists-${language}.json`);
+                setData(data);
+            } catch (error) {
+                console.error('Error loading language file:', error);
+            }
+        };
+        loadLanguageData();
+    }, []);
+
 
     useEffect(() => {
         const fetchSpecialists = async () => {
@@ -27,6 +42,10 @@ const SpecialistsComponent = () => {
 
         fetchSpecialists();
     }, []);
+
+    if (!data) {
+        return <></>;
+    }
 
     if (loading) {
         return <p>Loading...</p>;

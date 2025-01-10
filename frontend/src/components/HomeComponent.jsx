@@ -5,6 +5,7 @@ import Button from '../components/Button.jsx';
 const HomeComponent = () => {
 
     const [HomeData, setHomeData] = useState(null);
+    
     useEffect(() => {
         const loadLanguageData = async () => {
             const language = localStorage.getItem('language') || 'pl'; 

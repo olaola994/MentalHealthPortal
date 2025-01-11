@@ -74,66 +74,38 @@ app.get('/api/dostepne-terminy', async (req, res) => {
   const { specialistId, date } = req.query;
 
   try {
-    const timetableQuery = `SELECT time_from, time_to
-        FROM Timetable
-        WHERE specialist_user_id = ?
-          AND week_day = DAYNAME(?)`;
-
+    const timetableQuery = `SELECT time_from, time_to FROM Timetable WHERE specialist_user_id = ? AND week_day = DAYNAME(?)`;
     const [timetable] = await db.query(timetableQuery, [specialistId, date]);
 
-    if (timetable.length === 0) {
-        return res.status(404).json({ message: 'Brak dostępności w tym dniu' });
+    if (!timetable.length) {
+      return res.status(404).json({ message: 'Brak dostępności w tym dniu' });
     }
 
-    const appointmentsQuery = `SELECT date_time, duration
-        FROM Appointment
-        WHERE specialist_user_id = ?
-          AND DATE(date_time) = ?`;
-
+    const appointmentsQuery = `SELECT HOUR(date_time) AS hour FROM Appointment WHERE specialist_user_id = ? AND DATE(date_time) = ?`;
     const [appointments] = await db.query(appointmentsQuery, [specialistId, date]);
-
+    const occupiedHours = new Set(appointments.map(app => app.hour));
 
     const availableSlots = [];
-    const now = new Date();
+    const today = new Date(date).toDateString() === new Date().toDateString();
+    const currentHour = new Date().getHours();
 
     for (const { time_from, time_to } of timetable) {
-      let currentTime = new Date(`${date} ${time_from}`);
-      const endTime = new Date(`${date} ${time_to}`);
+      let startHour = parseInt(time_from);
+      const endHour = parseInt(time_to);
 
-      while (currentTime < endTime) {
-        
-          const nextSlotStart = new Date(currentTime);
-          if (new Date(date).toDateString() === now.toDateString() && nextSlotStart <= now) {
-                currentTime.setHours(currentTime.getHours() + 1);
-                currentTime.setMinutes(0);
-                continue;
-            }
-
-          const isOccupied = appointments.some((appointment) => {
-              const appointmentStart = new Date(appointment.date_time);
-              const appointmentEnd = new Date(
-                  appointmentStart.getTime() + appointment.duration * 60000
-              );
-
-              return (
-                  nextSlotStart >= appointmentStart && nextSlotStart < appointmentEnd
-              );
-          });
-
-          if (!isOccupied) {
-              availableSlots.push(nextSlotStart.toTimeString().slice(0, 5));
-          }
-
-          currentTime.setHours(currentTime.getHours() + 1);
-          currentTime.setMinutes(0);
+      while (startHour < endHour) {
+        if (!(today && startHour <= currentHour) && !occupiedHours.has(startHour)) {
+          availableSlots.push(`${startHour}:00`);
+        }
+        startHour++;
       }
-  }
+    }
 
     res.status(200).json(availableSlots);
-} catch (err) {
-    console.error('Błąd przy pobiernaiu listy dostępnych slotów: ', err.message);
+  } catch (err) {
+    console.error('Błąd serwera:', err);
     res.status(500).json({ error: 'Błąd serwera' });
-}
+  }
 });
 
 

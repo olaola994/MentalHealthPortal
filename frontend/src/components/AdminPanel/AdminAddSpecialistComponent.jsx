@@ -9,6 +9,7 @@ const AdminAddSpecialistComponent = () => {
         surname: '',
         email: '',
         specialization: '',
+        specializationEN: '',
         license_number: '',
         photo_path: '',
     });
@@ -30,6 +31,7 @@ const AdminAddSpecialistComponent = () => {
                 surname: '',
                 email: '',
                 specialization: '',
+                specializationEN: '',
                 license_number: '',
                 photo_path: '',
             });
@@ -71,6 +73,14 @@ const AdminAddSpecialistComponent = () => {
                     name="specialization"
                     placeholder="Specjalizacja"
                     value={formData.specialization}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="specializationEN"
+                    placeholder="Specjalizacja (ang)"
+                    value={formData.specializationEN}
                     onChange={handleChange}
                     required
                 />

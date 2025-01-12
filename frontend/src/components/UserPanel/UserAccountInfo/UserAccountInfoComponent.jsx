@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getPatientInfo, addUserAddress } from '../../../services/api';
 import '../../../styles/UserPanel/UserAccountInfo/UserAccountInfoComponent.css';
-// import userInfoData from '../../../content/userInfo-pl.json'
 
 const UserAccountInfoComponent = () => {
     const [info, setInfo] = useState(null);
@@ -169,7 +168,7 @@ const UserAccountInfoComponent = () => {
                         />
                     </div>
                     <div className="address-form-item">
-                        <label>{localizedUserInfoData.info['apartment-number']} (opcjonalny)</label>
+                        <label>{localizedUserInfoData.info['apartment-number']} ({localizedUserInfoData.optional})</label>
                         <input
                             type="text"
                             name="apartament_number"

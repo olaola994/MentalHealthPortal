@@ -116,8 +116,12 @@ const SpecialistsComponent = () => {
                         />
                         <div className='specialist-description-container'>
                             <div className='specialist-name-and-surname'>{specialist.imie} {specialist.nazwisko}</div>
-                            <div className='specialist-specialization'>{specialist.specjalizacja}</div>
-                            <div className='specialist-description'>{specialist.opis}</div>
+                            <div className='specialist-specialization'>                            
+                                {localStorage.getItem('language') === 'en' ? specialist.specjalizacjaEN : specialist.specjalizacja}
+                            </div>
+                            <div className='specialist-description'>
+                            {localStorage.getItem('language') === 'en' ? specialist.opisEN : specialist.opis}
+                            </div>
                         </div>
                     </li>
                 ))}

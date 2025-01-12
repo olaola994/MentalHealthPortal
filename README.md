@@ -1,6 +1,8 @@
+
 -- Utworzenie bazy danych
 CREATE DATABASE MentalHealthPortal;
-
+-- CREATE SCHEMA MentalHealthPortal;
+ 
 USE MentalHealthPortal;
 
 -- Tabela: Address
@@ -49,9 +51,11 @@ CREATE TABLE Patient (
 CREATE TABLE Specialist (
     user_id INT NOT NULL,
     specialization VARCHAR(255) NOT NULL,
+    specializationEN VARCHAR(255),
     license_number VARCHAR(50) NOT NULL,
     photo_path VARCHAR(255),
     description VARCHAR(255),
+    descriptionEN VARCHAR(255),
     CONSTRAINT Specialist_pk PRIMARY KEY (user_id),
     CONSTRAINT Specialist_User FOREIGN KEY (user_id) REFERENCES User (id)
 );
@@ -107,16 +111,18 @@ VALUES
 (2, 'Patient', 'Two', 'patient2@example.com', 'patientpass2'),
 (3, 'Patient', 'Three', 'patient3@example.com', 'patientpass3'),
 -- Specialists
-(4, 'Specialist', 'One', 'specialist1@example.com', 'specialistpass1'),
-(5, 'Specialist', 'Two', 'specialist2@example.com', 'specialistpass2'),
-(6, 'Specialist', 'Three', 'specialist3@example.com', 'specialistpass3'),
-(7, 'Specialist', 'Four', 'specialist4@example.com', 'specialistpass4'),
-(8, 'Specialist', 'Five', 'specialist5@example.com', 'specialistpass5'),
-(9, 'Specialist', 'Six', 'specialist6@example.com', 'specialistpass6'),
-(10, 'Specialist', 'Seven', 'specialist7@example.com', 'specialistpass7'),
-(11, 'Specialist', 'Eight', 'specialist8@example.com', 'specialistpass8'),
-(12, 'Specialist', 'Nine', 'specialist9@example.com', 'specialistpass9'),
-(13, 'Specialist', 'Ten', 'specialist10@example.com', 'specialistpass10');
+(1, 'Specialist', 'One', 'specialist1@example.com', 'specialistpass1'),
+(2, 'Specialist', 'Two', 'specialist2@example.com', 'specialistpass2'),
+(3, 'Specialist', 'Three', 'specialist3@example.com', 'specialistpass3'),
+(1, 'Specialist', 'Four', 'specialist4@example.com', 'specialistpass4'),
+(2, 'Specialist', 'Five', 'specialist5@example.com', 'specialistpass5'),
+(3, 'Specialist', 'Six', 'specialist6@example.com', 'specialistpass6'),
+(1, 'Specialist', 'Seven', 'specialist7@example.com', 'specialistpass7'),
+(2, 'Specialist', 'Eight', 'specialist8@example.com', 'specialistpass8'),
+(3, 'Specialist', 'Nine', 'specialist9@example.com', 'specialistpass9'),
+(1, 'Specialist', 'Ten', 'specialist10@example.com', 'specialistpass10'),
+(2, 'Specialist', 'Eleven', 'specialist11@example.com', 'specialistpass11'),
+(3, 'Specialist', 'Twelve', 'specialist12@example.com', 'specialistpass12');
 
 -- Dodanie danych do tabeli Admin
 INSERT INTO Admin (user_id, level)
@@ -133,18 +139,20 @@ VALUES
 (6, '95030367890', '1995-03-03');
 
 -- Dodanie danych do tabeli Specialist
-INSERT INTO Specialist (user_id, specialization, license_number, photo_path, description)
+INSERT INTO Specialist (user_id, specialization, specializationEN, license_number, photo_path, description, descriptionEN)
 VALUES
-(4, 'Psycholog', 'PSY123456', '/images/specialists/specialist1.png', 'Doświadczony psycholog specjalizujący się w terapii poznawczo-behawioralnej.'),
-(5, 'Psychiatra', 'PSY789012', '/images/specialists/specialist2.png', 'Psychiatra dziecięcy z pasją do pomagania młodym pacjentom.'),
-(6, 'Terapeuta', 'THR345678', '/images/specialists/specialist3.png', 'Ekspert w poradnictwie dla par.'),
-(7, 'Psycholog', 'PSY654321', '/images/specialists/specialist4.png', 'Specjalista w obszarze psychologii rozwojowej dzieci.'),
-(8, 'Psychiatra', 'PSY987654', '/images/specialists/specialist5.png', 'Doświadczony lekarz psychiatra specjalizujący się w terapii uzależnień.'),
-(9, 'Terapeuta', 'THR876543', '/images/specialists/specialist6.png', 'Specjalista terapii grupowej i wsparcia rodzinnego.'),
-(10, 'Psycholog', 'PSY112233', '/images/specialists/specialist7.png', 'Ekspert w leczeniu depresji i zaburzeń lękowych.'),
-(11, 'Psychiatra', 'PSY445566', '/images/specialists/specialist8.png', 'Psychiatra z wieloletnim doświadczeniem w pracy klinicznej.'),
-(12, 'Terapeuta', 'THR778899', '/images/specialists/specialist9.png', 'Specjalista w terapii par i konfliktów małżeńskich.'),
-(13, 'Psycholog', 'PSY998877', '/images/specialists/specialist10.png', 'Psycholog zajmujący się terapią traumy i odbudową odporności psychicznej.');
+(7, 'Psycholog', 'Psychologist', 'PSY123456', '/images/specialists/specialist1.png', 'Doświadczony psycholog specjalizujący się w terapii poznawczo-behawioralnej.', 'Experienced psychologist specializing in cognitive-behavioral therapy.'),
+(8, 'Psychiatra', 'Psychiatrist', 'PSY789012', '/images/specialists/specialist2.png', 'Psychiatra dziecięcy z pasją do pomagania młodym pacjentom.', 'Child psychiatrist with a passion for helping young patients.'),
+(9, 'Terapeuta', 'Therapist', 'THR345678', '/images/specialists/specialist3.png', 'Ekspert w poradnictwie dla par.', 'Expert in couples counseling.'),
+(10, 'Psycholog', 'Psychologist', 'PSY654321', '/images/specialists/specialist4.png', 'Specjalista w obszarze psychologii rozwojowej dzieci.', 'Specialist in child developmental psychology.'),
+(11, 'Psychiatra', 'Psychiatrist', 'PSY987654', '/images/specialists/specialist5.png', 'Doświadczony lekarz psychiatra specjalizujący się w terapii uzależnień.', 'Experienced psychiatrist specializing in addiction therapy.'),
+(12, 'Terapeuta', 'Therapist', 'THR876543', '/images/specialists/specialist6.png', 'Specjalista terapii grupowej i wsparcia rodzinnego.', 'Specialist in group therapy and family support.'),
+(13, 'Psycholog', 'Psychologist', 'PSY112233', '/images/specialists/specialist7.png', 'Ekspert w leczeniu depresji i zaburzeń lękowych.', 'Expert in treating depression and anxiety disorders.'),
+(14, 'Psychiatra', 'Psychiatrist', 'PSY445566', '/images/specialists/specialist8.png', 'Psychiatra z wieloletnim doświadczeniem w pracy klinicznej.', 'Psychiatrist with many years of clinical experience.'),
+(15, 'Terapeuta', 'Therapist', 'THR778899', '/images/specialists/specialist9.png', 'Specjalista w terapii par i konfliktów małżeńskich.', 'Specialist in couples and marital conflict therapy.'),
+(16, 'Psycholog', 'Psychologist', 'PSY998877', '/images/specialists/specialist10.png', 'Psycholog zajmujący się terapią traumy i odbudową odporności psychicznej.', 'Psychologist focused on trauma therapy and rebuilding mental resilience.'),
+(17, 'Psycholog', 'Psychologist', 'PSY995832','/images/specialists/specjalist11.avif','Psycholog zajmujący się imigrantami wspiera ich w procesie adaptacji w nowym środowisku.', 'Psychologist assisting immigrants in adapting to a new environment.'),
+(18, 'Psychiatra', 'Psychiatrist', 'PSY231296', '/images/specialists/specjalist12.jpg', 'Psychiatra specjalizuje się w diagnozie i leczeniu zaburzeń psychicznych oraz wsparciu emocjonalnym ofiar przemocy domowej.', 'Psychiatrist specializing in diagnosing and treating mental disorders and providing emotional support to victims of domestic violence.');
 
 -- Dodanie danych do tabeli Status
 INSERT INTO Status (name)
@@ -155,20 +163,20 @@ VALUES
 -- Dodanie danych do tabeli Appointment
 INSERT INTO Appointment (patient_user_id, specialist_user_id, Status_id, duration, date_time)
 VALUES
-(4, 4, 1, 60, '2025-01-15 10:00:00'),
-(5, 5, 2, 45, '2025-01-16 11:00:00'),
-(6, 6, 1, 30, '2025-01-17 12:00:00');
+(4, 8, 1, 60, '2025-01-15 10:00:00'),
+(5, 9, 2, 45, '2025-01-16 11:00:00'),
+(6, 10, 1, 30, '2025-01-17 12:00:00');
 
 -- Dodanie danych do tabeli Timetable
 INSERT INTO Timetable (specialist_user_id, week_day, time_from, time_to)
 VALUES
-(4, 'Monday', '09:00:00', '13:00:00'),
-(5, 'Tuesday', '10:00:00', '15:00:00'),
-(6, 'Wednesday', '08:00:00', '12:00:00'),
+(7, 'Monday', '09:00:00', '13:00:00'),
+(8, 'Tuesday', '10:00:00', '15:00:00'),
+(9, 'Wednesday', '08:00:00', '12:00:00'),
 (7, 'Thursday', '11:00:00', '16:00:00'),
 (8, 'Friday', '12:00:00', '18:00:00'),
 (9, 'Monday', '09:30:00', '13:30:00'),
-(10, 'Tuesday', '10:30:00', '15:30:00'),
-(11, 'Wednesday', '08:30:00', '12:30:00'),
-(12, 'Thursday', '11:30:00', '16:30:00'),
-(13, 'Friday', '12:30:00', '18:30:00');
+(15, 'Tuesday', '10:30:00', '15:30:00'),
+(18, 'Wednesday', '08:30:00', '12:30:00'),
+(13, 'Thursday', '11:30:00', '16:30:00'),
+(14, 'Friday', '12:30:00', '18:30:00');

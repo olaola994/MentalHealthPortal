@@ -23,7 +23,7 @@ loginController(app);
 
 app.get('/api/specjalisci', async (req, res) => {
     try {
-      const query = `SELECT User.id as id, User.name as imie, user.surname as nazwisko, Specialist.specialization as specjalizacja, Specialist.description as opis, Specialist.photo_path as sciezka FROM User Inner Join Specialist On User.id = Specialist.user_id;`;
+      const query = `SELECT User.id as id, User.name as imie, user.surname as nazwisko, Specialist.specialization as specjalizacja, Specialist.specializationEN as specjalizacjaEN, Specialist.description as opis, Specialist.descriptionEN as opisEN, Specialist.photo_path as sciezka FROM User Inner Join Specialist On User.id = Specialist.user_id;`;
 
       const [results] = await db.query(query);
       res.json(results);
@@ -36,7 +36,7 @@ app.get('/api/specjalisci/:id', async (req, res) => {
     const specialistId = req.params.id;
 
     try {
-        const query = `SELECT U.name as imie, U.surname as nazwisko, S.specialization as specjalizacja, S.description as opis, S.photo_path as sciezka, T.week_day as dzien_tygodnia, DATE_FORMAT(T.time_from, '%H:%i') as godzina_od, DATE_FORMAT(T.time_to, '%H:%i') as godzina_do FROM Specialist S INNER JOIN  User U ON S.user_id = U.id LEFT JOIN  Timetable T ON S.user_id = T.specialist_user_id WHERE  S.user_id = ?;`;
+        const query = `SELECT U.name as imie, U.surname as nazwisko, S.specialization as specjalizacja, S.specializationEN as specjalizacjaEN, S.description as opis, Specialist.descriptionEN as opisEN, S.photo_path as sciezka, T.week_day as dzien_tygodnia, DATE_FORMAT(T.time_from, '%H:%i') as godzina_od, DATE_FORMAT(T.time_to, '%H:%i') as godzina_do FROM Specialist S INNER JOIN  User U ON S.user_id = U.id LEFT JOIN  Timetable T ON S.user_id = T.specialist_user_id WHERE  S.user_id = ?;`;
 
         const [results] = await db.query(query, [specialistId]);
 
@@ -56,7 +56,7 @@ app.get('/api/moje-wizyty', verifyToken, async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const query = `SELECT A.id as id, U.name as imie, U.surname as nazwisko, S.specialization as specjalizacja,
+        const query = `SELECT A.id as id, U.name as imie, U.surname as nazwisko, S.specialization as specjalizacja, S.specializationEN as specjalizacjaEN,
               A.date_time as data, A.duration as czas_trwania, St.name as status FROM Appointment A
               Inner Join Specialist S on A.specialist_user_id = S.user_id
               Inner Join User U on S.user_id = U.id
@@ -129,11 +129,22 @@ app.post('/api/umow-wizyte', verifyToken, async (req, res) => {
         VALUES (?, ?, ?, ?, 1)`;
 
     await db.query(query, [specialistId, userId, dateTime, duration]);
-    res.status(201).json({ message: 'Wizyta została pomyślnie zapisana.' });
-  } catch (err) {
-      console.error('Błąd przy dodawaniu wizyty:', err.message);
-      res.status(500).json({ error: 'Błąd serwera' });
-  }
+
+    const language = req.headers['language'] || 'pl';
+
+    const messages = {
+        pl: 'Wizyta została pomyślnie zapisana.',
+        en: 'The appointment has been successfully scheduled.',
+    };
+
+    const message = messages[language] || messages['pl'];
+
+    res.status(201).json({ message });
+} catch (err) {
+    console.error('Błąd przy dodawaniu wizyty:', err.message);
+    res.status(500).json({ error: 'Błąd serwera' });
+}
+
 
 });
 
@@ -182,7 +193,7 @@ app.get('/api/specjalista-info', verifyToken, async (req, res) => {
 
   try {
       const query = `SELECT U.id AS id, U.name AS imie,
-      U.surname AS nazwisko, U.email AS email, S.specialization AS specjalizacja, S.license_number AS numer_licencji, S.description AS opis
+      U.surname AS nazwisko, U.email AS email, S.specialization AS specjalizacja, S.specializationEN as specjalizacjaEN, S.license_number AS numer_licencji, S.description AS opis
       FROM User U INNER JOIN Specialist S ON U.id = S.USER_ID
       WHERE U.id = ?;`
 
@@ -273,9 +284,11 @@ app.get('/api/admin-specjalisci', verifyToken, async (req, res) => {
         U.surname AS nazwisko,
         U.email AS email,
         S.specialization AS specjalizacja,
+        S.specializationEN as specjalizacjaEN,
         S.license_number AS numer_licencji,
         S.photo_path AS zdjecie,
-        S.description AS opis
+        S.description AS opis,
+        S.descriptionEN as opisEN
     FROM User U
     INNER JOIN Specialist S ON U.id = S.user_id;`;
     const [specialistsInfo] = await db.query(query);
@@ -383,7 +396,7 @@ app.get('/api/sprawdz-specjaliste/:id', async (req, res) => {
   }
 });
 app.post('/api/dodaj-specjaliste', verifyToken, async (req, res) => {
-  const {address_id, name, surname, email, password, specialization, license_number, photo_path} = req.body;
+  const {name, surname, email, specialization, specializationEN, license_number, photo_path} = req.body;
   if (!name || !surname || !email || !specialization || !license_number) {
     return res.status(400).json({ message: 'Wszystkie pola są wymagane' });
   }
@@ -394,7 +407,7 @@ app.post('/api/dodaj-specjaliste', verifyToken, async (req, res) => {
 
     const userId = userResult.insertId;
 
-    await db.query(`INSERT INTO SPECIALIST (user_id, specialization, license_number, photo_path) VALUES (?,?,?,?)`, [userId, specialization, license_number, photo_path]);
+    await db.query(`INSERT INTO SPECIALIST (user_id, specialization, specializationEN, license_number, photo_path) VALUES (?,?,?,?,?)`, [userId, specialization, specializationEN, license_number, photo_path]);
 
     await sendEmail(email, 'Twoje konto w serwisie',`Witaj ${name} ${surname}, Twoje tymczasowe hasło to: ${tempPassword}`);
     res.status(201).json({ message: 'Specjalista został dodany pomyślnie.' });
@@ -424,7 +437,7 @@ app.get('/api/specjalista-wizyty', verifyToken, async (req, res) => {
   const userId = req.user.id;
 
   try {
-      const query = `SELECT A.id AS id, U.name AS imie, U.surname AS nazwisko, S.specialization AS specjalizacja,
+      const query = `SELECT A.id AS id, U.name AS imie, U.surname AS nazwisko, S.specialization AS specjalizacja, S.specializationEN as specjalizacjaEN,
             A.date_time AS data, A.duration AS czas_trwania, St.name AS status FROM Appointment A
             INNER JOIN Specialist S ON A.specialist_user_id = S.user_id
             INNER JOIN User U ON S.user_id = U.id

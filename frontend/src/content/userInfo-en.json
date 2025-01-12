@@ -61,5 +61,6 @@
     "add-address": "Add residential address",
     "date-and-appointment-duration-message":"Please select the date and duration of your appointment.",
     "appointment-in-the-future-message":"You cannot book an appointment in the past",
-    "minutes":"mins"
+    "minutes":"mins",
+    "optional":"optional"
 }

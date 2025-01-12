@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const db = require('./db/db.js');
 
+//komenda do hashowania haseł w bazie node hashPasswords.js
+
 async function hashExistingPasswords() {
     try {
         const [users] = await db.query('SELECT id, password FROM User');

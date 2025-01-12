@@ -62,5 +62,6 @@
     "add-address": "Dodaj adres zamieszkania",
     "date-and-appointment-duration-message":"Proszę wybrać termin oraz długość wizyty.",
     "appointment-in-the-future-message":"Nie można zarezerwować wizyty w przeszłości.",
-    "minutes":"minut"
+    "minutes":"minut",
+    "optional":"opcjonalny"
 }

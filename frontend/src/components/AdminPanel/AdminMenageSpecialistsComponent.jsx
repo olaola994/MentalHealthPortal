@@ -66,6 +66,7 @@ const AdminMenageSpecialistsComponent = () => {
                   <div className="admin-specialist-license-number">Numer licencji: {specialist.numer_licencji}</div>
                   <div className="admin-specialist-photo-path">Ściezka zdjęcia: {specialist.zdjecie}</div>
                   <div className="admin-specialist-description">Opis: {specialist.opis}</div>
+
                 </li>
               ))}
             </ul>

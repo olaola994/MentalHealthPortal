@@ -44,12 +44,12 @@ const HelpFieldElementComponent = () => {
                 <div className="help-field-answer1">{field.answer1}</div>
             </div>
             <div className="help-field-section2">
-                <div className="help-field-photo">
+                {/* <div className="help-field-photo">
                 <img 
                     src={field['photo-url']}
                     className="obszarPomocy"
                 />
-                </div>
+                </div> */}
                 <div className="help-field-question2-and-answer2">
                     <div className="help-field-question2">{field.question2}</div>
                     <div className="help-field-answer2">{field.answer2}</div>

@@ -66,6 +66,8 @@ const SpecialistsComponent = () => {
         }
         setCurrentPage(1);
     };
+
+
     const totalSpecialists = filteredSpecialists.length;
 
     const handlePageChange = (pageNumber) => {
